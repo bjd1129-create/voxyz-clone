@@ -317,11 +317,11 @@ export default function SwarmPage() {
           
           <div className="p-5 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-500/20 rounded-lg">
-                <Database className="w-5 h-5 text-purple-400" />
+              <div className="p-2 bg-primary-500/20 rounded-lg">
+                <Database className="w-5 h-5 text-primary-400" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-purple-400">{agents.reduce((sum, agent) => sum + agent.tasksCompleted, 0)}</div>
+                <div className="text-2xl font-bold text-primary-400">{agents.reduce((sum, agent) => sum + agent.tasksCompleted, 0)}</div>
                 <div className="text-xs text-gray-400">已完成任务</div>
               </div>
             </div>
@@ -628,7 +628,7 @@ export default function SwarmPage() {
               <button
                 onClick={createMission}
                 disabled={!newMission.title.trim()}
-                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-primary-600 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 启动新任务
               </button>
@@ -696,7 +696,7 @@ export default function SwarmPage() {
                 <div className="pt-2">
                   <button 
                     onClick={() => toggleAgentTask(selectedAgentProphet.id)}
-                    className="w-full py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+                    className="w-full py-2 bg-gradient-to-r from-indigo-600 to-primary-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
                   >
                     {selectedAgentProphet.status === 'busy' ? '暂停任务' : '开始任务'}
                   </button>
@@ -714,7 +714,7 @@ export default function SwarmPage() {
                   <div className="mt-0.5">
                     {item.type === 'decision' && <Flag className="w-4 h-4 text-blue-400" />}
                     {item.type === 'code' && <Zap className="w-4 h-4 text-green-400" />}
-                    {item.type === 'analysis' && <MessageSquare className="w-4 h-4 text-purple-400" />}
+                    {item.type === 'analysis' && <MessageSquare className="w-4 h-4 text-primary-400" />}
                     {(item.type === 'design' || item.type === 'content') && <Users className="w-4 h-4 text-pink-400" />}
                     {item.type === 'report' && <Database className="w-4 h-4 text-teal-400" />}
                     {item.type === 'support' && <Cpu className="w-4 h-4 text-indigo-400" />}

@@ -362,6 +362,7 @@ export default function Home() {
             <Link href="/swarm" className="hover:text-white transition-colors">Swarm</Link>
             <Link href="/office" className="hover:text-white transition-colors">Office</Link>
             <Link href="/radar" className="hover:text-white transition-colors">Radar</Link>
+            <Link href="/research" className="hover:text-white transition-colors text-primary-300">Research</Link>
             <Link href="/vault" className="hover:text-white transition-colors">Vault</Link>
             <Link href="/insights" className="hover:text-white transition-colors">Insights</Link>
             <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>

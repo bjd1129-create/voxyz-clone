@@ -421,7 +421,7 @@ export default function OfficePage() {
                 ${agent.status === 'busy'
                   ? 'bg-white/10 border-white/30'
                   : 'bg-white/5 border-white/10 hover:border-white/30'}
-                ${selectedAgent === id ? 'ring-2 ring-purple-500' : ''}
+                ${selectedAgent === id ? 'ring-2 ring-primary-500' : ''}
               `}
             >
               <div className="flex items-center gap-2 mb-2">
@@ -442,7 +442,7 @@ export default function OfficePage() {
                 </div>
               )}
               {agent.speechBubble && (
-                <div className="flex items-center gap-1 text-xs text-purple-400 mt-1">
+                <div className="flex items-center gap-1 text-xs text-primary-400 mt-1">
                   <MessageCircle className="w-3 h-3" />
                   {agent.speechBubble}
                 </div>

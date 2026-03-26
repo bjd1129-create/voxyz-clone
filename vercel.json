@@ -5,6 +5,10 @@
       "schedule": "*/5 * * * *"
     },
     {
+      "path": "/api/auto-heal",
+      "schedule": "*/5 * * * *"
+    },
+    {
       "path": "/api/cron?agent=coordinator",
       "schedule": "0 * * * *"
     },

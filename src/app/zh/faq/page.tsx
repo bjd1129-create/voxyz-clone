@@ -245,7 +245,7 @@ export default function FAQPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-purple-900/10 to-transparent pointer-events-none" />
         
         <div className="relative max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 backdrop-blur-sm rounded-full text-purple-300 text-sm mb-8 border border-purple-500/30">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/20 backdrop-blur-sm rounded-full text-primary-300 text-sm mb-8 border border-primary-500/30">
             <HelpCircle className="w-4 h-4" />
             <span>帮助与文档</span>
           </div>
@@ -269,8 +269,8 @@ export default function FAQPage() {
           {/* General FAQ */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-purple-500/20 rounded-lg">
-                <HelpCircle className="w-5 h-5 text-purple-400" />
+              <div className="p-2 bg-primary-500/20 rounded-lg">
+                <HelpCircle className="w-5 h-5 text-primary-400" />
               </div>
               <h2 className="text-2xl font-bold">常见问题</h2>
             </div>
@@ -428,7 +428,7 @@ export default function FAQPage() {
                     ))}
                   </div>
                   
-                  <div className="mt-4 flex items-center gap-2 text-sm text-purple-400 group-hover:text-purple-300 transition-colors">
+                  <div className="mt-4 flex items-center gap-2 text-sm text-primary-400 group-hover:text-primary-300 transition-colors">
                     <span>访问页面</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -494,7 +494,7 @@ export default function FAQPage() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/zh/swarm"
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+              className="px-6 py-3 bg-gradient-to-r from-primary-600 to-blue-600 rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
             >
               <Bot className="w-5 h-5" />
               查看指挥中心

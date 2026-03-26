@@ -40,7 +40,7 @@ export default function WorkspacePage() {
 
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
               实时工作室
             </h1>
             <p className="text-gray-400 mt-1">观察 AI 团队的工作状态、沟通和思考过程</p>

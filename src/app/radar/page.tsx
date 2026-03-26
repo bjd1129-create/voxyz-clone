@@ -269,8 +269,8 @@ export default function RadarPage() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
             <div className="flex items-center gap-3 lg:gap-4 mb-2 lg:mb-3">
-              <div className="p-2 lg:p-3 bg-purple-500/20 rounded-lg">
-                <Target className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-purple-400" />
+              <div className="p-2 lg:p-3 bg-primary-500/20 rounded-lg">
+                <Target className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-primary-400" />
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">Demand Radar</h1>
             </div>
@@ -340,11 +340,11 @@ export default function RadarPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
           <div className="p-3 sm:p-5 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="p-1.5 sm:p-2 bg-purple-500/20 rounded-lg">
-                <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+              <div className="p-1.5 sm:p-2 bg-primary-500/20 rounded-lg">
+                <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-primary-400" />
               </div>
               <div>
-                <div className="text-lg sm:text-2xl font-bold text-purple-400">4.8K</div>
+                <div className="text-lg sm:text-2xl font-bold text-primary-400">4.8K</div>
                 <div className="text-xs text-gray-400">周搜索量</div>
               </div>
             </div>
@@ -395,7 +395,7 @@ export default function RadarPage() {
             <div className="flex items-center justify-between mb-4 sm:mb-6">
               <h2 className="text-lg sm:text-xl font-semibold">市场信号分布</h2>
               <div className="hidden sm:flex items-center gap-2">
-                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-primary-500 rounded-full"></div>
                 <span className="text-sm text-gray-400">高需求</span>
                 <div className="w-3 h-3 bg-blue-500 rounded-full ml-3"></div>
                 <span className="text-sm text-gray-400">中需求</span>
@@ -422,7 +422,7 @@ export default function RadarPage() {
                     key={signal.id}
                     className={`
                       absolute w-3 h-3 sm:w-4 sm:h-4 rounded-full cursor-pointer transition-all
-                      ${signal.volume > 85 ? 'bg-purple-500 shadow-lg shadow-purple-500/50' : 
+                      ${signal.volume > 85 ? 'bg-primary-500 shadow-lg shadow-primary-500/50' : 
                         signal.volume > 70 ? 'bg-blue-500' : 'bg-gray-500'}
                       ${selectedSignal === signal.id ? 'ring-2 ring-white/50 scale-125 sm:scale-150' : ''}
                     `}
@@ -442,14 +442,14 @@ export default function RadarPage() {
               
               {/* Center */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                <Eye className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
+                <Eye className="w-3 h-3 sm:w-4 sm:h-4 text-primary-400" />
               </div>
             </div>
             
             {/* Mobile Legend */}
             <div className="sm:hidden flex items-center justify-center gap-4 mt-4">
               <div className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
                 <span className="text-xs text-gray-400">高需求</span>
               </div>
               <div className="flex items-center gap-1">
@@ -465,7 +465,7 @@ export default function RadarPage() {
                 {trendData.map((point, index) => (
                   <div key={index} className="flex-1 flex flex-col items-center">
                     <div 
-                      className="w-full bg-gradient-to-t from-purple-500/30 to-purple-500 rounded-t hover:from-purple-500/50 hover:to-purple-500 transition-all"
+                      className="w-full bg-gradient-to-t from-primary-500/30 to-primary-500 rounded-t hover:from-primary-500/50 hover:to-primary-500 transition-all"
                       style={{ height: `${point.demand}%` }}
                     ></div>
                     <div className="text-xs text-gray-500 mt-1 hidden sm:block">{point.time}</div>
@@ -488,7 +488,7 @@ export default function RadarPage() {
                   className={`
                     p-3 sm:p-4 rounded-lg border transition-all cursor-pointer
                     ${selectedSignal === signal.id 
-                      ? 'bg-purple-500/20 border-purple-500/50' 
+                      ? 'bg-primary-500/20 border-primary-500/50' 
                       : 'bg-white/5 border-white/10 hover:border-white/30'}
                   `}
                   onClick={() => setSelectedSignal(signal.id === selectedSignal ? null : signal.id)}
@@ -542,7 +542,7 @@ export default function RadarPage() {
                     <div className="w-full bg-white/10 rounded-full h-1.5 sm:h-2 overflow-hidden">
                       <div
                         className={`h-full rounded-full ${
-                          signal.volume > 80 ? 'bg-gradient-to-r from-purple-500 to-purple-400' :
+                          signal.volume > 80 ? 'bg-gradient-to-r from-primary-500 to-primary-400' :
                           signal.volume > 60 ? 'bg-gradient-to-r from-blue-500 to-blue-400' :
                           signal.volume > 40 ? 'bg-gradient-to-r from-green-500 to-green-400' :
                           'bg-gradient-to-r from-gray-500 to-gray-400'
@@ -571,7 +571,7 @@ export default function RadarPage() {
               
               <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <h4 className="font-medium text-purple-400 text-sm sm:text-base">{selectedSignalProphet.topic}</h4>
+                  <h4 className="font-medium text-primary-400 text-sm sm:text-base">{selectedSignalProphet.topic}</h4>
                   <p className="text-xs text-gray-400 mt-1">ID: {selectedSignalProphet.id}</p>
                 </div>
                 
@@ -612,7 +612,7 @@ export default function RadarPage() {
                 </div>
                 
                 <div className="pt-2">
-                  <button className="w-full py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+                  <button className="w-full py-2 bg-gradient-to-r from-primary-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
                     深入分析此信号
                   </button>
                 </div>

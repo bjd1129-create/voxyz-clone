@@ -36,15 +36,18 @@ interface WorkRecord {
   duration?: number
 }
 
-// Office layout - 7 workstations for our team
+// Office layout - 10 workstations for our team
 const DESKS = [
-  { id: 'zhuge', x: 80, y: 100, w: 90, h: 55 },      // 诸葛灯泡
+  { id: 'zhuge', x: 80, y: 100, w: 90, h: 55 },       // 诸葛灯泡
   { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 掌舵人
   { id: 'engineer', x: 320, y: 100, w: 90, h: 55 },    // 代码侠
   { id: 'writer', x: 440, y: 100, w: 90, h: 55 },      // 文案君
   { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 洞察者
   { id: 'designer', x: 80, y: 250, w: 90, h: 55 },     // 配色师
   { id: 'support', x: 200, y: 250, w: 90, h: 55 },     // 守护者
+  { id: 'growth', x: 320, y: 250, w: 90, h: 55 },      // 播种者
+  { id: 'prophet', x: 440, y: 250, w: 90, h: 55 },     // 预言家
+  { id: 'scheduler', x: 560, y: 250, w: 90, h: 55 },   // 调度员
 ]
 
 const MEETING_TABLE = { x: 320, y: 400, w: 150, h: 80 }
@@ -1219,7 +1222,7 @@ export default function OfficePage() {
                 <div className="text-2xl font-bold text-green-400">{paySlips.length}</div>
                 <div className="text-sm text-gray-400">薪资单</div>
               </div>
-              <div className="p-4 bg-purple-500/10 rounded-lg border border-primary-500/20">
+              <div className="p-4 bg-primary-500/10 rounded-lg border border-primary-500/20">
                 <div className="text-2xl font-bold text-primary-400">{handoffs.length}</div>
                 <div className="text-sm text-gray-400">交接记录</div>
               </div>

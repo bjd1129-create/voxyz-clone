@@ -25,7 +25,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-purple-900/10 to-transparent pointer-events-none" />
         
         <div className="relative max-w-6xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 backdrop-blur-sm rounded-full text-purple-300 text-sm mb-8 border border-purple-500/30">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500/20 backdrop-blur-sm rounded-full text-primary-300 text-sm mb-8 border border-primary-500/30">
             <Sparkles className="w-4 h-4 animate-pulse" />
             <span>AI 团队实时运作中</span>
           </div>
@@ -35,7 +35,7 @@ export default function Home() {
               诸葛灯泡团队
             </span>
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
+            <span className="bg-gradient-to-r from-primary-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
               10个专业 Agent · 7x24小时协作
             </span>
           </h1>
@@ -48,7 +48,7 @@ export default function Home() {
           {/* Dynamic Stats */}
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
                 <AnimatedCounter end={10} />
               </div>
               <div className="text-sm text-gray-500">专业 Agent</div>
@@ -60,7 +60,7 @@ export default function Home() {
               <div className="text-sm text-gray-500">全天候协作</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-primary-400 bg-clip-text text-transparent">
                 <AnimatedCounter end={5} />+
               </div>
               <div className="text-sm text-gray-500">协作渠道</div>
@@ -91,8 +91,8 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="group p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-105">
-              <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Bot className="w-6 h-6 text-purple-400" />
+              <div className="w-12 h-12 bg-primary-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <Bot className="w-6 h-6 text-primary-400" />
               </div>
               <h3 className="text-xl font-semibold mb-2">角色专业化</h3>
               <p className="text-gray-400">

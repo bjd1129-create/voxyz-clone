@@ -87,14 +87,14 @@ export default function VaultPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="w-full pl-10 sm:pl-12 pr-4 py-3 lg:py-4 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-sm sm:text-base lg:text-lg"
+                  className="w-full pl-10 sm:pl-12 pr-4 py-3 lg:py-4 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:border-primary-500 transition-colors text-sm sm:text-base lg:text-lg"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 lg:py-4 bg-purple-600 hover:bg-purple-500 disabled:bg-purple-600/50 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-base lg:text-lg btn-touch"
+                className="w-full py-3 lg:py-4 bg-primary-600 hover:bg-primary-500 disabled:bg-primary-600/50 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-base lg:text-lg btn-touch"
               >
                 {loading ? (
                   <>
