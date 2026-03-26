@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 20;
+  --background-end-rgb: 20, 20, 40;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Agent glow effects */
+.agent-glow-ceo { box-shadow: 0 0 30px rgba(255, 107, 107, 0.5); }
+.agent-glow-creative { box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); }
+.agent-glow-developer { box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
+.agent-glow-writer { box-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
+.agent-glow-researcher { box-shadow: 0 0 30px rgba(245, 158, 11, 0.5); }
+.agent-glow-support { box-shadow: 0 0 30px rgba(236, 72, 153, 0.5); }
+
+/* Gradient animation for text */
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}

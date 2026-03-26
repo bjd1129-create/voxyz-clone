@@ -1,0 +1,14 @@
+{
+  "pages": {
+    "/api/loop/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/loop/route.js"
+    ],
+    "/api/agents/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/agents/route.js"
+    ]
+  }
+}
