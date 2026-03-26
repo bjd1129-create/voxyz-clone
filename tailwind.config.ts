@@ -34,6 +34,9 @@ const config: Config = {
         'agent-writer': '#10b981',
         'agent-researcher': '#f59e0b',
         'agent-support': '#ec4899',
+        'agent-growth': '#10b981',
+        'agent-data': '#6366f1',
+        'agent-ops': '#64748b',
       },
       spacing: {
         '18': '4.5rem',

@@ -111,6 +111,10 @@ CREATE INDEX IF NOT EXISTS idx_ops_agent_reactions_status ON ops_agent_reactions
 INSERT INTO ops_policy (key, value_json, description) VALUES 
 ('auto_approve', '{"enabled": true, "allowed_step_kinds": ["draft_content", "research", "analyze", "review"]}', 'Controls which step kinds can be auto-approved'),
 ('heartbeat_enabled', '{"enabled": true}', 'Enables/disables heartbeat monitoring'),
+('heartbeat_interval', '{"value": 300, "unit": "seconds"}', 'Agent心跳检查间隔（秒）'),
+('stale_task_timeout', '{"value": 1800, "unit": "seconds"}', '任务超时时间（秒），超过此时间视为停滞'),
+('max_daily_tasks', '{"value": 100, "unit": "count"}', '单个Agent每日任务上限'),
+('auto_approve_enabled', '{"enabled": true, "allowed_kinds": ["draft_content", "research", "analyze", "review"]}', '自动审批开关配置'),
 ('x_daily_quota', '{"limit": 10}', 'Daily quota limit for X API calls')
 ON CONFLICT (key) DO NOTHING;
 

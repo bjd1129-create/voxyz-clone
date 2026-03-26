@@ -41,9 +41,9 @@ export default function ParticleBackground() {
         this.speedY = (Math.random() - 0.5) * 0.5
         this.opacity = Math.random() * 0.5 + 0.2
         
-        // Purple to blue gradient
-        const hue = Math.random() * 60 + 240 // 240-300 (blue to purple)
-        this.color = `hsla(${hue}, 70%, 60%, ${this.opacity})`
+        // Green to teal gradient (matching primary theme)
+        const hue = Math.random() * 40 + 120 // 120-160 (green to teal)
+        this.color = `hsla(${hue}, 70%, 50%, ${this.opacity})`
       }
 
       update() {
@@ -95,7 +95,7 @@ export default function ParticleBackground() {
           if (distance < 100) {
             const opacity = (1 - distance / 100) * 0.15
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})` // Purple
+            ctx.strokeStyle = `rgba(34, 197, 94, ${opacity})` // Primary green
             ctx.lineWidth = 0.5
             ctx.moveTo(p1.x, p1.y)
             ctx.lineTo(p2.x, p2.y)

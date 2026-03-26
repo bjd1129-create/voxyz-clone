@@ -11,6 +11,20 @@ const sb = createClient(supabaseUrl, supabaseServiceRoleKey, {
   },
 });
 
+// Vercel Cron Authorization
+function verifyCronAuth(request: Request): boolean {
+  const authHeader = request.headers.get('authorization');
+  const cronSecret = process.env.CRON_SECRET;
+  
+  // If CRON_SECRET is set, verify it
+  if (cronSecret) {
+    return authHeader === `Bearer ${cronSecret}`;
+  }
+  
+  // In development, allow without secret
+  return process.env.NODE_ENV === 'development';
+}
+
 // 研究主题轮换 - 每天8篇，每3小时1篇
 const RESEARCH_THEMES = [
   // 00:00 - 技术前沿
@@ -135,40 +149,65 @@ async function generateReport(theme: typeof RESEARCH_THEMES[0]) {
 
 // 同步给团队成员
 async function syncToTeam(report: any) {
-  // 存储到数据库
-  const { error } = await sb.from('ai_research_reports').insert({
-    id: report.id,
-    title: report.title,
-    theme: report.theme,
-    focus: report.focus,
-    keywords: report.keywords,
-    regions: report.regions,
-    content: report.sections,
-    status: report.status,
-    created_at: report.generatedAt,
-  });
+  let dbSuccess = false;
+  let notifySuccess = false;
   
-  if (error) {
-    console.error('Failed to save report:', error);
-    return { success: false, error };
-  }
-  
-  // 通知团队（通过事件系统）
-  await sb.from('events').insert({
-    type: 'ai_research_report',
-    agent_id: 'researcher',
-    data: {
-      report_id: report.id,
+  // 尝试存储到数据库（可选）
+  try {
+    const { error } = await sb.from('ai_research_reports').insert({
+      id: report.id,
       title: report.title,
       theme: report.theme,
-    },
-    created_at: report.generatedAt,
-  });
+      focus: report.focus,
+      keywords: report.keywords,
+      regions: report.regions,
+      content: report.sections,
+      status: report.status,
+      created_at: report.generatedAt,
+    });
+    
+    if (!error) {
+      dbSuccess = true;
+    }
+  } catch (e) {
+    console.log('Database not available, skipping DB storage');
+  }
   
-  return { success: true, reportId: report.id };
+  // 尝试通知团队（通过事件系统）
+  try {
+    const { error } = await sb.from('events').insert({
+      type: 'ai_research_report',
+      agent_id: 'researcher',
+      data: {
+        report_id: report.id,
+        title: report.title,
+        theme: report.theme,
+      },
+      created_at: report.generatedAt,
+    });
+    
+    if (!error) {
+      notifySuccess = true;
+    }
+  } catch (e) {
+    console.log('Events table not available, skipping notification');
+  }
+  
+  // 即使数据库不可用，报告也算生成成功
+  return { 
+    success: true, 
+    reportId: report.id,
+    dbStored: dbSuccess,
+    notified: notifySuccess,
+  };
 }
 
 export async function GET(request: Request) {
+  // Verify cron authorization
+  if (!verifyCronAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const forceTheme = searchParams.get('theme');
@@ -221,9 +260,11 @@ export async function GET(request: Request) {
         generatedAt: report.generatedAt,
         sections: report.sections,
       },
-      message: syncResult.success 
-        ? `✅ AI研究报告已生成并同步给团队`
-        : `⚠️ 报告生成成功，但同步失败`,
+      sync: {
+        dbStored: syncResult.dbStored,
+        notified: syncResult.notified,
+      },
+      message: `✅ AI研究报告已生成${syncResult.dbStored ? '并存储' : ''}`,
       nextReport: RESEARCH_THEMES[(RESEARCH_THEMES.indexOf(theme) + 1) % RESEARCH_THEMES.length].time,
     });
     

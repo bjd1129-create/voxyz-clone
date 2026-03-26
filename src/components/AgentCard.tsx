@@ -48,6 +48,24 @@ const agentColors = {
     glow: 'shadow-cyan-500/30',
     icon: 'text-cyan-400',
   },
+  growth: {
+    bg: 'from-emerald-500/20 to-emerald-600/10',
+    border: 'border-emerald-500/30',
+    glow: 'shadow-emerald-500/30',
+    icon: 'text-emerald-400',
+  },
+  data: {
+    bg: 'from-indigo-500/20 to-indigo-600/10',
+    border: 'border-indigo-500/30',
+    glow: 'shadow-indigo-500/30',
+    icon: 'text-indigo-400',
+  },
+  ops: {
+    bg: 'from-slate-500/20 to-slate-600/10',
+    border: 'border-slate-500/30',
+    glow: 'shadow-slate-500/30',
+    icon: 'text-slate-400',
+  },
 }
 
 export default function AgentCard({ name, role, color, icon, href }: AgentCardProps) {

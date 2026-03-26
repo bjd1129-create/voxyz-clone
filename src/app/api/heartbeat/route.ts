@@ -1,6 +1,20 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+// Vercel Cron Authorization
+function verifyCronAuth(request: Request): boolean {
+  const authHeader = request.headers.get('authorization');
+  const cronSecret = process.env.CRON_SECRET;
+  
+  // If CRON_SECRET is set, verify it
+  if (cronSecret) {
+    return authHeader === `Bearer ${cronSecret}`;
+  }
+  
+  // In development, allow without secret
+  return process.env.NODE_ENV === 'development';
+}
+
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -272,6 +286,11 @@ async function promoteInsights(sb: any) {
 }
 
 export async function GET(request: Request) {
+  // Verify cron authorization
+  if (!verifyCronAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const now = new Date();
     const results = {

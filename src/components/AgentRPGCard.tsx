@@ -20,9 +20,17 @@ interface AgentRPGCardProps {
   stats: AgentRPGStats
 }
 
-type AgentColor = 'coordinator' | 'researcher' | 'writer' | 'engineer' | 'designer' | 'support'
+type AgentColor = 'dreamer' | 'coordinator' | 'researcher' | 'writer' | 'engineer' | 'designer' | 'support' | 'growth' | 'prophet' | 'scheduler'
 
 const agentColors = {
+  dreamer: {
+    bg: 'from-emerald-500/20 to-emerald-600/10',
+    border: 'border-emerald-500/30',
+    glow: 'shadow-emerald-500/30',
+    icon: 'text-emerald-400',
+    accent: 'emerald',
+    hex: '#10B981',
+  },
   coordinator: {
     bg: 'from-purple-500/20 to-purple-600/10',
     border: 'border-purple-500/30',
@@ -45,7 +53,7 @@ const agentColors = {
     glow: 'shadow-green-500/30',
     icon: 'text-green-400',
     accent: 'green',
-    hex: '#10B981',
+    hex: '#22C55E',
   },
   engineer: {
     bg: 'from-blue-500/20 to-blue-600/10',
@@ -70,6 +78,30 @@ const agentColors = {
     icon: 'text-cyan-400',
     accent: 'cyan',
     hex: '#06B6D4',
+  },
+  growth: {
+    bg: 'from-lime-500/20 to-lime-600/10',
+    border: 'border-lime-500/30',
+    glow: 'shadow-lime-500/30',
+    icon: 'text-lime-400',
+    accent: 'lime',
+    hex: '#84CC16',
+  },
+  prophet: {
+    bg: 'from-indigo-500/20 to-indigo-600/10',
+    border: 'border-indigo-500/30',
+    glow: 'shadow-indigo-500/30',
+    icon: 'text-indigo-400',
+    accent: 'indigo',
+    hex: '#6366F1',
+  },
+  scheduler: {
+    bg: 'from-slate-500/20 to-slate-600/10',
+    border: 'border-slate-500/30',
+    glow: 'shadow-slate-500/30',
+    icon: 'text-slate-400',
+    accent: 'slate',
+    hex: '#64748B',
   },
 }
 

@@ -27,8 +27,8 @@ export default function GlowingButton({
 
   const variants = {
     primary: `
-      bg-gradient-to-r from-purple-600 to-blue-600
-      hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50
+      bg-gradient-to-r from-primary-500 to-primary-400
+      hover:scale-105 hover:shadow-lg hover:shadow-primary-500/50
       active:scale-95
     `,
     secondary: `
@@ -52,7 +52,7 @@ export default function GlowingButton({
       </span>
 
       {/* Glow effect on hover */}
-      <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-purple-600/20 to-blue-600/20 blur-xl -z-10" />
+      <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-primary-500/20 to-primary-400/20 blur-xl -z-10" />
     </Link>
   )
 }

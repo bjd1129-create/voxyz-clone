@@ -7,7 +7,26 @@ import { supabase, claimTask, completeTask, createProposal, updateAgentStatus } 
  * 被 Vercel Cron 调用，让每个 Agent 自动工作
  */
 
+// Vercel Cron Authorization
+function verifyCronAuth(request: Request): boolean {
+  const authHeader = request.headers.get('authorization');
+  const cronSecret = process.env.CRON_SECRET;
+  
+  // If CRON_SECRET is set, verify it
+  if (cronSecret) {
+    return authHeader === `Bearer ${cronSecret}`;
+  }
+  
+  // In development, allow without secret
+  return process.env.NODE_ENV === 'development';
+}
+
 export async function GET(request: Request) {
+  // Verify cron authorization
+  if (!verifyCronAuth(request)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url)
   const agentId = searchParams.get('agent')
 
