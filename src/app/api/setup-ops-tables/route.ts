@@ -175,17 +175,20 @@ export async function POST() {
     for (const query of createTableQueries) {
       try {
         // Since Supabase doesn't expose raw SQL execution through the JS client easily,
-        // we'll create a stored procedure to execute our DDL statements
-        const result = await supabase.rpc('execute_ddl_if_not_exists', {
-          ddl_statement: query
-        }).catch(error => {
+        // we'll try to create the tables using RPC
+        let result;
+        try {
+          result = await supabase.rpc('execute_ddl_if_not_exists', {
+            ddl_statement: query
+          });
+        } catch (rpcError: any) {
           // If RPC fails, we'll try to create the tables using a different approach
           // For now, just log the attempt
           console.log("Could not execute:", query.substring(0, 100) + "...");
-          return { data: null, error: null }; // Don't throw to continue processing
-        });
+          result = { data: null, error: null }; // Don't throw to continue processing
+        }
         
-        if (result.error) {
+        if (result && result.error) {
           console.error("Error executing query:", result.error);
           createResults.push({ success: false, error: result.error.message });
         } else {
