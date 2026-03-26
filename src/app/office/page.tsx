@@ -36,7 +36,7 @@ interface WorkRecord {
   duration?: number
 }
 
-// Office layout - 10 工位
+// Office layout - 7 workstations for our team
 const DESKS = [
   { id: 'zhuge', x: 80, y: 100, w: 90, h: 55 },      // 诸葛灯泡
   { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 协调员
@@ -45,9 +45,6 @@ const DESKS = [
   { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 研究员
   { id: 'designer', x: 80, y: 250, w: 90, h: 55 },     // 设计师
   { id: 'support', x: 200, y: 250, w: 90, h: 55 },     // 支持专员
-  { id: 'desk8', x: 320, y: 250, w: 90, h: 55 },       // 预留
-  { id: 'desk9', x: 440, y: 250, w: 90, h: 55 },       // 预留
-  { id: 'desk10', x: 560, y: 250, w: 90, h: 55 },      // 预留
 ]
 
 const MEETING_TABLE = { x: 320, y: 400, w: 150, h: 80 }
@@ -84,50 +81,49 @@ const SPEECH_BUBBLES = {
 
 // Office Ledger 数据
 const TIMESHEETS = [
-  { id: '1', agent: 'Developer', task: 'Implementing Command Center UI', date: '2023-05-15', startTime: '10:00', endTime: '12:00', duration: 7200, status: 'completed' },
-  { id: '2', agent: 'Researcher', task: 'Competitive analysis: AI agent frameworks', date: '2023-05-15', startTime: '09:30', endTime: '11:30', duration: 7200, status: 'completed' },
-  { id: '3', agent: 'Creative', task: 'Creating visual assets for campaign', date: '2023-05-15', startTime: '10:15', endTime: '13:15', duration: 10800, status: 'completed' },
-  { id: '4', agent: 'Writer', task: 'Writing blog post about AI trends', date: '2023-05-15', startTime: '09:00', endTime: '11:00', duration: 7200, status: 'completed' },
-  { id: '5', agent: 'CEO', task: 'Reviewing Q1 roadmap', date: '2023-05-15', startTime: '08:30', endTime: '10:30', duration: 7200, status: 'completed' },
-  { id: '6', agent: 'Support', task: 'Handling customer inquiries', date: '2023-05-15', startTime: '10:00', endTime: '11:00', duration: 3600, status: 'completed' },
-  { id: '7', agent: 'Analyst', task: 'Processing market trends', date: '2023-05-15', startTime: '11:00', endTime: '13:00', duration: 7200, status: 'completed' },
-  { id: '8', agent: 'Strategist', task: 'Updating strategy document', date: '2023-05-15', startTime: '13:00', endTime: '15:00', duration: 7200, status: 'completed' },
+  { id: '1', agent: '工程师', task: '实现指挥中心界面', date: '2024-03-26', startTime: '10:00', endTime: '12:00', duration: 7200, status: 'completed' },
+  { id: '2', agent: '研究员', task: '竞争分析：AI Agent 框架', date: '2024-03-26', startTime: '09:30', endTime: '11:30', duration: 7200, status: 'completed' },
+  { id: '3', agent: '设计师', task: '为活动创建视觉素材', date: '2024-03-26', startTime: '10:15', endTime: '13:15', duration: 10800, status: 'completed' },
+  { id: '4', agent: '内容官', task: '撰写关于AI趋势的博客文章', date: '2024-03-26', startTime: '09:00', endTime: '11:00', duration: 7200, status: 'completed' },
+  { id: '5', agent: '诸葛灯泡', task: '审核Q1路线图', date: '2024-03-26', startTime: '08:30', endTime: '10:30', duration: 7200, status: 'completed' },
+  { id: '6', agent: '支持专员', task: '处理客户咨询', date: '2024-03-26', startTime: '10:00', endTime: '11:00', duration: 3600, status: 'completed' },
+  { id: '7', agent: '研究员', task: '处理市场趋势', date: '2024-03-26', startTime: '11:00', endTime: '13:00', duration: 7200, status: 'completed' },
+  { id: '8', agent: '协调员', task: '更新策略文档', date: '2024-03-26', startTime: '13:00', endTime: '15:00', duration: 7200, status: 'completed' },
 ];
 
 const PAY_SLIPS = [
-  { id: '1', agent: 'Developer', period: '2023-05-01 to 2023-05-15', amount: 4500, currency: 'USD', status: 'paid', hours: 120 },
-  { id: '2', agent: 'Researcher', period: '2023-05-01 to 2023-05-15', amount: 4200, currency: 'USD', status: 'paid', hours: 115 },
-  { id: '3', agent: 'Creative', period: '2023-05-01 to 2023-05-15', amount: 4300, currency: 'USD', status: 'paid', hours: 118 },
-  { id: '4', agent: 'Writer', period: '2023-05-01 to 2023-05-15', amount: 3800, currency: 'USD', status: 'paid', hours: 105 },
-  { id: '5', agent: 'CEO', period: '2023-05-01 to 2023-05-15', amount: 5500, currency: 'USD', status: 'paid', hours: 130 },
-  { id: '6', agent: 'Support', period: '2023-05-01 to 2023-05-15', amount: 3600, currency: 'USD', status: 'paid', hours: 100 },
-  { id: '7', agent: 'Analyst', period: '2023-05-01 to 2023-05-15', amount: 4100, currency: 'USD', status: 'paid', hours: 112 },
-  { id: '8', agent: 'Strategist', period: '2023-05-01 to 2023-05-15', amount: 4400, currency: 'USD', status: 'paid', hours: 122 },
+  { id: '1', agent: '工程师', period: '2024-03-01 to 2024-03-31', amount: 4500, currency: 'USD', status: 'paid', hours: 120 },
+  { id: '2', agent: '研究员', period: '2024-03-01 to 2024-03-31', amount: 4200, currency: 'USD', status: 'paid', hours: 115 },
+  { id: '3', agent: '设计师', period: '2024-03-01 to 2024-03-31', amount: 4300, currency: 'USD', status: 'paid', hours: 118 },
+  { id: '4', agent: '内容官', period: '2024-03-01 to 2024-03-31', amount: 3800, currency: 'USD', status: 'paid', hours: 105 },
+  { id: '5', agent: '诸葛灯泡', period: '2024-03-01 to 2024-03-31', amount: 5500, currency: 'USD', status: 'paid', hours: 130 },
+  { id: '6', agent: '支持专员', period: '2024-03-01 to 2024-03-31', amount: 3600, currency: 'USD', status: 'paid', hours: 100 },
+  { id: '7', agent: '协调员', period: '2024-03-01 to 2024-03-31', amount: 4100, currency: 'USD', status: 'paid', hours: 112 },
 ];
 
 const HANDOFF_RECORDS = [
-  { id: '1', from: 'Researcher', to: 'Developer', task: 'Handoff competitive analysis results', timestamp: '2023-05-15T10:30:00Z', status: 'completed' },
-  { id: '2', from: 'Creative', to: 'Writer', task: 'Share design assets for content', timestamp: '2023-05-15T11:15:00Z', status: 'completed' },
-  { id: '3', from: 'Writer', to: 'CEO', task: 'Submit blog draft for review', timestamp: '2023-05-15T12:00:00Z', status: 'completed' },
-  { id: '4', from: 'Developer', to: 'Support', task: 'Deploy new UI for testing', timestamp: '2023-05-15T13:30:00Z', status: 'completed' },
-  { id: '5', from: 'Analyst', to: 'Strategist', task: 'Provide market data for strategy', timestamp: '2023-05-15T14:00:00Z', status: 'completed' },
-  { id: '6', from: 'Support', to: 'Researcher', task: 'Feedback on user inquiries', timestamp: '2023-05-15T15:00:00Z', status: 'completed' },
+  { id: '1', from: '研究员', to: '工程师', task: '交接竞争分析结果', timestamp: '2024-03-26T10:30:00Z', status: 'completed' },
+  { id: '2', from: '设计师', to: '内容官', task: '共享用于内容的设计素材', timestamp: '2024-03-26T11:15:00Z', status: 'completed' },
+  { id: '3', from: '内容官', to: '诸葛灯泡', task: '提交博客草稿供审核', timestamp: '2024-03-26T12:00:00Z', status: 'completed' },
+  { id: '4', from: '工程师', to: '支持专员', task: '部署新UI供测试', timestamp: '2024-03-26T13:30:00Z', status: 'completed' },
+  { id: '5', from: '研究员', to: '协调员', task: '提供市场数据供策略制定', timestamp: '2024-03-26T14:00:00Z', status: 'completed' },
+  { id: '6', from: '支持专员', to: '研究员', task: '关于用户查询的反馈', timestamp: '2024-03-26T15:00:00Z', status: 'completed' },
 ];
 
 const CULTURE_LOOPS = [
-  { id: '1', topic: 'Team Collaboration', participants: ['CEO', 'Developer', 'Creative'], date: '2023-05-15', status: 'completed', feedback: 'Improved communication protocols' },
-  { id: '2', topic: 'Innovation Workshop', participants: ['Researcher', 'Writer', 'Analyst'], date: '2023-05-14', status: 'completed', feedback: 'Generated 12 new ideas' },
-  { id: '3', topic: 'Performance Review', participants: ['CEO', 'Support', 'Strategist'], date: '2023-05-13', status: 'completed', feedback: 'Identified optimization opportunities' },
-  { id: '4', topic: 'Skill Sharing', participants: ['Creative', 'Writer', 'Developer'], date: '2023-05-12', status: 'completed', feedback: 'Cross-training initiative launched' },
+  { id: '1', topic: '团队协作', participants: ['诸葛灯泡', '工程师', '设计师'], date: '2024-03-26', status: 'completed', feedback: '改进沟通协议' },
+  { id: '2', topic: '创新研讨会', participants: ['研究员', '内容官', '协调员'], date: '2024-03-25', status: 'completed', feedback: '产生12个新想法' },
+  { id: '3', topic: '绩效评审', participants: ['诸葛灯泡', '支持专员', '协调员'], date: '2024-03-24', status: 'completed', feedback: '确定优化机会' },
+  { id: '4', topic: '技能分享', participants: ['设计师', '内容官', '工程师'], date: '2024-03-23', status: 'completed', feedback: '启动交叉培训计划' },
 ];
 
 const GROWTH_WATCH = [
-  { id: '1', agent: 'Developer', metric: 'Code Quality Score', current: 8.5, target: 9.0, trend: 'up', improvement: '+0.3 this week' },
-  { id: '2', agent: 'Researcher', metric: 'Analysis Accuracy', current: 92, target: 95, trend: 'up', improvement: '+2% this week' },
-  { id: '3', agent: 'Creative', metric: 'Design Impact', current: 8.7, target: 9.0, trend: 'stable', improvement: 'Maintained consistency' },
-  { id: '4', agent: 'Writer', metric: 'Content Engagement', current: 78, target: 85, trend: 'up', improvement: '+5% this week' },
-  { id: '5', agent: 'Support', metric: 'Response Time', current: 2.1, target: 2.0, trend: 'down', improvement: '-0.2 this week' },
-  { id: '6', agent: 'Analyst', metric: 'Data Accuracy', current: 96, target: 97, trend: 'up', improvement: '+1% this week' },
+  { id: '1', agent: '工程师', metric: '代码质量评分', current: 8.5, target: 9.0, trend: 'up', improvement: '本周+0.3' },
+  { id: '2', agent: '研究员', metric: '分析准确性', current: 92, target: 95, trend: 'up', improvement: '本周+2%' },
+  { id: '3', agent: '设计师', metric: '设计影响力', current: 8.7, target: 9.0, trend: 'stable', improvement: '保持一致性' },
+  { id: '4', agent: '内容官', metric: '内容参与度', current: 78, target: 85, trend: 'up', improvement: '本周+5%' },
+  { id: '5', agent: '支持专员', metric: '响应时间', current: 2.1, target: 2.0, trend: 'down', improvement: '本周-0.2' },
+  { id: '6', agent: '协调员', metric: '数据准确性', current: 96, target: 97, trend: 'up', improvement: '本周+1%' },
 ];
 
 export default function OfficePage() {

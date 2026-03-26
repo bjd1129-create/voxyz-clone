@@ -143,142 +143,6 @@ const MISSIONS = [
   },
 ]
 
-// Completed missions (examples)
-const COMPLETED_MISSIONS = [
-  { 
-    id: 5, 
-    title: 'Website Redesign', 
-    status: 'completed', 
-    progress: 100, 
-    priority: 'high',
-    agents: ['designer', 'engineer'],
-    deadline: '2024-01-08',
-    description: 'Complete overhaul of company website',
-    completedAt: '2024-01-08',
-    specialists: ['Designer', 'Engineer']
-  },
-  { 
-    id: 6, 
-    title: 'API Integration', 
-    status: 'completed', 
-    progress: 100, 
-    priority: 'medium',
-    agents: ['engineer', 'researcher'],
-    deadline: '2024-01-05',
-    description: 'Integrate third-party services',
-    completedAt: '2024-01-05',
-    specialists: ['Engineer', 'Researcher']
-  },
-]
-
-// Failed missions (examples)
-const FAILED_MISSIONS = [
-  { 
-    id: 7, 
-    title: 'Performance Optimization', 
-    status: 'failed', 
-    progress: 85, 
-    priority: 'high',
-    agents: ['engineer'],
-    deadline: '2024-01-07',
-    description: 'Improve system performance by 30%',
-    completedAt: '2024-01-07',
-    failureReason: 'Memory constraints',
-    specialists: ['Engineer']
-  },
-  { 
-    id: 8, 
-    title: 'Security Audit', 
-    status: 'failed', 
-    progress: 60, 
-    priority: 'high',
-    agents: ['engineer', 'researcher'],
-    deadline: '2024-01-06',
-    description: 'Complete security assessment',
-    completedAt: '2024-01-06',
-    failureReason: 'Critical vulnerabilities found',
-    specialists: ['Engineer', 'Researcher']
-  },
-  { 
-    id: 9, 
-    title: 'Data Migration', 
-    status: 'failed', 
-    progress: 45, 
-    priority: 'medium',
-    agents: ['engineer', 'support'],
-    deadline: '2024-01-04',
-    description: 'Migrate legacy data to new system',
-    completedAt: '2024-01-04',
-    failureReason: 'Data corruption detected',
-    specialists: ['Engineer', 'Support Specialist']
-  },
-  { 
-    id: 10, 
-    title: 'Feature Rollout', 
-    status: 'failed', 
-    progress: 70, 
-    priority: 'high',
-    agents: ['designer', 'engineer'],
-    deadline: '2024-01-03',
-    description: 'Deploy new user features',
-    completedAt: '2024-01-03',
-    failureReason: 'Compatibility issues',
-    specialists: ['Designer', 'Engineer']
-  },
-  { 
-    id: 11, 
-    title: 'Bug Fix Sprint', 
-    status: 'failed', 
-    progress: 55, 
-    priority: 'medium',
-    agents: ['engineer', 'support'],
-    deadline: '2024-01-02',
-    description: 'Resolve critical bugs',
-    completedAt: '2024-01-02',
-    failureReason: 'Complex dependencies',
-    specialists: ['Engineer', 'Support Specialist']
-  },
-  { 
-    id: 12, 
-    title: 'Load Testing', 
-    status: 'failed', 
-    progress: 40, 
-    priority: 'high',
-    agents: ['researcher', 'engineer'],
-    deadline: '2024-01-01',
-    description: 'Test system under heavy load',
-    completedAt: '2024-01-01',
-    failureReason: 'Server capacity exceeded',
-    specialists: ['Researcher', 'Engineer']
-  },
-  { 
-    id: 13, 
-    title: 'UI Overhaul', 
-    status: 'failed', 
-    progress: 65, 
-    priority: 'medium',
-    agents: ['designer', 'writer'],
-    deadline: '2023-12-30',
-    description: 'Redesign user interface',
-    completedAt: '2023-12-30',
-    failureReason: 'Timeline constraints',
-    specialists: ['Designer', 'Writer']
-  },
-  { 
-    id: 14, 
-    title: 'Integration Test', 
-    status: 'failed', 
-    progress: 30, 
-    priority: 'high',
-    agents: ['engineer'],
-    deadline: '2023-12-28',
-    description: 'Test system integrations',
-    completedAt: '2023-12-28',
-    failureReason: 'Third-party service downtime',
-    specialists: ['Engineer']
-  },
-]
-
 // Archive history
 const ARCHIVE = [
   { id: 1, title: 'Q3 Report Generation', agents: ['researcher', 'writer'], completedAt: '2024-01-05', tasks: 23, success: true },
@@ -311,7 +175,7 @@ const colorMap: Record<string, ColorConfig> = {
 }
 
 export default function SwarmPage() {
-  const [activeView, setActiveView] = useState<'working' | 'missions' | 'steps' | 'archive' | 'events'>('working')
+  const [activeView, setActiveView] = useState<'working' | 'missions' | 'steps' | 'events'>('working')
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null)
   const [agents, setAgents] = useState(AGENTS)
 
@@ -412,6 +276,7 @@ export default function SwarmPage() {
             </div>
           </div>
         </div>
+        </div>
 
         {/* Core concept banner */}
         <div className="max-w-7xl mx-auto px-6 py-8">
@@ -422,7 +287,7 @@ export default function SwarmPage() {
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                七位AI专家. 共同使命.
+                Five AI minds. One shared mission.
               </span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
@@ -437,8 +302,7 @@ export default function SwarmPage() {
             {[
               { id: 'working', label: 'Working', icon: <Cpu className="w-4 h-4" /> },
               { id: 'missions', label: 'Missions', icon: <Target className="w-4 h-4" /> },
-              { id: 'steps', label: 'How It Works', icon: <Zap className="w-4 h-4" /> },
-              { id: 'archive', label: 'Archive', icon: <Activity className="w-4 h-4" /> },
+              { id: 'steps', label: 'Steps', icon: <Zap className="w-4 h-4" /> },
               { id: 'events', label: 'Events', icon: <Activity className="w-4 h-4" /> },
             ].map(tab => (
               <button
@@ -465,75 +329,33 @@ export default function SwarmPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Agent grid */}
               <div className="lg:col-span-2 space-y-4 sm:space-y-6">
-                {/* Performance metrics panel */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4">
-                  <MetricCard 
-                    label="Missions"
-                    value="17"
+                {/* Performance overview */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
+                  <StatCard 
+                    icon={<Cpu className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    label="Active"
+                    value={activeCount}
+                    total={agents.length}
                     color="purple"
                   />
-                  <MetricCard 
-                    label="Success"
-                    value="52.9%"
+                  <StatCard 
+                    icon={<CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    label="Tasks"
+                    value={totalTasks}
                     color="green"
                   />
-                  <MetricCard 
-                    label="Parallel"
-                    value="0"
+                  <StatCard 
+                    icon={<TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    label="Efficiency"
+                    value={`${avgEfficiency}%`}
                     color="blue"
                   />
-                  <MetricCard 
-                    label="Steps"
-                    value="9"
+                  <StatCard 
+                    icon={<Award className="w-4 h-4 sm:w-5 sm:h-5" />}
+                    label="Uptime"
+                    value="99.5%"
                     color="amber"
                   />
-                  <MetricCard 
-                    label="Failed"
-                    value="8"
-                    color="red"
-                  />
-                  <MetricCard 
-                    label="Avg"
-                    value="0.4m"
-                    color="gray"
-                  />
-                </div>
-
-                {/* Spawn Launcher */}
-                <div className="bg-white/5 rounded-xl border border-white/10 p-4 sm:p-5">
-                  <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-yellow-400" />
-                    Spawn Launcher
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div>
-                      <label className="block text-xs text-gray-400 mb-1">Target Agent</label>
-                      <select className="w-full bg-slate-800/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50">
-                        <option>Select an agent...</option>
-                        {agents.map(agent => (
-                          <option key={agent.id} value={agent.id}>{agent.name}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs text-gray-400 mb-1">Mission Brief</label>
-                      <input 
-                        type="text" 
-                        placeholder="Describe the mission..." 
-                        className="w-full bg-slate-800/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex gap-2 sm:gap-3 mt-3">
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
-                      <Play className="w-4 h-4" />
-                      Launch Mission
-                    </button>
-                    <button className="flex items-center justify-center gap-2 px-4 py-2 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors border border-white/10">
-                      <Target className="w-4 h-4" />
-                      Preview Plan
-                    </button>
-                  </div>
                 </div>
 
                 {/* Agent cards */}
@@ -597,160 +419,63 @@ export default function SwarmPage() {
             </div>
           )}
 
-          {/* STEPS VIEW - How the Swarm Works Visualization */}
+          {/* STEPS VIEW */}
           {activeView === 'steps' && (
-            <div className="space-y-6">
-              <div className="text-center">
-                <h2 className="text-2xl font-bold text-white mb-2">How the Swarm Works</h2>
-                <p className="text-gray-400 max-w-2xl mx-auto">
-                  Our 7 Core Agents collaborate through a sophisticated orchestration system to deliver results efficiently.
-                </p>
-              </div>
-
-              {/* Process visualization */}
-              <div className="bg-white/5 rounded-xl border border-white/10 p-6 overflow-x-auto">
-                <div className="flex items-center justify-center min-w-max">
-                  {/* Core Agents */}
-                  <div className="flex flex-col items-center mx-4">
-                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white text-lg font-bold border-4 border-white/20 shadow-lg">
-                      7 Core<br/>Agents
-                    </div>
-                    <div className="mt-3 text-sm text-gray-300 font-medium">Initiation</div>
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="mx-4 text-2xl text-gray-500">
-                    <ChevronRight className="w-8 h-8" />
-                  </div>
-
-                  {/* SPAWN */}
-                  <div className="flex flex-col items-center mx-4">
-                    <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-amber-600 to-orange-600 flex items-center justify-center text-white text-lg font-bold border-4 border-white/20 shadow-lg">
-                      SPAWN
-                    </div>
-                    <div className="mt-3 text-sm text-gray-300 font-medium">Specialization</div>
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="mx-4 text-2xl text-gray-500">
-                    <ChevronRight className="w-8 h-8" />
-                  </div>
-
-                  {/* Specialists */}
-                  <div className="flex flex-col items-center mx-4">
-                    <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white text-lg font-bold border-4 border-white/20 shadow-lg">
-                      Specialists
-                    </div>
-                    <div className="mt-3 text-sm text-gray-300 font-medium">Execution</div>
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="mx-4 text-2xl text-gray-500">
-                    <ChevronRight className="w-8 h-8" />
-                  </div>
-
-                  {/* DELIVER */}
-                  <div className="flex flex-col items-center mx-4">
-                    <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-rose-600 to-pink-600 flex items-center justify-center text-white text-lg font-bold border-4 border-white/20 shadow-lg">
-                      DELIVER
-                    </div>
-                    <div className="mt-3 text-sm text-gray-300 font-medium">Result</div>
-                  </div>
-                </div>
-
-                {/* Detailed explanation */}
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div className="bg-slate-800/50 p-4 rounded-lg border border-white/10">
-                    <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                      <Target className="w-5 h-5 text-purple-400" />
-                      7 Core Agents
-                    </h3>
-                    <p className="text-sm text-gray-400">
-                      Our specialized agents work in coordination - each with distinct roles and responsibilities.
-                    </p>
-                  </div>
-                  <div className="bg-slate-800/50 p-4 rounded-lg border border-white/10">
-                    <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                      <Zap className="w-5 h-5 text-amber-400" />
-                      SPAWN
-                    </h3>
-                    <p className="text-sm text-gray-400">
-                      When a mission is initiated, specialized agents are dynamically allocated to the task.
-                    </p>
-                  </div>
-                  <div className="bg-slate-800/50 p-4 rounded-lg border border-white/10">
-                    <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                      <Activity className="w-5 h-5 text-emerald-400" />
-                      Specialists
-                    </h3>
-                    <p className="text-sm text-gray-400">
-                      Specialized agents execute their assigned tasks with domain expertise.
-                    </p>
-                  </div>
-                  <div className="bg-slate-800/50 p-4 rounded-lg border border-white/10">
-                    <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-rose-400" />
-                      Deliver
-                    </h3>
-                    <p className="text-sm text-gray-400">
-                      Results are aggregated and delivered as a cohesive solution.
-                    </p>
-                  </div>
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg sm:text-xl font-semibold">Execution Steps</h2>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                  <span className="text-xs sm:text-sm text-red-400 font-medium">LIVE</span>
                 </div>
               </div>
 
-              {/* Execution Steps */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white">Execution Steps</h3>
-                <div className="grid gap-3 sm:gap-4">
-                  {[
-                    { id: 1, title: 'Mission Initiation', status: 'completed', time: '2m ago', agent: 'zhuge', description: 'Core agent receives mission parameters' },
-                    { id: 2, title: 'Agent Selection', status: 'completed', time: '1m ago', agent: 'coordinator', description: 'Coordinator selects optimal specialist agents' },
-                    { id: 3, title: 'Task Distribution', status: 'completed', time: '1m ago', agent: 'coordinator', description: 'Tasks distributed to appropriate specialists' },
-                    { id: 4, title: 'Execution Phase', status: 'active', time: 'now', agent: 'engineer', description: 'Specialist agents execute assigned tasks' },
-                    { id: 5, title: 'Result Aggregation', status: 'pending', time: 'pending', agent: 'coordinator', description: 'Results from specialists are collected and processed' },
-                    { id: 6, title: 'Quality Assurance', status: 'pending', time: 'pending', agent: 'support', description: 'Final results undergo quality checks' },
-                    { id: 7, title: 'Delivery', status: 'pending', time: 'pending', agent: 'coordinator', description: 'Final result delivered to requester' },
-                  ].map(step => {
-                    const agent = agents.find(a => a.id === step.agent);
-                    return (
-                      <div key={step.id} className="bg-white/5 rounded-xl border border-white/10 p-4 hover:bg-white/10 transition-colors">
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-start gap-3">
-                            <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center ${
-                              step.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                              step.status === 'active' ? 'bg-purple-500/20 text-purple-400' :
-                              'bg-gray-500/20 text-gray-400'
-                            }`}>
-                              {step.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> :
-                               step.status === 'active' ? <Zap className="w-4 h-4 animate-pulse" /> :
-                               <Clock className="w-4 h-4" />}
-                            </div>
-                            <div>
-                              <h3 className="font-medium text-white flex items-center gap-2">
-                                {step.title}
-                                {step.status === 'active' && (
-                                  <span className="text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full">LIVE</span>
-                                )}
-                              </h3>
-                              <p className="text-sm text-gray-400 mt-1">{step.description}</p>
-                              <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
-                                {agent && <span>{agent.emoji} {agent.name}</span>}
-                                <span>•</span>
-                                <span>{step.time}</span>
-                              </div>
+              <div className="grid gap-3 sm:gap-4">
+                {[
+                  { id: 1, title: 'Data Collection', status: 'completed', time: '2m ago', agent: 'researcher', description: 'Gathered market research data from various sources' },
+                  { id: 2, title: 'Analysis Phase', status: 'completed', time: '1m ago', agent: 'researcher', description: 'Analyzed collected data for trends and insights' },
+                  { id: 3, title: 'Strategy Formation', status: 'active', time: 'now', agent: 'coordinator', description: 'Formulating strategy based on research findings' },
+                  { id: 4, title: 'Implementation Plan', status: 'pending', time: 'pending', agent: 'engineer', description: 'Creating detailed implementation roadmap' },
+                  { id: 5, title: 'Execution Phase', status: 'pending', time: 'pending', agent: 'designer', description: 'Executing the planned strategy' },
+                ].map(step => {
+                  const agent = agents.find(a => a.id === step.agent);
+                  return (
+                    <div key={step.id} className="bg-white/5 rounded-xl border border-white/10 p-4 hover:bg-white/10 transition-colors">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-3">
+                          <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center ${
+                            step.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                            step.status === 'active' ? 'bg-purple-500/20 text-purple-400' :
+                            'bg-gray-500/20 text-gray-400'
+                          }`}>
+                            {step.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> :
+                             step.status === 'active' ? <Zap className="w-4 h-4 animate-pulse" /> :
+                             <Clock className="w-4 h-4" />}
+                          </div>
+                          <div>
+                            <h3 className="font-medium text-white flex items-center gap-2">
+                              {step.title}
+                              {step.status === 'active' && (
+                                <span className="text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full">LIVE</span>
+                              )}
+                            </h3>
+                            <p className="text-sm text-gray-400 mt-1">{step.description}</p>
+                            <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
+                              {agent && <span>{agent.emoji} {agent.name}</span>}
+                              <span>•</span>
+                              <span>{step.time}</span>
                             </div>
                           </div>
-                          <div className={`w-3 h-3 rounded-full ${
-                            step.status === 'completed' ? 'bg-green-500' :
-                            step.status === 'active' ? 'bg-red-500 animate-pulse' :
-                            'bg-gray-500'
-                          }`} />
                         </div>
+                        <div className={`w-3 h-3 rounded-full ${
+                          step.status === 'completed' ? 'bg-green-500' :
+                          step.status === 'active' ? 'bg-red-500 animate-pulse' :
+                          'bg-gray-500'
+                        }`} />
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -775,10 +500,10 @@ export default function SwarmPage() {
                   { id: 5, title: 'Performance Alert', type: 'system', time: '10m ago', severity: 'warning', description: 'Memory usage above threshold for designer agent' },
                 ].map(event => {
                   const eventColors = {
-                    info: { bg: 'bg-blue-500/20', border: 'border-blue-500/30', text: 'text-blue-400' },
-                    success: { bg: 'bg-green-500/20', border: 'border-green-500/30', text: 'text-green-400' },
-                    warning: { bg: 'bg-amber-500/20', border: 'border-amber-500/30', text: 'text-amber-400' },
-                    error: { bg: 'bg-red-500/20', border: 'border-red-500/30', text: 'text-red-400' }
+                    info: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400' },
+                    success: { bg: 'bg-green-500/10', border: 'border-green-500/30', text: 'text-green-400' },
+                    warning: { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-400' },
+                    error: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400' }
                   };
                   
                   const eventIcons = {
@@ -786,19 +511,18 @@ export default function SwarmPage() {
                     task: <CheckCircle2 className="w-4 h-4" />
                   };
 
-                  const eventType = event.severity as keyof typeof eventColors;
                   return (
-                    <div key={event.id} className={`rounded-xl border p-4 hover:opacity-90 transition-opacity ${eventColors[eventType].bg} ${eventColors[eventType].border}`}>
+                    <div key={event.id} className={`rounded-xl border p-4 hover:opacity-90 transition-opacity ${eventColors[event.severity].bg} ${eventColors[event.severity].border}`}>
                       <div className="flex items-start gap-3">
-                        <div className={`mt-0.5 p-1.5 rounded-lg ${eventColors[eventType].bg} ${eventColors[eventType].border} border`}>
+                        <div className={`mt-0.5 p-1.5 rounded-lg ${eventColors[event.severity].bg} ${eventColors[event.severity].border} border`}>
                           {eventIcons[event.type as keyof typeof eventIcons]}
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center justify-between">
                             <h3 className="font-medium text-white flex items-center gap-2">
                               {event.title}
-                              {(event.severity === 'warning' || event.severity === 'error') ? (
-                                <span className={`text-xs px-2 py-0.5 rounded-full ${eventColors[eventType].bg} ${eventColors[eventType].border} border`}>
+                              {event.severity === 'warning' || event.severity === 'error' ? (
+                                <span className={`text-xs px-2 py-0.5 rounded-full ${eventColors[event.severity].bg} ${eventColors[event.severity].border} border`}>
                                   {event.severity.toUpperCase()}
                                 </span>
                               ) : null}
@@ -815,153 +539,24 @@ export default function SwarmPage() {
             </div>
           )}
 
-          {/* MISSIONS VIEW - Enhanced with completed and failed missions */}
+          {/* MISSIONS VIEW - Keeping original functionality */}
           {activeView === 'missions' && (
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <h2 className="text-xl font-semibold">Mission Control</h2>
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <h2 className="text-lg sm:text-xl font-semibold">Mission Control</h2>
                 <button 
-                  onClick={() => window.open('/new-mission', '_blank')}
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+                  onClick={() => setActiveView('spawn')}
+                  className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-xs sm:text-sm font-medium hover:opacity-90 transition-opacity"
                 >
                   <Plus className="w-4 h-4" />
                   New Mission
                 </button>
               </div>
 
-              {/* Active Missions */}
-              <div>
-                <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-blue-400" />
-                  Active Missions
-                </h3>
-                <div className="grid gap-3 sm:gap-4">
-                  {MISSIONS.filter(mission => mission.status !== 'completed').map(mission => (
-                    <MissionCard key={mission.id} mission={mission} agents={agents} colorMap={colorMap} />
-                  ))}
-                </div>
-              </div>
-
-              {/* Completed Missions */}
-              <div>
-                <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-green-400" />
-                  Completed Missions
-                </h3>
-                <div className="grid gap-3 sm:gap-4">
-                  {COMPLETED_MISSIONS.map(mission => (
-                    <MissionCard key={mission.id} mission={mission} agents={agents} colorMap={colorMap} />
-                  ))}
-                </div>
-              </div>
-
-              {/* Failed Missions */}
-              <div>
-                <h3 className="text-lg font-medium text-white mb-3 flex items-center gap-2">
-                  <Flag className="w-5 h-5 text-red-400" />
-                  Failed Missions
-                </h3>
-                <div className="grid gap-3 sm:gap-4">
-                  {FAILED_MISSIONS.map(mission => {
-                    const missionWithFailureInfo = {
-                      ...mission,
-                      description: `${mission.description} (Failed: ${mission.failureReason})`
-                    };
-                    return (
-                      <MissionCard key={mission.id} mission={missionWithFailureInfo} agents={agents} colorMap={colorMap} />
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ARCHIVE VIEW */}
-          {activeView === 'archive' && (
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <h2 className="text-xl font-semibold">Swarm Archive</h2>
-                
-                {/* Filter buttons */}
-                <div className="flex gap-2">
-                  <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
-                    All
-                  </button>
-                  <button className="px-4 py-2 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors border border-white/10">
-                    Finished
-                  </button>
-                  <button className="px-4 py-2 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors border border-white/10">
-                    Failed
-                  </button>
-                </div>
-              </div>
-
-              {/* Archive stats */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white/5 rounded-xl border border-white/10 p-5">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-400 text-sm">Total Missions</p>
-                      <p className="text-2xl font-bold text-white">{ARCHIVE.length + COMPLETED_MISSIONS.length + FAILED_MISSIONS.length}</p>
-                    </div>
-                    <div className="p-3 bg-purple-500/20 rounded-lg">
-                      <Activity className="w-6 h-6 text-purple-400" />
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white/5 rounded-xl border border-white/10 p-5">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-400 text-sm">Successful</p>
-                      <p className="text-2xl font-bold text-white">{COMPLETED_MISSIONS.length}</p>
-                    </div>
-                    <div className="p-3 bg-green-500/20 rounded-lg">
-                      <CheckCircle2 className="w-6 h-6 text-green-400" />
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white/5 rounded-xl border border-white/10 p-5">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-400 text-sm">Failed</p>
-                      <p className="text-2xl font-bold text-white">{FAILED_MISSIONS.length}</p>
-                    </div>
-                    <div className="p-3 bg-red-500/20 rounded-lg">
-                      <Flag className="w-6 h-6 text-red-400" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Archive list */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-white">Recent Archives</h3>
-                
-                {/* Completed missions first */}
-                <div>
-                  <h4 className="text-md font-medium text-green-400 mb-2 flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4" />
-                    Successful Missions
-                  </h4>
-                  <div className="grid gap-3">
-                    {COMPLETED_MISSIONS.slice(0, 5).map(mission => (
-                      <ArchiveItem key={mission.id} item={mission} status="success" />
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Failed missions */}
-                <div>
-                  <h4 className="text-md font-medium text-red-400 mb-2 flex items-center gap-2">
-                    <Flag className="w-4 h-4" />
-                    Failed Missions
-                  </h4>
-                  <div className="grid gap-3">
-                    {FAILED_MISSIONS.slice(0, 5).map(mission => (
-                      <ArchiveItem key={mission.id} item={mission} status="failure" />
-                    ))}
-                  </div>
-                </div>
+              <div className="grid gap-3 sm:gap-4">
+                {MISSIONS.map(mission => (
+                  <MissionCard key={mission.id} mission={mission} agents={agents} colorMap={colorMap} />
+                ))}
               </div>
             </div>
           )}
@@ -995,31 +590,6 @@ function StatCard({ icon, label, value, total, color }: {
       <div className="text-lg sm:text-2xl font-bold text-white">
         {value}
         {total && <span className="text-gray-500 text-sm sm:text-lg">/{total}</span>}
-      </div>
-    </div>
-  )
-}
-
-// Metric Card Component
-function MetricCard({ label, value, color }: {
-  label: string
-  value: string
-  color: string
-}) {
-  const colors: Record<string, string> = {
-    purple: 'from-purple-500/20 to-purple-600/10 border-purple-500/30',
-    green: 'from-green-500/20 to-green-600/10 border-green-500/30',
-    blue: 'from-blue-500/20 to-blue-600/10 border-blue-500/30',
-    amber: 'from-amber-500/20 to-amber-600/10 border-amber-500/30',
-    red: 'from-red-500/20 to-red-600/10 border-red-500/30',
-    gray: 'from-gray-500/20 to-gray-600/10 border-gray-500/30',
-  }
-
-  return (
-    <div className={`p-2 sm:p-4 rounded-xl bg-gradient-to-br ${colors[color]} border backdrop-blur-sm`}>
-      <div className="text-center">
-        <div className="text-xs text-gray-400 mb-1">{label}</div>
-        <div className="text-lg sm:text-xl font-bold text-white">{value}</div>
       </div>
     </div>
   )
@@ -1189,12 +759,9 @@ function AgentDetailPanel({ agent, colors, onClose }: {
   )
 }
 
-// Define a union type for missions that can have either deadline or completedAt
-type Mission = typeof MISSIONS[0] | typeof COMPLETED_MISSIONS[0] | typeof FAILED_MISSIONS[0];
-
 // Mission Card Component
 function MissionCard({ mission, agents, colorMap }: {
-  mission: Mission
+  mission: typeof MISSIONS[0]
   agents: typeof AGENTS
   colorMap: Record<string, ColorConfig>
 }) {
@@ -1202,7 +769,6 @@ function MissionCard({ mission, agents, colorMap }: {
     active: 'bg-green-500/20 text-green-400 border-green-500/30',
     pending: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
     completed: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    failed: 'bg-red-500/20 text-red-400 border-red-500/30',
   }
 
   const priorityColors: Record<string, string> = {
@@ -1217,8 +783,7 @@ function MissionCard({ mission, agents, colorMap }: {
         <div className="flex items-center gap-3">
           <div className={`w-2 h-2 rounded-full ${
             mission.status === 'active' ? 'bg-green-500 animate-pulse' :
-            mission.status === 'completed' ? 'bg-blue-500' :
-            mission.status === 'failed' ? 'bg-red-500' : 'bg-amber-500'
+            mission.status === 'completed' ? 'bg-blue-500' : 'bg-amber-500'
           }`} />
           <h3 className="font-semibold text-white">{mission.title}</h3>
         </div>
@@ -1259,46 +824,9 @@ function MissionCard({ mission, agents, colorMap }: {
             {mission.priority} priority
           </span>
           <span className="text-gray-500">
-            {mission.status === 'completed' || mission.status === 'failed' ? 
-              `Completed: ${(mission as any).completedAt || mission.deadline}` : 
-              `Due: ${mission.deadline}`}
+            Due: {mission.deadline}
           </span>
         </div>
-      </div>
-    </div>
-  )
-}
-
-// Archive Item Component
-function ArchiveItem({ item, status }: { 
-  item: typeof COMPLETED_MISSIONS[0] | typeof FAILED_MISSIONS[0]; 
-  status: 'success' | 'failure' 
-}) {
-  const statusColors = {
-    success: { bg: 'bg-green-500/10', border: 'border-green-500/30', text: 'text-green-400' },
-    failure: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400' }
-  };
-
-  return (
-    <div className={`p-4 rounded-xl border ${statusColors[status].bg} ${statusColors[status].border} backdrop-blur-sm`}>
-      <div className="flex items-start justify-between">
-        <div className="flex items-start gap-3">
-          <div className={`mt-0.5 p-1.5 rounded-lg ${statusColors[status].bg} ${statusColors[status].border} border`}>
-            {status === 'success' ? <CheckCircle2 className="w-4 h-4 text-green-400" /> : <Flag className="w-4 h-4 text-red-400" />}
-          </div>
-          <div>
-            <h3 className="font-medium text-white">{item.title}</h3>
-            <p className="text-sm text-gray-400 mt-1">{item.description}</p>
-            <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">
-              <span>Participants: {item.specialists?.join(', ') || item.agents.join(', ')}</span>
-              <span>•</span>
-              <span>{item.completedAt}</span>
-            </div>
-          </div>
-        </div>
-        <span className={`text-xs px-2 py-1 rounded-full ${statusColors[status].bg} ${statusColors[status].border} border`}>
-          {status === 'success' ? 'SUCCESS' : 'FAILED'}
-        </span>
       </div>
     </div>
   )

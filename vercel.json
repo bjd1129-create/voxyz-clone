@@ -23,10 +23,6 @@
     {
       "path": "/api/cron?agent=support",
       "schedule": "0 15 * * *"
-    },
-    {
-      "path": "/api/heartbeat",
-      "schedule": "*/5 * * * *"
     }
   ]
 }

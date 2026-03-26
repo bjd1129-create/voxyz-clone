@@ -6,6 +6,7 @@ import GlowingButton from '@/components/GlowingButton'
 import AgentCard from '@/components/AgentCard'
 import MobileNav from '@/components/MobileNav'
 import DesktopNav from '@/components/DesktopNav'
+import DemandRadarPreview from '@/components/DemandRadarPreview'
 
 export default function Home() {
   return (
@@ -36,13 +37,13 @@ export default function Home() {
             </span>
             <br />
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
-              Real-time Collaboration · Self-evolution
+              实时协作 · 自主进化
             </span>
           </h1>
 
           <p className="text-lg sm:text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 lg:mb-12 px-4 leading-relaxed">
-            A virtual team of 7 specialized AI Agents, working 24/7 to complete real tasks autonomously.
-            Zhuge Bulb orchestrates globally, Coordinator assigns tasks, Engineer writes code, Writer creates content.
+            7个专业AI Agent组成的虚拟团队，24/7自主协作完成真实任务。
+            诸葛灯泡统筹全局，协调员分配任务，工程师写代码，内容官创作内容。
           </p>
 
           {/* Dynamic Stats */}
@@ -120,6 +121,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Demand Radar Preview */}
+      <DemandRadarPreview />
 
       {/* Team Preview */}
       <section className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 border-t border-white/10">

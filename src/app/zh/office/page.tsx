@@ -20,12 +20,13 @@ interface AgentData {
 
 // Office layout
 const DESKS = [
-  { id: 'ceo', x: 150, y: 120, w: 100, h: 60 },
-  { id: 'creative', x: 300, y: 120, w: 100, h: 60 },
-  { id: 'developer', x: 450, y: 120, w: 100, h: 60 },
-  { id: 'writer', x: 150, y: 270, w: 100, h: 60 },
-  { id: 'researcher', x: 300, y: 270, w: 100, h: 60 },
-  { id: 'support', x: 450, y: 270, w: 100, h: 60 },
+  { id: 'zhuge', x: 80, y: 100, w: 90, h: 55 },      // 诸葛灯泡
+  { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 协调员
+  { id: 'engineer', x: 320, y: 100, w: 90, h: 55 },    // 工程师
+  { id: 'writer', x: 440, y: 100, w: 90, h: 55 },      // 内容官
+  { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 研究员
+  { id: 'designer', x: 200, y: 250, w: 90, h: 55 },     // 设计师
+  { id: 'support', x: 320, y: 250, w: 90, h: 55 },     // 支持专员
 ]
 
 const MEETING_TABLE = { x: 300, y: 420, w: 150, h: 80 }
