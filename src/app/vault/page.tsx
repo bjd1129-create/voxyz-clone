@@ -15,20 +15,36 @@ export default function VaultPage() {
     e.preventDefault()
     setLoading(true)
 
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    try {
+      // Connect to waitlist API
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
 
-    setSubmitted(true)
-    setLoading(false)
+      if (response.ok) {
+        setSubmitted(true)
+      } else {
+        alert('Failed to join waitlist. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error joining waitlist:', error)
+      alert('Failed to join waitlist. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <main className="min-h-screen p-3 sm:p-6 flex flex-col items-center justify-center">
       {/* Mobile Navigation */}
-      <MobileNav langToggleHref="/zh/vault" />
+      <MobileNav langToggleHref="/zh/" />
       
       {/* Desktop Navigation */}
-      <DesktopNav langToggleHref="/zh/vault" />
+      <DesktopNav langToggleHref="/zh/" />
 
       <div className="max-w-lg lg:max-w-xl w-full text-center px-4 lg:px-8">
         {/* Desktop Header */}
@@ -49,7 +65,8 @@ export default function VaultPage() {
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">Successfully Registered!</h1>
             <p className="text-gray-400 text-sm sm:text-base lg:text-lg px-4">
-              You've successfully joined the waitlist. We'll send you an early access invitation soon.
+              You&apos;ve successfully joined the waitlist for 诸葛灯泡团队 (Zhuge Bulb Team).
+              We&apos;ll send you an early access invitation soon.
               Please check your email for confirmation.
             </p>
           </div>
@@ -57,8 +74,8 @@ export default function VaultPage() {
           <>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 lg:mb-6">Join the Waitlist</h1>
             <p className="text-gray-400 mb-6 sm:mb-8 lg:mb-10 text-sm sm:text-base lg:text-lg px-2">
-              Be among the first to experience the OpenClaw AI Team.
-              Build the future of AI collaboration together.
+              Be among the first to experience 诸葛灯泡团队 — a team of 10 specialized AI Agents 
+              working 24/7 to handle your real tasks autonomously.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
@@ -91,7 +108,7 @@ export default function VaultPage() {
             </form>
 
             <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 lg:mt-6">
-              🎁 Early supporters get exclusive benefits
+              🎁 Early supporters get exclusive benefits and priority access
             </p>
           </>
         )}

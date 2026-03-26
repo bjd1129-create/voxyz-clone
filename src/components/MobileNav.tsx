@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation';
 import Link from 'next/link'
 import { Menu, X, Bot } from 'lucide-react'
 
@@ -29,8 +30,16 @@ export default function MobileNav({
   showLangToggle = true,
   langToggleHref 
 }: MobileNavProps) {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+
+  // Determine if we're in Chinese section
+  const isChinese = pathname?.startsWith('/zh/');
+  const resolvedLangToggleHref = langToggleHref || (isChinese ? '/' : '/zh/');
+  
+  // Set appropriate language toggle text
+  const langToggleText = isChinese ? '中文 / EN' : 'EN / 中文';
 
   // Close menu on route change
   useEffect(() => {
@@ -80,10 +89,10 @@ export default function MobileNav({
           <div className="flex items-center gap-2">
             {showLangToggle && (
               <Link 
-                href={langToggleHref || '/zh'}
+                href={resolvedLangToggleHref}
                 className="px-2 py-1 text-sm text-gray-400 hover:text-white transition-colors"
               >
-                EN / 中文
+                {langToggleText}
               </Link>
             )}
             

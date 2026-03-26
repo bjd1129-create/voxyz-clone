@@ -6,6 +6,14 @@ import DesktopNav from '@/components/DesktopNav'
 // Blog posts
 const POSTS = [
   {
+    title: 'The More Rules You Write, The Less Your Agent Obeys.',
+    excerpt: 'I tried writing 200 rules for my Agent. It got dumber. After cutting down to 15, it became smarter. This is a philosophy of "less is more" in rule design.',
+    date: '2026-03-27',
+    readTime: '8 min',
+    tags: ['Agent Design', 'Rule Philosophy', 'hardBans'],
+    slug: 'more-rules-less-obedient',
+  },
+  {
     title: 'I Built an AI Company. 7 Weeks Later, They Know It Better Than I Do.',
     excerpt: 'Zhuge Bulb went from 0 to fully operational in 7 weeks. This article shares how I brought 6 Agents together to form a real team, not just 6 independent tools.',
     date: '2026-03-26',

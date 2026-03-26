@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation';
 import Link from 'next/link'
 import { Bot } from 'lucide-react'
 
@@ -24,8 +25,17 @@ const defaultLinks: NavLink[] = [
 
 export default function DesktopNav({ 
   links = defaultLinks, 
-  langToggleHref = '/zh' 
+  langToggleHref 
 }: DesktopNavProps) {
+  const pathname = usePathname();
+  
+  // Determine if we're in Chinese section
+  const isChinese = pathname?.startsWith('/zh/');
+  const resolvedLangToggleHref = langToggleHref || (isChinese ? '/' : '/zh/');
+  
+  // Set appropriate language toggle text
+  const langToggleText = isChinese ? '中文 / EN' : 'EN / 中文';
+
   return (
     <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 items-center justify-between px-8 lg:px-12 py-4 lg:py-5 bg-black/60 backdrop-blur-xl border-b border-white/5">
       <Link href="/" className="flex items-center gap-2.5">
@@ -44,10 +54,10 @@ export default function DesktopNav({
           </Link>
         ))}
         <Link
-          href={langToggleHref}
+          href={resolvedLangToggleHref}
           className="px-4 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-colors"
         >
-          EN / 中文
+          {langToggleText}
         </Link>
       </div>
     </nav>

@@ -4,6 +4,14 @@ import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react'
 // Blog posts
 const POSTS = [
   {
+    title: '规则写得越多，Agent 越不听话。',
+    excerpt: '我试过给 Agent 写 200 条规则。它变得更笨了。删到 15 条后，它反而更聪明了。这是一篇关于"少即是多"的规则设计哲学。',
+    date: '2026-03-27',
+    readTime: '8 分钟',
+    tags: ['Agent 设计', '规则哲学', 'hardBans'],
+    slug: 'more-rules-less-obedient',
+  },
+  {
     title: '我建了一个 AI 公司。7 周后，它们比我还了解公司。',
     excerpt: '诸葛灯泡从 0 到真正运转，花了 7 周。这篇文章讲我是怎么把 6 个 Agent 放在一起，让它们真正成为团队，而不是 6 个独立工具。',
     date: '2026-03-26',
