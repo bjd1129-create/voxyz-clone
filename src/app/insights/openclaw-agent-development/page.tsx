@@ -105,7 +105,7 @@ export default function OpenClawAgentDevelopmentPage() {
 
           <h2 className="text-xl font-semibold mt-8 mb-4">Key Takeaways</h2>
           <ul className="list-disc list-inside text-gray-400 space-y-2 mb-6">
-            <li>Identity > Rules for agent behavior</li>
+            <li>Identity &gt; Rules for agent behavior</li>
             <li>Minimal tool sets improve focus</li>
             <li>Explicit collaboration patterns prevent chaos</li>
             <li>Shared memory is the team's brain</li>

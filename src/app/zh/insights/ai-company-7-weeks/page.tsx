@@ -89,7 +89,7 @@ export default function AICompany7WeeksPage() {
 
           <h2 className="text-xl font-semibold mt-8 mb-4">关键要点</h2>
           <ul className="list-disc list-inside text-gray-400 space-y-2 mb-6">
-            <li>专业分工 > 超级 Agent</li>
+            <li>专业分工 &gt; 超级 Agent</li>
             <li>共享记忆是团队的核心</li>
             <li>心跳检查保持团队一致</li>
             <li>持续进化是目标</li>

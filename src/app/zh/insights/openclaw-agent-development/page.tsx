@@ -73,7 +73,7 @@ export default function OpenClawAgentDevelopmentPage() {
 
           <h2 className="text-xl font-semibold mt-8 mb-4">关键要点</h2>
           <ul className="list-disc list-inside text-gray-400 space-y-2 mb-6">
-            <li>身份 > 规则，决定 Agent 行为</li>
+            <li>身份 &gt; 规则，决定 Agent 行为</li>
             <li>最小工具集提高专注度</li>
             <li>明确的协作模式防止混乱</li>
             <li>共享记忆是团队的大脑</li>
