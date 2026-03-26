@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "auto-heal": "npx ts-node scripts/auto-heal.ts",
+    "auto-heal:check": "npx ts-node scripts/auto-heal.ts check",
+    "auto-heal:policies": "npx ts-node scripts/auto-heal.ts policies",
+    "auto-heal:health": "npx ts-node scripts/auto-heal.ts health"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.100.1",

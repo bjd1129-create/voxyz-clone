@@ -323,6 +323,10 @@ const colorMap: Record<string, ColorConfig> = {
   amber: { gradient: 'from-amber-500 to-amber-600', border: 'border-amber-500/50', bg: 'bg-amber-500/10', text: 'text-amber-400' },
   pink: { gradient: 'from-pink-500 to-pink-600', border: 'border-pink-500/50', bg: 'bg-pink-500/10', text: 'text-pink-400' },
   cyan: { gradient: 'from-cyan-500 to-cyan-600', border: 'border-cyan-500/50', bg: 'bg-cyan-500/10', text: 'text-cyan-400' },
+  lime: { gradient: 'from-lime-500 to-lime-600', border: 'border-lime-500/50', bg: 'bg-lime-500/10', text: 'text-lime-400' },
+  indigo: { gradient: 'from-indigo-500 to-indigo-600', border: 'border-indigo-500/50', bg: 'bg-indigo-500/10', text: 'text-indigo-400' },
+  slate: { gradient: 'from-slate-500 to-slate-600', border: 'border-slate-500/50', bg: 'bg-slate-500/10', text: 'text-slate-400' },
+  green: { gradient: 'from-green-500 to-green-600', border: 'border-green-500/50', bg: 'bg-green-500/10', text: 'text-green-400' },
 }
 
 export default function SwarmPage() {
