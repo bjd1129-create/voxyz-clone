@@ -78,11 +78,11 @@ export default function AgentCard({ name, role, color, icon, href }: AgentCardPr
       {/* Icon container with glow */}
       <div className="relative">
         <div className={`
-          w-16 h-16 mx-auto mb-3
+          w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-2 sm:mb-3
           rounded-full
           bg-gradient-to-br ${colorStyles.bg}
           flex items-center justify-center
-          text-3xl
+          text-2xl sm:text-3xl
           group-hover:scale-110 transition-transform duration-300
           relative
         `}>

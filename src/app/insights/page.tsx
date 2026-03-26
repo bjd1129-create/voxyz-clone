@@ -1,61 +1,98 @@
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react'
+import MobileNav from '@/components/MobileNav'
+import DesktopNav from '@/components/DesktopNav'
 
 // Blog posts
 const POSTS = [
   {
-    title: '如何构建 AI 团队：从单一 Agent 到协作网络',
-    excerpt: '详解 OpenClaw 如何将 7 个专业化 Agent 组织成高效协作团队。包括角色定义、任务分配、知识共享等核心设计。',
+    title: '我建了一个 AI 公司。7 周后，它们比我还了解公司。',
+    excerpt: '诸葛灯泡从 0 到真正运转，花了 7 周。这篇文章讲我是怎么把 6 个 Agent 放在一起，让它们真正成为团队，而不是 6 个独立工具。',
+    date: '2026-03-26',
+    readTime: '10 min',
+    tags: ['AI Agents', '创业', '系统设计'],
+    slug: 'ai-company-7-weeks',
+  },
+  {
+    title: 'Radar 不是仪表盘。是耳朵。',
+    excerpt: '仪表盘显示的是已知。Radar 捕捉的是未知。这篇文章讲我如何发现传统仪表盘的局限，以及 Radar 作为需求信号系统的设计哲学。',
+    date: '2026-03-26',
+    readTime: '8 min',
+    tags: ['产品', '信号', '用户洞察'],
+    slug: 'radar-is-not-dashboard',
+  },
+  {
+    title: 'How to Build an AI Team: From Single Agent to Collaborative Network',
+    excerpt: 'A deep dive into how OpenClaw organizes 7 specialized Agents into an efficient collaborative team. Including role definition, task assignment, knowledge sharing, and other core designs.',
     date: '2026-03-25',
     readTime: '8 min',
-    tags: ['架构设计', 'AI Agents'],
+    tags: ['Architecture', 'AI Agents'],
   },
   {
-    title: '数据闭环设计实践：让 AI 团队持续进化',
-    excerpt: '探讨如何构建数据闭环系统，让每次任务都成为学习机会。从数据采集、知识沉淀到能力迭代的全链路实践。',
+    title: 'Data Loop Design in Practice: Enabling Continuous AI Team Evolution',
+    excerpt: 'Exploring how to build a data loop system where every task becomes a learning opportunity. Full-stack practice from data collection and knowledge accumulation to capability iteration.',
     date: '2026-03-22',
     readTime: '6 min',
-    tags: ['技术实践', 'OpenClaw'],
+    tags: ['Technical', 'OpenClaw'],
   },
   {
-    title: 'OpenClaw Agent 开发经验：角色、工具与协作',
-    excerpt: '分享开发专业化 Agent 的实战经验。如何定义角色性格、选择工具集、设计协作流程，以及踩过的坑。',
+    title: 'OpenClaw Agent Development Experience: Roles, Tools & Collaboration',
+    excerpt: 'Sharing practical experience in developing specialized Agents. How to define role personalities, select tool sets, design collaboration workflows, and lessons learned.',
     date: '2026-03-18',
     readTime: '10 min',
-    tags: ['开发经验', '实战'],
+    tags: ['Development', 'Practice'],
   },
 ]
 
 export default function InsightsPage() {
   return (
-    <main className="min-h-screen p-6">
-      <header className="max-w-4xl mx-auto mb-8">
-        <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6">
-          <ArrowLeft className="w-4 h-4" />
-          返回首页
-        </Link>
+    <main className="min-h-screen p-3 sm:p-6">
+      {/* Mobile Navigation */}
+      <MobileNav langToggleHref="/zh/insights" />
+      
+      {/* Desktop Navigation */}
+      <DesktopNav langToggleHref="/zh/insights" />
 
-        <h1 className="text-3xl font-bold">技术洞察</h1>
-        <p className="text-gray-400 mt-1">AI 团队构建与运营的深度思考</p>
+      {/* Desktop Header */}
+      <header className="hidden md:block max-w-6xl lg:max-w-7xl mx-auto mb-8 lg:mb-12">
+        <div className="flex items-center justify-between mb-6 lg:mb-8">
+          <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Home
+          </Link>
+          <Link href="/zh/insights" className="px-3 py-1.5 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition-colors">
+            EN / 中文
+          </Link>
+        </div>
+
+        <h1 className="text-4xl lg:text-5xl font-bold">Insights</h1>
+        <p className="text-gray-400 mt-2 text-lg lg:text-xl">Deep thoughts on AI team building and operations</p>
       </header>
 
-      <section className="max-w-4xl mx-auto">
-        <div className="space-y-6">
-          {POSTS.map((post, i) => (
-            <article
-              key={i}
-              className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-white/30 transition-colors cursor-pointer"
-            >
-              <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-              <p className="text-gray-400 mb-4">{post.excerpt}</p>
+      {/* Mobile Title */}
+      <div className="md:hidden mb-6 text-center">
+        <h1 className="text-2xl font-bold">Insights</h1>
+        <p className="text-gray-400 text-sm mt-1">AI team building insights</p>
+      </div>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+      <section className="max-w-6xl lg:max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          {POSTS.map((post, i) => (
+            <Link
+              key={i}
+              href={post.slug ? `/insights/${post.slug}` : '#'}
+              className="block p-5 sm:p-6 lg:p-8 bg-white/5 rounded-xl border border-white/10 hover:border-white/30 transition-colors cursor-pointer"
+            >
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2 lg:mb-3">{post.title}</h2>
+              <p className="text-gray-400 text-sm sm:text-base lg:text-lg mb-4">{post.excerpt}</p>
+
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
                 <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                   {post.date}
                 </div>
                 <div className="flex items-center gap-1">
-                  <Clock className="w-4 h-4" />
+                  <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                   {post.readTime}
                 </div>
                 <div className="flex gap-2">
@@ -66,7 +103,7 @@ export default function InsightsPage() {
                   ))}
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
