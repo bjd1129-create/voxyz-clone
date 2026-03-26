@@ -8,21 +8,21 @@ export async function GET() {
 
   // 使用 anon key 测试
   const anonClient = createClient(url, anonKey)
-  const { data: anonData, error: anonError } = await anonClient.from('agents').select('id, name').limit(2)
+  const { data: anonProphet, error: anonError } = await anonClient.from('agents').select('id, name').limit(2)
 
   // 使用 service key 测试
   const serviceClient = createClient(url, serviceKey)
-  const { data: serviceData, error: serviceError } = await serviceClient.from('agents').select('id, name').limit(2)
+  const { data: serviceProphet, error: serviceError } = await serviceClient.from('agents').select('id, name').limit(2)
 
   return NextResponse.json({
     anonKeyTest: {
       success: !anonError,
-      data: anonData,
+      data: anonProphet,
       error: anonError?.message
     },
     serviceKeyTest: {
       success: !serviceError,
-      data: serviceData,
+      data: serviceProphet,
       error: serviceError?.message
     }
   })

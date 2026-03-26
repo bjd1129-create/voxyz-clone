@@ -10,94 +10,109 @@ import {
 } from 'lucide-react'
 import MobileNav from '@/components/MobileNav'
 import DesktopNav from '@/components/DesktopNav'
+import { supabase } from '@/lib/supabase'
 
-// Core Agent definitions matching our team structure
-const AGENTS = [
-  {
-    id: 'zhuge',
-    name: '诸葛灯泡',
-    emoji: '🎯',
-    color: 'purple',
-    role: '管理员&进化官',
-    description: '系统协调和持续进化',
-    status: 'active',
-    currentTask: '优化代理协调协议',
-    stats: { tasks: 156, efficiency: 98, uptime: '99.9%' },
-    resources: { cpu: 72, memory: 58 }
-  },
-  {
-    id: 'coordinator',
-    name: '协调员',
-    emoji: '🎯',
-    color: 'rose',
-    role: '任务分配',
-    description: '全局任务路由和团队协调',
-    status: 'active',
-    currentTask: '平衡团队成员间的工作负载',
-    stats: { tasks: 203, efficiency: 96, uptime: '99.7%' },
-    resources: { cpu: 45, memory: 42 }
-  },
-  {
-    id: 'engineer',
-    name: '工程师',
-    emoji: '💻',
-    color: 'blue',
-    role: '技术开发',
-    description: '代码编写、调试和系统架构',
-    status: 'active',
-    currentTask: '构建指挥中心界面',
-    stats: { tasks: 312, efficiency: 94, uptime: '99.5%' },
-    resources: { cpu: 88, memory: 76 }
-  },
-  {
-    id: 'writer',
-    name: '文案',
-    emoji: '📝',
-    color: 'emerald',
-    role: '内容创作',
-    description: '文档、文章和通信',
-    status: 'idle',
-    currentTask: null,
-    stats: { tasks: 178, efficiency: 92, uptime: '98.9%' },
-    resources: { cpu: 12, memory: 18 }
-  },
-  {
-    id: 'researcher',
-    name: '研究员',
-    emoji: '🔍',
-    color: 'amber',
-    role: '研究分析',
-    description: '市场研究和竞争分析',
-    status: 'active',
-    currentTask: '分析AI代理框架格局',
-    stats: { tasks: 245, efficiency: 91, uptime: '99.1%' },
-    resources: { cpu: 65, memory: 52 }
-  },
-  {
-    id: 'designer',
-    name: '设计师',
-    emoji: '🎨',
-    color: 'pink',
-    role: '视觉设计',
-    description: 'UI/UX设计和品牌管理',
-    status: 'active',
-    currentTask: '创建Swarm指挥中心界面',
-    stats: { tasks: 134, efficiency: 95, uptime: '99.2%' },
-    resources: { cpu: 58, memory: 68 }
-  },
-  {
-    id: 'support',
-    name: '支持专员',
-    emoji: '🛠️',
-    color: 'cyan',
-    role: '用户支持',
-    description: '客户成功和用户协助',
-    status: 'idle',
-    currentTask: null,
-    stats: { tasks: 89, efficiency: 97, uptime: '99.8%' },
-    resources: { cpu: 8, memory: 15 }
-  }
-]
+// Agent interface for type safety
+interface Agent {
+  id: string
+  name: string
+  emoji: string
+  color: string
+  role: string
+  description: string
+  status: 'active' | 'idle'
+  currentTask: string | null
+  stats: { tasks: number; efficiency: number; uptime: string }
+  resources: { cpu: number; memory: number }
+}
+
+// We'll fetch agents from Supabase instead of using mock data
+// const AGENTS = [
+//   {
+//     id: 'zhuge',
+//     name: '诸葛灯泡',
+//     emoji: '🎯',
+//     color: 'purple',
+//     role: '造梦者',
+//     description: '系统协调和持续进化',
+//     status: 'active',
+//     currentTask: '优化代理协调协议',
+//     stats: { tasks: 156, efficiency: 98, uptime: '99.9%' },
+//     resources: { cpu: 72, memory: 58 }
+//   },
+//   {
+//     id: 'coordinator',
+//     name: '掌舵人',
+//     emoji: '🎯',
+//     color: 'rose',
+//     role: '任务分配',
+//     description: '全局任务路由和团队协调',
+//     status: 'active',
+//     currentTask: '平衡团队成员间的工作负载',
+//     stats: { tasks: 203, efficiency: 96, uptime: '99.7%' },
+//     resources: { cpu: 45, memory: 42 }
+//   },
+//   {
+//     id: 'engineer',
+//     name: '代码侠',
+//     emoji: '💻',
+//     color: 'blue',
+//     role: '技术开发',
+//     description: '代码编写、调试和系统架构',
+//     status: 'active',
+//     currentTask: '构建指挥中心界面',
+//     stats: { tasks: 312, efficiency: 94, uptime: '99.5%' },
+//     resources: { cpu: 88, memory: 76 }
+//   },
+//   {
+//     id: 'writer',
+//     name: '文案君',
+//     emoji: '📝',
+//     color: 'emerald',
+//     role: '内容创作',
+//     description: '文档、文章和通信',
+//     status: 'idle',
+//     currentTask: null,
+//     stats: { tasks: 178, efficiency: 92, uptime: '98.9%' },
+//     resources: { cpu: 12, memory: 18 }
+//   },
+//   {
+//     id: 'researcher',
+//     name: '洞察者',
+//     emoji: '🔍',
+//     color: 'amber',
+//     role: '研究分析',
+//     description: '市场研究和竞争分析',
+//     status: 'active',
+//     currentTask: '分析AI代理框架格局',
+//     stats: { tasks: 245, efficiency: 91, uptime: '99.1%' },
+//     resources: { cpu: 65, memory: 52 }
+//   },
+//   {
+//     id: 'designer',
+//     name: '配色师',
+//     emoji: '🎨',
+//     color: 'pink',
+//     role: '视觉设计',
+//     description: 'UI/UX设计和品牌管理',
+//     status: 'active',
+//     currentTask: '创建Swarm指挥中心界面',
+//     stats: { tasks: 134, efficiency: 95, uptime: '99.2%' },
+//     resources: { cpu: 58, memory: 68 }
+//   },
+//   {
+//     id: 'support',
+//     name: '守护者',
+//     emoji: '🛠️',
+//     color: 'cyan',
+//     role: '用户支持',
+//     description: '客户成功和用户协助',
+//     status: 'idle',
+//     currentTask: null,
+//     stats: { tasks: 89, efficiency: 97, uptime: '99.8%' },
+//     resources: { cpu: 8, memory: 15 }
+//   }
+// ]
 
 // Mission data
 const MISSIONS = [
@@ -155,7 +170,7 @@ const COMPLETED_MISSIONS = [
     deadline: '2024-01-08',
     description: 'Complete overhaul of company website',
     completedAt: '2024-01-08',
-    specialists: ['Designer', 'Engineer']
+    specialists: ['配色师', '代码侠']
   },
   { 
     id: 6, 
@@ -201,7 +216,7 @@ const FAILED_MISSIONS = [
   },
   { 
     id: 9, 
-    title: 'Data Migration', 
+    title: 'Prophet Migration', 
     status: 'failed', 
     progress: 45, 
     priority: 'medium',
@@ -209,7 +224,7 @@ const FAILED_MISSIONS = [
     deadline: '2024-01-04',
     description: 'Migrate legacy data to new system',
     completedAt: '2024-01-04',
-    failureReason: 'Data corruption detected',
+    failureReason: 'Prophet corruption detected',
     specialists: ['Engineer', 'Support Specialist']
   },
   { 
@@ -223,7 +238,7 @@ const FAILED_MISSIONS = [
     description: 'Deploy new user features',
     completedAt: '2024-01-03',
     failureReason: 'Compatibility issues',
-    specialists: ['Designer', 'Engineer']
+    specialists: ['配色师', '代码侠']
   },
   { 
     id: 11, 
@@ -262,7 +277,7 @@ const FAILED_MISSIONS = [
     description: 'Redesign user interface',
     completedAt: '2023-12-30',
     failureReason: 'Timeline constraints',
-    specialists: ['Designer', 'Writer']
+    specialists: ['配色师', '文案君']
   },
   { 
     id: 14, 
@@ -294,14 +309,14 @@ const ACTIVITY = [
   { agent: 'Researcher', action: 'Completed market analysis section', time: '5m ago', type: 'research' },
   { agent: 'Coordinator', action: 'Rebalanced task assignments', time: '8m ago', type: 'coordination' },
   { agent: 'Designer', action: 'Uploaded new UI components', time: '12m ago', type: 'design' },
-  { agent: 'Zhuge Bulb', action: 'Optimized agent communication protocol', time: '15m ago', type: 'system' },
+  { agent: '诸葛灯泡', action: 'Optimized agent communication protocol', time: '15m ago', type: 'system' },
   { agent: 'Writer', action: 'Drafted blog post outline', time: '18m ago', type: 'content' },
 ]
 
-// Color map for agent colors
+// Color map for agent colors - unified with green primary
 type ColorConfig = { gradient: string; border: string; bg: string; text: string }
 const colorMap: Record<string, ColorConfig> = {
-  purple: { gradient: 'from-purple-500 to-purple-600', border: 'border-purple-500/50', bg: 'bg-purple-500/10', text: 'text-purple-400' },
+  purple: { gradient: 'from-primary-500 to-primary-600', border: 'border-primary-500/50', bg: 'bg-primary-500/10', text: 'text-primary-400' },
   rose: { gradient: 'from-rose-500 to-rose-600', border: 'border-rose-500/50', bg: 'bg-rose-500/10', text: 'text-rose-400' },
   blue: { gradient: 'from-blue-500 to-blue-600', border: 'border-blue-500/50', bg: 'bg-blue-500/10', text: 'text-blue-400' },
   emerald: { gradient: 'from-emerald-500 to-emerald-600', border: 'border-emerald-500/50', bg: 'bg-emerald-500/10', text: 'text-emerald-400' },
@@ -313,9 +328,71 @@ const colorMap: Record<string, ColorConfig> = {
 export default function SwarmPage() {
   const [activeView, setActiveView] = useState<'working' | 'missions' | 'steps' | 'archive' | 'events'>('working')
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null)
-  const [agents, setAgents] = useState(AGENTS)
+  const [agents, setAgents] = useState<any[]>([]) // Using any for now, we'll define proper types later
 
-  // Simulate real-time updates
+  // Fetch agents from Supabase
+  const fetchAgents = async () => {
+    const { data, error } = await supabase
+      .from('agents')
+      .select('*')
+      .order('name', { ascending: true })
+    
+    if (error) {
+      console.error('Error fetching agents:', error)
+    } else {
+      // Transform the data to match the expected format
+      const transformedAgents = data.map(agent => ({
+        id: agent.id,
+        name: agent.name,
+        emoji: agent.emoji,
+        color: agent.color.startsWith('#') ? agent.color.replace('#', '') : agent.color, // Remove # for color mapping
+        role: agent.role,
+        description: agent.role, // Using role as description for now
+        status: agent.status === 'busy' ? 'active' : agent.status, // Map busy to active
+        currentTask: agent.current_task,
+        stats: { 
+          tasks: 0, // This would come from actual task data
+          efficiency: 90, // Placeholder value
+          uptime: '99.9%' // Placeholder value
+        },
+        resources: { 
+          cpu: Math.floor(Math.random() * 40) + 30, // Random value for now
+          memory: Math.floor(Math.random() * 40) + 30 // Random value for now
+        }
+      }))
+      setAgents(transformedAgents)
+    }
+  }
+
+  useEffect(() => {
+    fetchAgents()
+  }, [])
+
+  // Subscribe to real-time updates
+  useEffect(() => {
+    const channel = supabase
+      .channel('agents-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'agents',
+        },
+        (payload) => {
+          console.log('Agents change received:', payload)
+          // Refresh agents when there's a change
+          fetchAgents()
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [])
+
+  // Simulate real-time updates for resources
   useEffect(() => {
     const interval = setInterval(() => {
       setAgents(prev => prev.map(agent => ({
@@ -416,17 +493,17 @@ export default function SwarmPage() {
         {/* Core concept banner */}
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full border border-purple-500/20 mb-4">
-              <Sparkles className="w-4 h-4 text-purple-400" />
-              <span className="text-sm text-purple-300">AI-Powered Teamwork</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500/10 to-primary-600/10 rounded-full border border-primary-500/20 mb-4">
+              <Sparkles className="w-4 h-4 text-primary-400" />
+              <span className="text-sm text-primary-300">AI-Powered Teamwork</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                七位AI专家. 共同使命.
+              <span className="bg-gradient-to-r from-primary-400 via-primary-300 to-primary-500 bg-clip-text text-transparent">
+                10 AI Specialists. One Mission.
               </span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              7 Core Agents working together in real-time to achieve common objectives.
+              10 Core Agents working together in real-time to achieve common objectives.
             </p>
           </div>
         </div>
@@ -447,7 +524,7 @@ export default function SwarmPage() {
                 className={`
                   flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all whitespace-nowrap
                   ${activeView === tab.id 
-                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/25' 
+                    ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg shadow-primary-500/25' 
                     : 'text-gray-400 hover:text-white hover:bg-white/5'}
                 `}
               >
@@ -508,7 +585,7 @@ export default function SwarmPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <label className="block text-xs text-gray-400 mb-1">Target Agent</label>
-                      <select className="w-full bg-slate-800/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50">
+                      <select className="w-full bg-slate-800/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50">
                         <option>Select an agent...</option>
                         {agents.map(agent => (
                           <option key={agent.id} value={agent.id}>{agent.name}</option>
@@ -520,12 +597,12 @@ export default function SwarmPage() {
                       <input 
                         type="text" 
                         placeholder="Describe the mission..." 
-                        className="w-full bg-slate-800/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        className="w-full bg-slate-800/50 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                       />
                     </div>
                   </div>
                   <div className="flex gap-2 sm:gap-3 mt-3">
-                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
                       <Play className="w-4 h-4" />
                       Launch Mission
                     </button>
@@ -578,7 +655,7 @@ export default function SwarmPage() {
                             {item.type === 'research' && <Database className="w-4 h-4 text-amber-400" />}
                             {item.type === 'coordination' && <Target className="w-4 h-4 text-rose-400" />}
                             {item.type === 'design' && <Layers className="w-4 h-4 text-pink-400" />}
-                            {item.type === 'system' && <Zap className="w-4 h-4 text-purple-400" />}
+                            {item.type === 'system' && <Zap className="w-4 h-4 text-primary-400" />}
                             {item.type === 'content' && <Flag className="w-4 h-4 text-emerald-400" />}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -612,7 +689,7 @@ export default function SwarmPage() {
                 <div className="flex items-center justify-center min-w-max">
                   {/* Core Agents */}
                   <div className="flex flex-col items-center mx-4">
-                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white text-lg font-bold border-4 border-white/20 shadow-lg">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white text-lg font-bold border-4 border-white/20 shadow-lg">
                       7 Core<br/>Agents
                     </div>
                     <div className="mt-3 text-sm text-gray-300 font-medium">Initiation</div>
@@ -662,7 +739,7 @@ export default function SwarmPage() {
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="bg-slate-800/50 p-4 rounded-lg border border-white/10">
                     <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                      <Target className="w-5 h-5 text-purple-400" />
+                      <Target className="w-5 h-5 text-primary-400" />
                       7 Core Agents
                     </h3>
                     <p className="text-sm text-gray-400">
@@ -719,7 +796,7 @@ export default function SwarmPage() {
                           <div className="flex items-start gap-3">
                             <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center ${
                               step.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                              step.status === 'active' ? 'bg-purple-500/20 text-purple-400' :
+                              step.status === 'active' ? 'bg-primary-500/20 text-primary-400' :
                               'bg-gray-500/20 text-gray-400'
                             }`}>
                               {step.status === 'completed' ? <CheckCircle2 className="w-4 h-4" /> :
@@ -822,7 +899,7 @@ export default function SwarmPage() {
                 <h2 className="text-xl font-semibold">Mission Control</h2>
                 <button 
                   onClick={() => window.open('/new-mission', '_blank')}
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
                 >
                   <Plus className="w-4 h-4" />
                   New Mission
@@ -884,7 +961,7 @@ export default function SwarmPage() {
                 
                 {/* Filter buttons */}
                 <div className="flex gap-2">
-                  <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+                  <button className="px-4 py-2 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
                     All
                   </button>
                   <button className="px-4 py-2 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors border border-white/10">
@@ -904,8 +981,8 @@ export default function SwarmPage() {
                       <p className="text-gray-400 text-sm">Total Missions</p>
                       <p className="text-2xl font-bold text-white">{ARCHIVE.length + COMPLETED_MISSIONS.length + FAILED_MISSIONS.length}</p>
                     </div>
-                    <div className="p-3 bg-purple-500/20 rounded-lg">
-                      <Activity className="w-6 h-6 text-purple-400" />
+                    <div className="p-3 bg-primary-500/20 rounded-lg">
+                      <Activity className="w-6 h-6 text-primary-400" />
                     </div>
                   </div>
                 </div>
@@ -980,7 +1057,7 @@ function StatCard({ icon, label, value, total, color }: {
   color: string
 }) {
   const colors: Record<string, string> = {
-    purple: 'from-purple-500/20 to-purple-600/10 border-purple-500/30',
+    purple: 'from-primary-500/20 to-primary-600/10 border-primary-500/30',
     green: 'from-green-500/20 to-green-600/10 border-green-500/30',
     blue: 'from-blue-500/20 to-blue-600/10 border-blue-500/30',
     amber: 'from-amber-500/20 to-amber-600/10 border-amber-500/30',
@@ -1007,7 +1084,7 @@ function MetricCard({ label, value, color }: {
   color: string
 }) {
   const colors: Record<string, string> = {
-    purple: 'from-purple-500/20 to-purple-600/10 border-purple-500/30',
+    purple: 'from-primary-500/20 to-primary-600/10 border-primary-500/30',
     green: 'from-green-500/20 to-green-600/10 border-green-500/30',
     blue: 'from-blue-500/20 to-blue-600/10 border-blue-500/30',
     amber: 'from-amber-500/20 to-amber-600/10 border-amber-500/30',
@@ -1027,7 +1104,7 @@ function MetricCard({ label, value, color }: {
 
 // Agent Card Component
 function AgentCard({ agent, isSelected, onClick, colors }: {
-  agent: typeof AGENTS[0]
+  agent: Agent
   isSelected: boolean
   onClick: () => void
   colors: ColorConfig
@@ -1040,7 +1117,7 @@ function AgentCard({ agent, isSelected, onClick, colors }: {
         ${isSelected 
           ? `bg-gradient-to-br ${colors.gradient.replace('to-', 'to-')}20 ${colors.border} ring-2 ring-offset-2 ring-offset-slate-900 ring-${agent.color}-500/50` 
           : 'bg-white/5 border-white/10 hover:border-white/30'}
-        ${agent.status === 'active' ? 'hover:shadow-xl hover:shadow-purple-500/10' : ''}
+        ${agent.status === 'active' ? 'hover:shadow-xl hover:shadow-primary-500/10' : ''}
       `}
     >
       {/* Status indicator */}
@@ -1128,7 +1205,7 @@ function AgentCard({ agent, isSelected, onClick, colors }: {
 
 // Agent Detail Panel Component
 function AgentDetailPanel({ agent, colors, onClose }: {
-  agent: typeof AGENTS[0]
+  agent: Agent
   colors: ColorConfig
   onClose: () => void
 }) {
@@ -1195,7 +1272,7 @@ type Mission = typeof MISSIONS[0] | typeof COMPLETED_MISSIONS[0] | typeof FAILED
 // Mission Card Component
 function MissionCard({ mission, agents, colorMap }: {
   mission: Mission
-  agents: typeof AGENTS
+  agents: Agent[]
   colorMap: Record<string, ColorConfig>
 }) {
   const statusColors: Record<string, string> = {
@@ -1237,7 +1314,7 @@ function MissionCard({ mission, agents, colorMap }: {
         </div>
         <div className="h-2 bg-white/10 rounded-full overflow-hidden">
           <div 
-            className="h-full rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all"
+            className="h-full rounded-full bg-gradient-to-r from-primary-400 to-primary-500 transition-all"
             style={{ width: `${mission.progress}%` }}
           />
         </div>

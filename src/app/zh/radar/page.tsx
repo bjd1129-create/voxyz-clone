@@ -130,7 +130,7 @@ export default function RadarPage() {
     return () => clearInterval(interval)
   }, [])
 
-  const selectedSignalData = selectedSignal 
+  const selectedSignalProphet = selectedSignal 
     ? signals.find(s => s.id === selectedSignal) 
     : null
 
@@ -386,7 +386,7 @@ export default function RadarPage() {
           </div>
           
           {/* Selected Signal Detail */}
-          {selectedSignalData && (
+          {selectedSignalProphet && (
             <div className="bg-white/05 rounded-xl border border-white/10 backdrop-blur-sm p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium">信号详情</h3>
@@ -400,28 +400,28 @@ export default function RadarPage() {
               
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-purple-400">{selectedSignalData.topic}</h4>
-                  <p className="text-sm text-gray-400 mt-1">ID: {selectedSignalData.id}</p>
+                  <h4 className="font-medium text-purple-400">{selectedSignalProphet.topic}</h4>
+                  <p className="text-sm text-gray-400 mt-1">ID: {selectedSignalProphet.id}</p>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-xs text-gray-400">信号强度</div>
-                    <div className="text-lg font-bold">{selectedSignalData.strength.toFixed(1)}/10</div>
+                    <div className="text-lg font-bold">{selectedSignalProphet.strength.toFixed(1)}/10</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-xs text-gray-400">数据源</div>
-                    <div className="text-lg font-bold">{selectedSignalData.sources}</div>
+                    <div className="text-lg font-bold">{selectedSignalProphet.sources}</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-xs text-gray-400">趋势</div>
                     <div className="flex items-center gap-1">
-                      {selectedSignalData.trend === 'up' ? (
+                      {selectedSignalProphet.trend === 'up' ? (
                         <>
                           <TrendingUp className="w-4 h-4 text-green-400" />
                           <span className="text-sm">上升</span>
                         </>
-                      ) : selectedSignalData.trend === 'down' ? (
+                      ) : selectedSignalProphet.trend === 'down' ? (
                         <>
                           <TrendingDown className="w-4 h-4 text-red-400" />
                           <span className="text-sm">下降</span>
@@ -436,7 +436,7 @@ export default function RadarPage() {
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-xs text-gray-400">最后检测</div>
-                    <div className="text-sm">{selectedSignalData.lastDetected}</div>
+                    <div className="text-sm">{selectedSignalProphet.lastDetected}</div>
                   </div>
                 </div>
                 

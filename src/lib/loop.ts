@@ -278,7 +278,7 @@ function getAgentInstructions(agentId: string): string[] {
     ],
     researcher: [
       '认领研究任务',
-      '对比 voxyz.space',
+      '对比 openclaw.ai',
       '记录发现',
       '提出研究提案'
     ],

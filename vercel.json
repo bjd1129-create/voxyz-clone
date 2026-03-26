@@ -1,28 +1,12 @@
 {
   "crons": [
     {
-      "path": "/api/cron?agent=coordinator",
-      "schedule": "0 9 * * *"
+      "path": "/api/heartbeat",
+      "schedule": "*/5 * * * *"
     },
     {
-      "path": "/api/cron?agent=developer",
-      "schedule": "0 10 * * *"
-    },
-    {
-      "path": "/api/cron?agent=researcher",
-      "schedule": "0 11 * * *"
-    },
-    {
-      "path": "/api/cron?agent=writer",
+      "path": "/api/loop",
       "schedule": "0 12 * * *"
-    },
-    {
-      "path": "/api/cron?agent=designer",
-      "schedule": "0 14 * * *"
-    },
-    {
-      "path": "/api/cron?agent=support",
-      "schedule": "0 15 * * *"
     }
   ]
 }

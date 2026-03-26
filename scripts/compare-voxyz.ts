@@ -23,7 +23,7 @@ const FEATURES: ComparisonResult[] = [
   { feature: 'Command Center (/swarm)', voxyz: '✅ 实时状态', ours: '⚠️ 模拟数据', gap: 'major', priority: 'high', notes: '需要真实 Agent 状态同步' },
   { feature: 'Pixel Office (/office)', voxyz: '✅ 动画+实时', ours: '⚠️ 静态动画', gap: 'major', priority: 'high', notes: '需要状态同步和更多动画' },
   { feature: 'Demand Radar (/radar)', voxyz: '✅ 真实数据', ours: '⚠️ 模拟数据', gap: 'minor', priority: 'medium', notes: '需要接入真实数据源' },
-  { feature: 'Insights 博客', voxyz: '✅ 多篇文章', ours: '⚠️ 示例文章', gap: 'minor', priority: 'medium', notes: '需要内容官填充真实内容' },
+  { feature: 'Insights 博客', voxyz: '✅ 多篇文章', ours: '⚠️ 示例文章', gap: 'minor', priority: 'medium', notes: '需要文案君填充真实内容' },
   { feature: 'Vault 注册', voxyz: '✅ 功能完整', ours: '⚠️ 仅前端', gap: 'minor', priority: 'low', notes: '需要后端存储' },
 
   // Architecture

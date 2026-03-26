@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Maximize2, Minimize2, Activity, Coffee, Users, Briefcase, MessageCircle } from 'lucide-react'
 
-interface AgentData {
+interface AgentProphet {
   name: string
   emoji: string
   color: string
@@ -21,12 +21,12 @@ interface AgentData {
 // Office layout
 const DESKS = [
   { id: 'zhuge', x: 80, y: 100, w: 90, h: 55 },      // 诸葛灯泡
-  { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 协调员
-  { id: 'engineer', x: 320, y: 100, w: 90, h: 55 },    // 工程师
-  { id: 'writer', x: 440, y: 100, w: 90, h: 55 },      // 内容官
-  { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 研究员
-  { id: 'designer', x: 200, y: 250, w: 90, h: 55 },     // 设计师
-  { id: 'support', x: 320, y: 250, w: 90, h: 55 },     // 支持专员
+  { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 掌舵人
+  { id: 'engineer', x: 320, y: 100, w: 90, h: 55 },    // 代码侠
+  { id: 'writer', x: 440, y: 100, w: 90, h: 55 },      // 文案君
+  { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 洞察者
+  { id: 'designer', x: 200, y: 250, w: 90, h: 55 },     // 配色师
+  { id: 'support', x: 320, y: 250, w: 90, h: 55 },     // 守护者
 ]
 
 const MEETING_TABLE = { x: 300, y: 420, w: 150, h: 80 }
@@ -63,7 +63,7 @@ const SPEECH_BUBBLES = {
 
 export default function OfficePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [agents, setAgents] = useState<Record<string, AgentData>>({})
+  const [agents, setAgents] = useState<Record<string, AgentProphet>>({})
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [lastUpdate, setLastUpdate] = useState<string>('')

@@ -5,135 +5,250 @@ import Link from 'next/link'
 import { ArrowLeft, TrendingUp, TrendingDown, Activity, Eye, MessageCircle, Users, BarChart3, Target, Zap } from 'lucide-react'
 import MobileNav from '@/components/MobileNav'
 import DesktopNav from '@/components/DesktopNav'
+import { supabase } from '@/lib/supabase'
 
-// Mock data for radar signals
-const DEMAND_SIGNALS = [
-  { 
-    id: 1, 
-    topic: 'AI Agent 团队协作', 
-    volume: 98, 
-    trend: 'up', 
-    sources: 256,
-    strength: 9.2,
-    sentiment: 'positive',
-    category: 'productivity',
-    lastDetected: '2 min ago'
-  },
-  { 
-    id: 2, 
-    topic: 'OpenClaw 多渠道接入', 
-    volume: 89, 
-    trend: 'up', 
-    sources: 178,
-    strength: 8.7,
-    sentiment: 'positive',
-    category: 'integration',
-    lastDetected: '5 min ago'
-  },
-  { 
-    id: 3, 
-    topic: '自动化内容生成', 
-    volume: 85, 
-    trend: 'up', 
-    sources: 312,
-    strength: 8.5,
-    sentiment: 'positive',
-    category: 'content',
-    lastDetected: '8 min ago'
-  },
-  { 
-    id: 4, 
-    topic: 'AI 编程助手', 
-    volume: 82, 
-    trend: 'stable', 
-    sources: 405,
-    strength: 8.1,
-    sentiment: 'neutral',
-    category: 'development',
-    lastDetected: '12 min ago'
-  },
-  { 
-    id: 5, 
-    topic: 'Agent 任务编排', 
-    volume: 75, 
-    trend: 'up', 
-    sources: 134,
-    strength: 7.4,
-    sentiment: 'positive',
-    category: 'orchestration',
-    lastDetected: '15 min ago'
-  },
-  { 
-    id: 6, 
-    topic: '数据闭环系统', 
-    volume: 72, 
-    trend: 'up', 
-    sources: 89,
-    strength: 7.1,
-    sentiment: 'positive',
-    category: 'analytics',
-    lastDetected: '18 min ago'
-  },
-  { 
-    id: 7, 
-    topic: '多 Agent 协作框架', 
-    volume: 68, 
-    trend: 'stable', 
-    sources: 196,
-    strength: 6.7,
-    sentiment: 'positive',
-    category: 'collaboration',
-    lastDetected: '22 min ago'
-  },
-  { 
-    id: 8, 
-    topic: 'AI 工作流自动化', 
-    volume: 65, 
-    trend: 'up', 
-    sources: 268,
-    strength: 6.4,
-    sentiment: 'positive',
-    category: 'automation',
-    lastDetected: '25 min ago'
-  },
-]
+// We'll fetch this data from Supabase instead of using mock data
+// const DEMAND_SIGNALS = [
+//   { 
+//     id: 1, 
+//     topic: 'AI Agent 团队协作', 
+//     volume: 98, 
+//     trend: 'up', 
+//     sources: 256,
+//     strength: 9.2,
+//     sentiment: 'positive',
+//     category: 'productivity',
+//     lastDetected: '2 min ago'
+//   },
+//   { 
+//     id: 2, 
+//     topic: 'OpenClaw 多渠道接入', 
+//     volume: 89, 
+//     trend: 'up', 
+//     sources: 178,
+//     strength: 8.7,
+//     sentiment: 'positive',
+//     category: 'integration',
+//     lastDetected: '5 min ago'
+//   },
+//   { 
+//     id: 3, 
+//     topic: '自动化内容生成', 
+//     volume: 85, 
+//     trend: 'up', 
+//     sources: 312,
+//     strength: 8.5,
+//     sentiment: 'positive',
+//     category: 'content',
+//     lastDetected: '8 min ago'
+//   },
+//   { 
+//     id: 4, 
+//     topic: 'AI 编程助手', 
+//     volume: 82, 
+//     trend: 'stable', 
+//     sources: 405,
+//     strength: 8.1,
+//     sentiment: 'neutral',
+//     category: 'development',
+//     lastDetected: '12 min ago'
+//   },
+//   { 
+//     id: 5, 
+//     topic: 'Agent 任务编排', 
+//     volume: 75, 
+//     trend: 'up', 
+//     sources: 134,
+//     strength: 7.4,
+//     sentiment: 'positive',
+//     category: 'orchestration',
+//     lastDetected: '15 min ago'
+//   },
+//   { 
+//     id: 6, 
+//     topic: '数据闭环系统', 
+//     volume: 72, 
+//     trend: 'up', 
+//     sources: 89,
+//     strength: 7.1,
+//     sentiment: 'positive',
+//     category: 'analytics',
+//     lastDetected: '18 min ago'
+//   },
+//   { 
+//     id: 7, 
+//     topic: '多 Agent 协作框架', 
+//     volume: 68, 
+//     trend: 'stable', 
+//     sources: 196,
+//     strength: 6.7,
+//     sentiment: 'positive',
+//     category: 'collaboration',
+//     lastDetected: '22 min ago'
+//   },
+//   { 
+//     id: 8, 
+//     topic: 'AI 工作流自动化', 
+//     volume: 65, 
+//     trend: 'up', 
+//     sources: 268,
+//     strength: 6.4,
+//     sentiment: 'positive',
+//     category: 'automation',
+//     lastDetected: '25 min ago'
+//   },
+// ]
 
-// Mock trend data for charts
-const TREND_DATA = [
-  { time: 'Jan', demand: 65 },
-  { time: 'Feb', demand: 70 },
-  { time: 'Mar', demand: 75 },
-  { time: 'Apr', demand: 80 },
-  { time: 'May', demand: 85 },
-  { time: 'Jun', demand: 90 },
-  { time: 'Jul', demand: 92 },
-  { time: 'Aug', demand: 95 },
-  { time: 'Sep', demand: 98 },
-  { time: 'Oct', demand: 97 },
-  { time: 'Nov', demand: 99 },
-  { time: 'Dec', demand: 100 },
-]
+// Mock trend data for charts - we'll fetch this from Supabase too
+// const TREND_DATA = [
+//   { time: 'Jan', demand: 65 },
+//   { time: 'Feb', demand: 70 },
+//   { time: 'Mar', demand: 75 },
+//   { time: 'Apr', demand: 80 },
+//   { time: 'May', demand: 85 },
+//   { time: 'Jun', demand: 90 },
+//   { time: 'Jul', demand: 92 },
+//   { time: 'Aug', demand: 95 },
+//   { time: 'Sep', demand: 98 },
+//   { time: 'Oct', demand: 97 },
+//   { time: 'Nov', demand: 99 },
+//   { time: 'Dec', demand: 100 },
+// ]
 
 export default function RadarPage() {
-  const [signals, setSignals] = useState(DEMAND_SIGNALS)
+  const [signals, setSignals] = useState<any[]>([]) // Using any for now, we'll define proper types later
+  const [trendData, setTrendData] = useState<any[]>([]) // For chart data
   const [selectedSignal, setSelectedSignal] = useState<number | null>(null)
   const [timeRange, setTimeRange] = useState('7d')
-
-  // Simulate live updates
+  const [categoryFilter, setCategoryFilter] = useState<string>('all')
+  const [difficultyFilter, setDifficultyFilter] = useState<string>('all')
+  const [sortOption, setSortOption] = useState<string>('strength-desc')
+  
+  // Fetch demand signals from Supabase
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSignals(prev => prev.map(signal => ({
-        ...signal,
-        volume: Math.max(50, signal.volume + (Math.random() * 10 - 5)),
-        strength: Math.max(5, signal.strength + (Math.random() * 0.5 - 0.25))
-      })))
-    }, 5000)
-
-    return () => clearInterval(interval)
+    const fetchSignals = async () => {
+      try {
+        // Fetch events as demand signals (we'll interpret various events as demand signals)
+        const { data: eventsData, error: eventsError } = await supabase
+          .from('events')
+          .select(`
+            id,
+            agent_id,
+            action,
+            details,
+            created_at
+          `)
+          .order('created_at', { ascending: false })
+          .limit(50)
+        
+        if (eventsError) {
+          console.error('Error fetching events:', eventsError)
+          return
+        }
+        
+        // Transform events into demand signals
+        // In a real scenario, we might have a dedicated table for demand signals
+        // For now, we'll interpret certain events as demand signals
+        const demandSignals = eventsData.map((event: any, index: number) => {
+          // Generate mock values based on the event data
+          const topics = [
+            'AI Agent 团队协作',
+            'OpenClaw 多渠道接入', 
+            '自动化内容生成',
+            'AI 编程助手',
+            'Agent 任务编排',
+            '数据闭环系统',
+            '多 Agent 协作框架',
+            'AI 工作流自动化',
+            '智能决策系统',
+            '认知计算模型'
+          ]
+          
+          const categories = ['productivity', 'integration', 'content', 'development', 'orchestration', 'analytics', 'collaboration', 'automation', 'decision-making', 'cognition']
+          
+          return {
+            id: index + 1,
+            topic: event.action || topics[index % topics.length],
+            volume: Math.floor(Math.random() * 40) + 60, // Random volume between 60-100
+            trend: ['up', 'down', 'stable'][Math.floor(Math.random() * 3)] as 'up' | 'down' | 'stable',
+            sources: Math.floor(Math.random() * 200) + 50, // Random sources between 50-250
+            strength: parseFloat((Math.random() * 4 + 5).toFixed(1)), // Random strength between 5.0-9.0
+            sentiment: ['positive', 'negative', 'neutral'][Math.floor(Math.random() * 3)] as 'positive' | 'negative' | 'neutral',
+            category: categories[index % categories.length],
+            lastDetected: `${Math.floor(Math.random() * 30) + 1} min ago`
+          }
+        })
+        
+        setSignals(demandSignals)
+        
+        // Generate trend data based on the signals
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        const generatedTrendData = months.map((month, index) => ({
+          time: month,
+          demand: Math.floor(Math.random() * 35) + 65 // Random demand between 65-100
+        }))
+        
+        setTrendData(generatedTrendData)
+      } catch (error) {
+        console.error('Error fetching demand signals:', error)
+      }
+    }
+    
+    fetchSignals()
+    
+    // Set up real-time subscription for new events
+    const channel = supabase
+      .channel('events-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'events',
+        },
+        (payload) => {
+          console.log('New event received:', payload)
+          // Refresh signals when there's a new event
+          fetchSignals()
+        }
+      )
+      .subscribe()
+    
+    return () => {
+      supabase.removeChannel(channel)
+    }
   }, [])
+  
+  // 获取所有唯一类别用于筛选
+  const categories = ['all', ...Array.from(new Set(signals.map(signal => signal.category)))]
 
-  const selectedSignalData = selectedSignal 
-    ? signals.find(s => s.id === selectedSignal) 
+  // 应用筛选和排序
+  const filteredAndSortedSignals = signals
+    .filter(signal => {
+      const categoryMatch = categoryFilter === 'all' || signal.category === categoryFilter
+      return categoryMatch
+    })
+    .sort((a: any, b: any) => {
+      switch(sortOption) {
+        case 'strength-desc':
+          return b.strength - a.strength
+        case 'strength-asc':
+          return a.strength - b.strength
+        case 'volume-desc':
+          return b.volume - a.volume
+        case 'volume-asc':
+          return a.volume - b.volume
+        case 'trend-up':
+          if (a.trend === 'up' && b.trend !== 'up') return -1
+          if (a.trend !== 'up' && b.trend === 'up') return 1
+          return b.strength - a.strength
+        default:
+          return b.strength - a.strength
+      }
+    })
+
+  const selectedSignalProphet = selectedSignal 
+    ? signals.find((s: any) => s.id === selectedSignal) 
     : null
 
   return (
@@ -162,16 +277,46 @@ export default function RadarPage() {
             <p className="text-gray-400 text-sm sm:text-base lg:text-lg">实时监测市场需求信号 • {new Date().toLocaleDateString()}</p>
           </div>
           
-          <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full animate-pulse" />
               <span className="text-xs sm:text-sm lg:text-base text-gray-400">实时监控</span>
             </div>
             
+            {/* Category Filter */}
+            <select 
+              value={categoryFilter} 
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="bg-black/20 border border-white/10 rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm lg:text-base"
+            >
+              <option value="all">全部类别</option>
+              <option value="productivity">生产力</option>
+              <option value="integration">集成</option>
+              <option value="content">内容</option>
+              <option value="development">开发</option>
+              <option value="orchestration">编排</option>
+              <option value="analytics">分析</option>
+              <option value="collaboration">协作</option>
+              <option value="automation">自动化</option>
+            </select>
+            
+            {/* Sort Option */}
+            <select 
+              value={sortOption} 
+              onChange={(e) => setSortOption(e.target.value)}
+              className="bg-black/20 border border-white/10 rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm lg:text-base"
+            >
+              <option value="strength-desc">按强度降序</option>
+              <option value="strength-asc">按强度升序</option>
+              <option value="volume-desc">按音量降序</option>
+              <option value="volume-asc">按音量升序</option>
+              <option value="trend-up">上升趋势优先</option>
+            </select>
+            
             <select 
               value={timeRange} 
               onChange={(e) => setTimeRange(e.target.value)}
-              className="bg-black/20 border border-white/10 rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 lg:px-4 lg:py-2.5 text-xs sm:text-sm lg:text-base"
+              className="bg-black/20 border border-white/10 rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm lg:text-base"
             >
               <option value="24h">24小时</option>
               <option value="7d">7天</option>
@@ -266,7 +411,7 @@ export default function RadarPage() {
               <div className="absolute inset-0 rounded-full border border-white/10" style={{ margin: '40%' }}></div>
               
               {/* Signal points */}
-              {signals.slice(0, 6).map((signal, index) => {
+              {signals.slice(0, 6).map((signal: any, index: number) => {
                 const angle = (index * 60) * (Math.PI / 180);
                 const distance = 40 + (signal.volume / 100) * 40;
                 const x = 50 + Math.cos(angle) * distance;
@@ -317,7 +462,7 @@ export default function RadarPage() {
             <div className="mt-6 sm:mt-8">
               <h3 className="text-base sm:text-lg font-medium mb-3 sm:mb-4">需求趋势变化</h3>
               <div className="h-32 sm:h-40 flex items-end gap-0.5 sm:gap-1">
-                {TREND_DATA.map((point, index) => (
+                {trendData.map((point, index) => (
                   <div key={index} className="flex-1 flex flex-col items-center">
                     <div 
                       className="w-full bg-gradient-to-t from-purple-500/30 to-purple-500 rounded-t hover:from-purple-500/50 hover:to-purple-500 transition-all"
@@ -337,7 +482,7 @@ export default function RadarPage() {
           <div className="bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">热门需求信号</h2>
             <div className="space-y-3 sm:space-y-4 max-h-[400px] sm:max-h-[500px] overflow-y-auto pr-1 sm:pr-2">
-              {signals.map((signal) => (
+              {filteredAndSortedSignals.map((signal) => (
                 <div 
                   key={signal.id}
                   className={`
@@ -412,7 +557,7 @@ export default function RadarPage() {
           </div>
           
           {/* Selected Signal Detail */}
-          {selectedSignalData && (
+          {selectedSignalProphet && (
             <div className="bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm p-4 sm:p-6">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <h3 className="text-base sm:text-lg font-medium">信号详情</h3>
@@ -426,28 +571,28 @@ export default function RadarPage() {
               
               <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <h4 className="font-medium text-purple-400 text-sm sm:text-base">{selectedSignalData.topic}</h4>
-                  <p className="text-xs text-gray-400 mt-1">ID: {selectedSignalData.id}</p>
+                  <h4 className="font-medium text-purple-400 text-sm sm:text-base">{selectedSignalProphet.topic}</h4>
+                  <p className="text-xs text-gray-400 mt-1">ID: {selectedSignalProphet.id}</p>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <div className="bg-white/5 rounded-lg p-2 sm:p-3">
                     <div className="text-xs text-gray-400">信号强度</div>
-                    <div className="text-base sm:text-lg font-bold">{selectedSignalData.strength.toFixed(1)}/10</div>
+                    <div className="text-base sm:text-lg font-bold">{selectedSignalProphet.strength.toFixed(1)}/10</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-2 sm:p-3">
                     <div className="text-xs text-gray-400">数据源</div>
-                    <div className="text-base sm:text-lg font-bold">{selectedSignalData.sources}</div>
+                    <div className="text-base sm:text-lg font-bold">{selectedSignalProphet.sources}</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-2 sm:p-3">
                     <div className="text-xs text-gray-400">趋势</div>
                     <div className="flex items-center gap-1">
-                      {selectedSignalData.trend === 'up' ? (
+                      {selectedSignalProphet.trend === 'up' ? (
                         <>
                           <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
                           <span className="text-xs sm:text-sm">上升</span>
                         </>
-                      ) : selectedSignalData.trend === 'down' ? (
+                      ) : selectedSignalProphet.trend === 'down' ? (
                         <>
                           <TrendingDown className="w-3 h-3 sm:w-4 sm:h-4 text-red-400" />
                           <span className="text-xs sm:text-sm">下降</span>
@@ -462,7 +607,7 @@ export default function RadarPage() {
                   </div>
                   <div className="bg-white/5 rounded-lg p-2 sm:p-3">
                     <div className="text-xs text-gray-400">最后检测</div>
-                    <div className="text-xs sm:text-sm">{selectedSignalData.lastDetected}</div>
+                    <div className="text-xs sm:text-sm">{selectedSignalProphet.lastDetected}</div>
                   </div>
                 </div>
                 

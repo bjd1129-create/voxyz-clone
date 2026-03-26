@@ -17,12 +17,12 @@ interface Props {
 }
 
 const AGENT_NAMES: Record<string, { name: string; emoji: string; color: string }> = {
-  ceo: { name: 'CEO Minion', emoji: '🎯', color: '#FF6B6B' },
-  creative: { name: 'Creative', emoji: '🎨', color: '#A855F7' },
-  developer: { name: 'Developer', emoji: '💻', color: '#3B82F6' },
-  writer: { name: 'Writer', emoji: '📝', color: '#10B981' },
-  researcher: { name: 'Researcher', emoji: '🔍', color: '#F59E0B' },
-  support: { name: 'Support', emoji: '🛠️', color: '#EC4899' },
+  ceo: { name: '诸葛灯泡', emoji: '🎯', color: '#FF6B6B' },
+  creative: { name: '配色师', emoji: '🎨', color: '#A855F7' },
+  developer: { name: '代码侠', emoji: '💻', color: '#3B82F6' },
+  writer: { name: '文案君', emoji: '📝', color: '#10B981' },
+  researcher: { name: '洞察者', emoji: '🔍', color: '#F59E0B' },
+  support: { name: '守护者', emoji: '🛠️', color: '#EC4899' },
 }
 
 function formatTimeAgo(dateString: string): string {

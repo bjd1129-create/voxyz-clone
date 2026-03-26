@@ -11,7 +11,7 @@ const AGENTS = [
     name: '诸葛灯泡',
     emoji: '💡',
     color: 'purple',
-    role: '管理员&进化官',
+    role: '造梦者',
     status: 'busy',
     currentTask: '审核 Q1 路线图',
     tasksCompleted: 24,
@@ -23,7 +23,7 @@ const AGENTS = [
   },
   {
     id: 'coordinator',
-    name: '协调员',
+    name: '掌舵人',
     emoji: '🎯',
     color: 'pink',
     role: '任务分配',
@@ -38,7 +38,7 @@ const AGENTS = [
   },
   {
     id: 'engineer',
-    name: '工程师',
+    name: '代码侠',
     emoji: '💻',
     color: 'blue',
     role: '技术开发',
@@ -53,7 +53,7 @@ const AGENTS = [
   },
   {
     id: 'writer',
-    name: '内容官',
+    name: '文案君',
     emoji: '📝',
     color: 'green',
     role: '内容创作',
@@ -68,7 +68,7 @@ const AGENTS = [
   },
   {
     id: 'researcher',
-    name: '研究员',
+    name: '洞察者',
     emoji: '🔍',
     color: 'yellow',
     role: '研究分析',
@@ -83,7 +83,7 @@ const AGENTS = [
   },
   {
     id: 'designer',
-    name: '设计师',
+    name: '配色师',
     emoji: '🎨',
     color: 'indigo',
     role: '视觉设计',
@@ -98,7 +98,7 @@ const AGENTS = [
   },
   {
     id: 'support',
-    name: '支持专员',
+    name: '守护者',
     emoji: '🛠️',
     color: 'teal',
     role: '用户支持',
@@ -110,19 +110,64 @@ const AGENTS = [
     lastActive: '5m ago',
     priority: 'low',
     resources: { cpu: 20, memory: 30 }
+  },
+  {
+    id: 'sower',
+    name: '播种者',
+    emoji: '🌱',
+    color: 'emerald',
+    role: '增长运营',
+    status: 'busy',
+    currentTask: '优化内容分发渠道',
+    tasksCompleted: 22,
+    uptime: '96%',
+    efficiency: 91,
+    lastActive: 'now',
+    priority: 'high',
+    resources: { cpu: 55, memory: 48 }
+  },
+  {
+    id: 'prophet',
+    name: '预言家',
+    emoji: '🔮',
+    color: 'violet',
+    role: '数据预测',
+    status: 'busy',
+    currentTask: '构建预测模型',
+    tasksCompleted: 19,
+    uptime: '97%',
+    efficiency: 93,
+    lastActive: 'now',
+    priority: 'high',
+    resources: { cpu: 62, memory: 52 }
+  },
+  {
+    id: 'scheduler',
+    name: '调度员',
+    emoji: '⚡',
+    color: 'amber',
+    role: '资源调度',
+    status: 'busy',
+    currentTask: '优化任务队列',
+    tasksCompleted: 35,
+    uptime: '98%',
+    efficiency: 94,
+    lastActive: 'now',
+    priority: 'high',
+    resources: { cpu: 48, memory: 42 }
   }
 ]
 
 // Mock recent activity
 const ACTIVITY = [
   { agent: '诸葛灯泡', action: '批准新功能提案', time: '2 分钟前', type: 'decision' },
-  { agent: '工程师', action: '推送 3 个提交到主分支', time: '5 分钟前', type: 'code' },
-  { agent: '研究员', action: '完成市场分析', time: '8 分钟前', type: 'analysis' },
-  { agent: '设计师', action: '上传新设计素材', time: '12 分钟前', type: 'design' },
-  { agent: '内容官', action: '发布博客文章', time: '15 分钟前', type: 'content' },
-  { agent: '协调员', action: '生成周报', time: '18 分钟前', type: 'report' },
-  { agent: '支持专员', action: '解决 5 个工单', time: '22 分钟前', type: 'support' },
-  { agent: '协调员', action: '更新策略文档', time: '25 分钟前', type: 'strategy' },
+  { agent: '代码侠', action: '推送 3 个提交到主分支', time: '5 分钟前', type: 'code' },
+  { agent: '洞察者', action: '完成市场分析', time: '8 分钟前', type: 'analysis' },
+  { agent: '配色师', action: '上传新设计素材', time: '12 分钟前', type: 'design' },
+  { agent: '文案君', action: '发布博客文章', time: '15 分钟前', type: 'content' },
+  { agent: '掌舵人', action: '生成周报', time: '18 分钟前', type: 'report' },
+  { agent: '守护者', action: '解决 5 个工单', time: '22 分钟前', type: 'support' },
+  { agent: '掌舵人', action: '更新策略文档', time: '25 分钟前', type: 'strategy' },
 ]
 
 // Mock missions/tasks
@@ -187,7 +232,7 @@ export default function SwarmPage() {
     }
   }
 
-  const selectedAgentData = selectedAgent 
+  const selectedAgentProphet = selectedAgent 
     ? agents.find(a => a.id === selectedAgent) 
     : null
 
@@ -479,7 +524,7 @@ export default function SwarmPage() {
                     <div className="mt-3">
                       <div className="w-full bg-white/10 rounded-full h-2 mb-2">
                         <div
-                          className="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500"
+                          className="h-2 rounded-full bg-gradient-to-r from-indigo-500 to-primary-500"
                           style={{ width: `${mission.progress}%` }}
                         />
                       </div>
@@ -594,7 +639,7 @@ export default function SwarmPage() {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Agent Detail Panel */}
-          {selectedAgentData && (
+          {selectedAgentProphet && (
             <div className="bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium">智能体详情</h3>
@@ -607,12 +652,12 @@ export default function SwarmPage() {
               </div>
               
               <div className="flex items-center gap-3 mb-4">
-                <div className={`w-14 h-14 rounded-xl bg-${selectedAgentData.color}-500/20 flex items-center justify-center text-2xl`}>
-                  {selectedAgentData.emoji}
+                <div className={`w-14 h-14 rounded-xl bg-${selectedAgentProphet.color}-500/20 flex items-center justify-center text-2xl`}>
+                  {selectedAgentProphet.emoji}
                 </div>
                 <div>
-                  <h4 className="font-bold">{selectedAgentData.name}</h4>
-                  <p className="text-sm text-gray-400">{selectedAgentData.role}</p>
+                  <h4 className="font-bold">{selectedAgentProphet.name}</h4>
+                  <p className="text-sm text-gray-400">{selectedAgentProphet.role}</p>
                 </div>
               </div>
               
@@ -622,38 +667,38 @@ export default function SwarmPage() {
                     <div className="text-xs text-gray-400">状态</div>
                     <div className="flex items-center gap-1 mt-1">
                       <div className={`w-2 h-2 rounded-full ${
-                        selectedAgentData.status === 'busy' ? 'bg-green-500 animate-pulse' : 'bg-gray-500'
+                        selectedAgentProphet.status === 'busy' ? 'bg-green-500 animate-pulse' : 'bg-gray-500'
                       }`} />
-                      <span className="text-sm">{selectedAgentData.status === 'busy' ? '工作中' : '空闲'}</span>
+                      <span className="text-sm">{selectedAgentProphet.status === 'busy' ? '工作中' : '空闲'}</span>
                     </div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-xs text-gray-400">效率</div>
-                    <div className="text-sm font-medium mt-1">{selectedAgentData.efficiency}%</div>
+                    <div className="text-sm font-medium mt-1">{selectedAgentProphet.efficiency}%</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-xs text-gray-400">任务完成数</div>
-                    <div className="text-sm font-medium mt-1">{selectedAgentData.tasksCompleted}</div>
+                    <div className="text-sm font-medium mt-1">{selectedAgentProphet.tasksCompleted}</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-xs text-gray-400">运行时间</div>
-                    <div className="text-sm font-medium mt-1">{selectedAgentData.uptime}</div>
+                    <div className="text-sm font-medium mt-1">{selectedAgentProphet.uptime}</div>
                   </div>
                 </div>
                 
-                {selectedAgentData.currentTask && (
+                {selectedAgentProphet.currentTask && (
                   <div className="pt-2">
                     <div className="text-xs text-gray-400 mb-1">当前任务</div>
-                    <div className="text-sm bg-white/5 rounded-lg p-2">{selectedAgentData.currentTask}</div>
+                    <div className="text-sm bg-white/5 rounded-lg p-2">{selectedAgentProphet.currentTask}</div>
                   </div>
                 )}
                 
                 <div className="pt-2">
                   <button 
-                    onClick={() => toggleAgentTask(selectedAgentData.id)}
+                    onClick={() => toggleAgentTask(selectedAgentProphet.id)}
                     className="w-full py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
                   >
-                    {selectedAgentData.status === 'busy' ? '暂停任务' : '开始任务'}
+                    {selectedAgentProphet.status === 'busy' ? '暂停任务' : '开始任务'}
                   </button>
                 </div>
               </div>

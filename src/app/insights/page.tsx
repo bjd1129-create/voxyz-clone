@@ -6,19 +6,19 @@ import DesktopNav from '@/components/DesktopNav'
 // Blog posts
 const POSTS = [
   {
-    title: '我建了一个 AI 公司。7 周后，它们比我还了解公司。',
-    excerpt: '诸葛灯泡从 0 到真正运转，花了 7 周。这篇文章讲我是怎么把 6 个 Agent 放在一起，让它们真正成为团队，而不是 6 个独立工具。',
+    title: 'I Built an AI Company. 7 Weeks Later, They Know It Better Than I Do.',
+    excerpt: 'Zhuge Bulb went from 0 to fully operational in 7 weeks. This article shares how I brought 6 Agents together to form a real team, not just 6 independent tools.',
     date: '2026-03-26',
     readTime: '10 min',
-    tags: ['AI Agents', '创业', '系统设计'],
+    tags: ['AI Agents', 'Startup', 'System Design'],
     slug: 'ai-company-7-weeks',
   },
   {
-    title: 'Radar 不是仪表盘。是耳朵。',
-    excerpt: '仪表盘显示的是已知。Radar 捕捉的是未知。这篇文章讲我如何发现传统仪表盘的局限，以及 Radar 作为需求信号系统的设计哲学。',
+    title: 'Radar Is Not a Dashboard. It\'s an Ear.',
+    excerpt: 'Dashboards show the known. Radar captures the unknown. This article explores how I discovered the limitations of traditional dashboards and the design philosophy behind Radar as a demand signal system.',
     date: '2026-03-26',
     readTime: '8 min',
-    tags: ['产品', '信号', '用户洞察'],
+    tags: ['Product', 'Signals', 'User Insights'],
     slug: 'radar-is-not-dashboard',
   },
   {
@@ -29,7 +29,7 @@ const POSTS = [
     tags: ['Architecture', 'AI Agents'],
   },
   {
-    title: 'Data Loop Design in Practice: Enabling Continuous AI Team Evolution',
+    title: 'Prophet Loop Design in Practice: Enabling Continuous AI Team Evolution',
     excerpt: 'Exploring how to build a data loop system where every task becomes a learning opportunity. Full-stack practice from data collection and knowledge accumulation to capability iteration.',
     date: '2026-03-22',
     readTime: '6 min',

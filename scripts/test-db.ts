@@ -48,12 +48,12 @@ async function testDatabase() {
     const { error: initError } = await supabase
       .from('agent_status')
       .insert([
-        { agent_id: 'ceo', name: 'CEO Minion', emoji: '🎯', color: '#FF6B6B', position_x: 200, position_y: 150 },
-        { agent_id: 'creative', name: 'Creative', emoji: '🎨', color: '#A855F7', position_x: 350, position_y: 150 },
-        { agent_id: 'developer', name: 'Developer', emoji: '💻', color: '#3B82F6', position_x: 500, position_y: 150 },
-        { agent_id: 'writer', name: 'Writer', emoji: '📝', color: '#10B981', position_x: 200, position_y: 300 },
-        { agent_id: 'researcher', name: 'Researcher', emoji: '🔍', color: '#F59E0B', position_x: 350, position_y: 300 },
-        { agent_id: 'support', name: 'Support', emoji: '🛠️', color: '#EC4899', position_x: 500, position_y: 300 }
+        { agent_id: 'ceo', name: '诸葛灯泡', emoji: '💡', color: '#FF6B6B', position_x: 200, position_y: 150 },
+        { agent_id: 'coordinator', name: '掌舵人', emoji: '🎯', color: '#A855F7', position_x: 350, position_y: 150 },
+        { agent_id: 'developer', name: '代码侠', emoji: '💻', color: '#3B82F6', position_x: 500, position_y: 150 },
+        { agent_id: 'writer', name: '文案君', emoji: '📝', color: '#10B981', position_x: 200, position_y: 300 },
+        { agent_id: 'researcher', name: '洞察者', emoji: '🔍', color: '#F59E0B', position_x: 350, position_y: 300 },
+        { agent_id: 'support', name: '守护者', emoji: '🛠️', color: '#EC4899', position_x: 500, position_y: 300 }
       ])
     
     if (initError) {

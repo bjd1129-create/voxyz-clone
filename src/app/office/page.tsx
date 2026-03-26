@@ -8,7 +8,7 @@ import MobileNav from '@/components/MobileNav'
 import DesktopNav from '@/components/DesktopNav'
 import AgentRPGCard, { AgentRPGStats, AgentColor } from '@/components/AgentRPGCard'
 
-interface AgentData {
+interface AgentProphet {
   name: string
   emoji: string
   color: string
@@ -32,19 +32,19 @@ interface WorkRecord {
   task: string
   startTime: string
   endTime?: string
-  status: 'active' | 'completed' | 'failed'
+  status: 'active' | 'completed' | 'failed' | 'pending'
   duration?: number
 }
 
 // Office layout - 7 workstations for our team
 const DESKS = [
   { id: 'zhuge', x: 80, y: 100, w: 90, h: 55 },      // 诸葛灯泡
-  { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 协调员
-  { id: 'engineer', x: 320, y: 100, w: 90, h: 55 },    // 工程师
-  { id: 'writer', x: 440, y: 100, w: 90, h: 55 },      // 内容官
-  { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 研究员
-  { id: 'designer', x: 80, y: 250, w: 90, h: 55 },     // 设计师
-  { id: 'support', x: 200, y: 250, w: 90, h: 55 },     // 支持专员
+  { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 掌舵人
+  { id: 'engineer', x: 320, y: 100, w: 90, h: 55 },    // 代码侠
+  { id: 'writer', x: 440, y: 100, w: 90, h: 55 },      // 文案君
+  { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 洞察者
+  { id: 'designer', x: 80, y: 250, w: 90, h: 55 },     // 配色师
+  { id: 'support', x: 200, y: 250, w: 90, h: 55 },     // 守护者
 ]
 
 const MEETING_TABLE = { x: 320, y: 400, w: 150, h: 80 }
@@ -79,56 +79,81 @@ const SPEECH_BUBBLES = {
   ],
 }
 
-// Office Ledger 数据
-const TIMESHEETS = [
-  { id: '1', agent: '工程师', task: '实现指挥中心界面', date: '2024-03-26', startTime: '10:00', endTime: '12:00', duration: 7200, status: 'completed' },
-  { id: '2', agent: '研究员', task: '竞争分析：AI Agent 框架', date: '2024-03-26', startTime: '09:30', endTime: '11:30', duration: 7200, status: 'completed' },
-  { id: '3', agent: '设计师', task: '为活动创建视觉素材', date: '2024-03-26', startTime: '10:15', endTime: '13:15', duration: 10800, status: 'completed' },
-  { id: '4', agent: '内容官', task: '撰写关于AI趋势的博客文章', date: '2024-03-26', startTime: '09:00', endTime: '11:00', duration: 7200, status: 'completed' },
-  { id: '5', agent: '诸葛灯泡', task: '审核Q1路线图', date: '2024-03-26', startTime: '08:30', endTime: '10:30', duration: 7200, status: 'completed' },
-  { id: '6', agent: '支持专员', task: '处理客户咨询', date: '2024-03-26', startTime: '10:00', endTime: '11:00', duration: 3600, status: 'completed' },
-  { id: '7', agent: '研究员', task: '处理市场趋势', date: '2024-03-26', startTime: '11:00', endTime: '13:00', duration: 7200, status: 'completed' },
-  { id: '8', agent: '协调员', task: '更新策略文档', date: '2024-03-26', startTime: '13:00', endTime: '15:00', duration: 7200, status: 'completed' },
+// We'll fetch these from Supabase instead of using mock data
+// const TIMESHEETS = [
+//   { id: '1', agent: '代码侠', task: '实现指挥中心界面', date: '2024-03-26', startTime: '10:00', endTime: '12:00', duration: 7200, status: 'completed' },
+//   { id: '2', agent: '洞察者', task: '竞争分析：AI Agent 框架', date: '2024-03-26', startTime: '09:30', endTime: '11:30', duration: 7200, status: 'completed' },
+//   { id: '3', agent: '配色师', task: '为活动创建视觉素材', date: '2024-03-26', startTime: '10:15', endTime: '13:15', duration: 10800, status: 'completed' },
+//   { id: '4', agent: '文案君', task: '撰写关于AI趋势的博客文章', date: '2024-03-26', startTime: '09:00', endTime: '11:00', duration: 7200, status: 'completed' },
+//   { id: '5', agent: '诸葛灯泡', task: '审核Q1路线图', date: '2024-03-26', startTime: '08:30', endTime: '10:30', duration: 7200, status: 'completed' },
+//   { id: '6', agent: '守护者', task: '处理客户咨询', date: '2024-03-26', startTime: '10:00', endTime: '11:00', duration: 3600, status: 'completed' },
+//   { id: '7', agent: '洞察者', task: '处理市场趋势', date: '2024-03-26', startTime: '11:00', endTime: '13:00', duration: 7200, status: 'completed' },
+//   { id: '8', agent: '掌舵人', task: '更新策略文档', date: '2024-03-26', startTime: '13:00', endTime: '15:00', duration: 7200, status: 'completed' },
+// ];
+
+// const PAY_SLIPS = [
+//   { id: '1', agent: '代码侠', period: '2024-03-01 to 2024-03-31', amount: 4500, currency: 'USD', status: 'paid', hours: 120 },
+//   { id: '2', agent: '洞察者', period: '2024-03-01 to 2024-03-31', amount: 4200, currency: 'USD', status: 'paid', hours: 115 },
+//   { id: '3', agent: '配色师', period: '2024-03-01 to 2024-03-31', amount: 4300, currency: 'USD', status: 'paid', hours: 118 },
+//   { id: '4', agent: '文案君', period: '2024-03-01 to 2024-03-31', amount: 3800, currency: 'USD', status: 'paid', hours: 105 },
+//   { id: '5', agent: '诸葛灯泡', period: '2024-03-01 to 2024-03-31', amount: 5500, currency: 'USD', status: 'paid', hours: 130 },
+//   { id: '6', agent: '守护者', period: '2024-03-01 to 2024-03-31', amount: 3600, currency: 'USD', status: 'paid', hours: 100 },
+//   { id: '7', agent: '掌舵人', period: '2024-03-01 to 2024-03-31', amount: 4100, currency: 'USD', status: 'paid', hours: 112 },
+// ];
+
+// const HANDOFF_RECORDS = [
+//   { id: '1', from: '洞察者', to: '代码侠', task: '交接竞争分析结果', timestamp: '2024-03-26T10:30:00Z', status: 'completed' },
+//   { id: '2', from: '配色师', to: '文案君', task: '共享用于内容的设计素材', timestamp: '2024-03-26T11:15:00Z', status: 'completed' },
+//   { id: '3', from: '文案君', to: '诸葛灯泡', task: '提交博客草稿供审核', timestamp: '2024-03-26T12:00:00Z', status: 'completed' },
+//   { id: '4', from: '代码侠', to: '守护者', task: '部署新UI供测试', timestamp: '2024-03-26T13:30:00Z', status: 'completed' },
+//   { id: '5', from: '洞察者', to: '掌舵人', task: '提供市场数据供策略制定', timestamp: '2024-03-26T14:00:00Z', status: 'completed' },
+//   { id: '6', from: '守护者', to: '洞察者', task: '关于用户查询的反馈', timestamp: '2024-03-26T15:00:00Z', status: 'completed' },
+// ];
+
+// const CULTURE_LOOPS = [
+//   { id: '1', topic: '团队协作', participants: ['诸葛灯泡', '代码侠', '配色师'], date: '2024-03-26', status: 'completed', feedback: '改进沟通协议' },
+//   { id: '2', topic: '创新研讨会', participants: ['洞察者', '文案君', '掌舵人'], date: '2024-03-25', status: 'completed', feedback: '产生12个新想法' },
+//   { id: '3', topic: '绩效评审', participants: ['诸葛灯泡', '守护者', '掌舵人'], date: '2024-03-24', status: 'completed', feedback: '确定优化机会' },
+//   { id: '4', topic: '技能分享', participants: ['配色师', '文案君', '代码侠'], date: '2024-03-23', status: 'completed', feedback: '启动交叉培训计划' },
+// ];
+
+// const GROWTH_WATCH = [
+//   { id: '1', agent: '代码侠', metric: '代码质量评分', current: 8.5, target: 9.0, trend: 'up', improvement: '本周+0.3' },
+//   { id: '2', agent: '洞察者', metric: '分析准确性', current: 92, target: 95, trend: 'up', improvement: '本周+2%' },
+//   { id: '3', agent: '配色师', metric: '设计影响力', current: 8.7, target: 9.0, trend: 'stable', improvement: '保持一致性' },
+//   { id: '4', agent: '文案君', metric: '内容参与度', current: 78, target: 85, trend: 'up', improvement: '本周+5%' },
+//   { id: '5', agent: '守护者', metric: '响应时间', current: 2.1, target: 2.0, trend: 'down', improvement: '本周-0.2' },
+//   { id: '6', agent: '掌舵人', metric: '数据准确性', current: 96, target: 97, trend: 'up', improvement: '本周+1%' },
+// ];
+
+// Agent列表
+const AGENT_LIST = [
+  { id: 'zhuge', name: '诸葛灯泡', emoji: '💡', color: '#8B5CF6', role: '造梦者' },
+  { id: 'coordinator', name: '掌舵人', emoji: '⛵', color: '#EC4899', role: '任务分配' },
+  { id: 'engineer', name: '代码侠', emoji: '💻', color: '#3B82F6', role: '技术开发' },
+  { id: 'writer', name: '文案君', emoji: '✍️', color: '#10B981', role: '内容创作' },
+  { id: 'researcher', name: '洞察者', emoji: '🔍', color: '#F59E0B', role: '研究分析' },
+  { id: 'designer', name: '配色师', emoji: '🎨', color: '#EF4444', role: '视觉设计' },
+  { id: 'support', name: '守护者', emoji: '🛡️', color: '#6366F1', role: '用户支持' },
 ];
 
-const PAY_SLIPS = [
-  { id: '1', agent: '工程师', period: '2024-03-01 to 2024-03-31', amount: 4500, currency: 'USD', status: 'paid', hours: 120 },
-  { id: '2', agent: '研究员', period: '2024-03-01 to 2024-03-31', amount: 4200, currency: 'USD', status: 'paid', hours: 115 },
-  { id: '3', agent: '设计师', period: '2024-03-01 to 2024-03-31', amount: 4300, currency: 'USD', status: 'paid', hours: 118 },
-  { id: '4', agent: '内容官', period: '2024-03-01 to 2024-03-31', amount: 3800, currency: 'USD', status: 'paid', hours: 105 },
-  { id: '5', agent: '诸葛灯泡', period: '2024-03-01 to 2024-03-31', amount: 5500, currency: 'USD', status: 'paid', hours: 130 },
-  { id: '6', agent: '支持专员', period: '2024-03-01 to 2024-03-31', amount: 3600, currency: 'USD', status: 'paid', hours: 100 },
-  { id: '7', agent: '协调员', period: '2024-03-01 to 2024-03-31', amount: 4100, currency: 'USD', status: 'paid', hours: 112 },
-];
+// 添加拖拽和缩放状态
+interface DragState {
+  isDragging: boolean;
+  dragStart: { x: number; y: number };
+  offset: { x: number; y: number };
+  initialOffset: { x: number; y: number };
+}
 
-const HANDOFF_RECORDS = [
-  { id: '1', from: '研究员', to: '工程师', task: '交接竞争分析结果', timestamp: '2024-03-26T10:30:00Z', status: 'completed' },
-  { id: '2', from: '设计师', to: '内容官', task: '共享用于内容的设计素材', timestamp: '2024-03-26T11:15:00Z', status: 'completed' },
-  { id: '3', from: '内容官', to: '诸葛灯泡', task: '提交博客草稿供审核', timestamp: '2024-03-26T12:00:00Z', status: 'completed' },
-  { id: '4', from: '工程师', to: '支持专员', task: '部署新UI供测试', timestamp: '2024-03-26T13:30:00Z', status: 'completed' },
-  { id: '5', from: '研究员', to: '协调员', task: '提供市场数据供策略制定', timestamp: '2024-03-26T14:00:00Z', status: 'completed' },
-  { id: '6', from: '支持专员', to: '研究员', task: '关于用户查询的反馈', timestamp: '2024-03-26T15:00:00Z', status: 'completed' },
-];
-
-const CULTURE_LOOPS = [
-  { id: '1', topic: '团队协作', participants: ['诸葛灯泡', '工程师', '设计师'], date: '2024-03-26', status: 'completed', feedback: '改进沟通协议' },
-  { id: '2', topic: '创新研讨会', participants: ['研究员', '内容官', '协调员'], date: '2024-03-25', status: 'completed', feedback: '产生12个新想法' },
-  { id: '3', topic: '绩效评审', participants: ['诸葛灯泡', '支持专员', '协调员'], date: '2024-03-24', status: 'completed', feedback: '确定优化机会' },
-  { id: '4', topic: '技能分享', participants: ['设计师', '内容官', '工程师'], date: '2024-03-23', status: 'completed', feedback: '启动交叉培训计划' },
-];
-
-const GROWTH_WATCH = [
-  { id: '1', agent: '工程师', metric: '代码质量评分', current: 8.5, target: 9.0, trend: 'up', improvement: '本周+0.3' },
-  { id: '2', agent: '研究员', metric: '分析准确性', current: 92, target: 95, trend: 'up', improvement: '本周+2%' },
-  { id: '3', agent: '设计师', metric: '设计影响力', current: 8.7, target: 9.0, trend: 'stable', improvement: '保持一致性' },
-  { id: '4', agent: '内容官', metric: '内容参与度', current: 78, target: 85, trend: 'up', improvement: '本周+5%' },
-  { id: '5', agent: '支持专员', metric: '响应时间', current: 2.1, target: 2.0, trend: 'down', improvement: '本周-0.2' },
-  { id: '6', agent: '协调员', metric: '数据准确性', current: 96, target: 97, trend: 'up', improvement: '本周+1%' },
-];
+interface ZoomState {
+  scale: number;
+  offsetX: number;
+  offsetY: number;
+}
 
 export default function OfficePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [agents, setAgents] = useState<Record<string, AgentData>>({})
+  const [agents, setAgents] = useState<Record<string, AgentProphet>>({})
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [lastUpdate, setLastUpdate] = useState<string>('')
@@ -136,11 +161,26 @@ export default function OfficePage() {
   const [moveTrails, setMoveTrails] = useState<Record<string, Array<{ x: number; y: number; time: number }>>>({})
   const [activeView, setActiveView] = useState<'office' | 'ledger' | 'stats'>('office')
   const [workRecords, setWorkRecords] = useState<WorkRecord[]>([])
-  const [timesheets, setTimesheets] = useState(TIMESHEETS)
-  const [paySlips, setPaySlips] = useState(PAY_SLIPS)
-  const [handoffs, setHandoffs] = useState(HANDOFF_RECORDS)
-  const [cultureLoops, setCultureLoops] = useState(CULTURE_LOOPS)
-  const [growthWatch, setGrowthWatch] = useState(GROWTH_WATCH)
+  const [timesheets, setTimesheets] = useState<any[]>([])
+  const [paySlips, setPaySlips] = useState<any[]>([])
+  const [handoffs, setHandoffs] = useState<any[]>([])
+  const [cultureLoops, setCultureLoops] = useState<any[]>([])
+  const [growthWatch, setGrowthWatch] = useState<any[]>([])
+  const [selectedAgentFilter, setSelectedAgentFilter] = useState<string>('all') // For filtering by agent
+  
+  // 添加拖拽和缩放状态
+  const [dragState, setDragState] = useState<DragState>({
+    isDragging: false,
+    dragStart: { x: 0, y: 0 },
+    offset: { x: 0, y: 0 },
+    initialOffset: { x: 0, y: 0 }
+  });
+  const [zoomState, setZoomState] = useState<ZoomState>({
+    scale: 1,
+    offsetX: 0,
+    offsetY: 0
+  });
+  
   const agentsRef = useRef(agents)
   const trailsRef = useRef(moveTrails)
   const recordsRef = useRef(workRecords)
@@ -158,6 +198,115 @@ export default function OfficePage() {
     recordsRef.current = workRecords
   }, [workRecords])
 
+  // 处理拖拽功能
+  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (e.button !== 0) return; // 只处理左键点击
+    
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // 检查是否点击了某个Agent
+    let clickedAgent = false;
+    Object.entries(agents).forEach(([id, agent]) => {
+      const desk = DESKS.find(d => d.id === id);
+      if (!desk) return;
+
+      // Calculate position based on activity
+      let agentX = desk.x + desk.w / 2;
+      let agentY = desk.y + desk.h + 25;
+
+      if (agent.activity === 'coffee') {
+        agentX = COFFEE_AREA.x + COFFEE_AREA.w / 2;
+        agentY = COFFEE_AREA.y - 15;
+      } else if (agent.activity === 'meeting') {
+        const meetingAgents = Object.entries(agents).filter(([_, a]) => a.activity === 'meeting');
+        const meetingIndex = meetingAgents.findIndex(([aid]) => aid === id);
+        const angle = (meetingIndex / meetingAgents.length) * Math.PI * 2 - Math.PI / 2;
+        const radius = 60;
+        agentX = MEETING_TABLE.x + MEETING_TABLE.w / 2 + Math.cos(angle) * radius;
+        agentY = MEETING_TABLE.y + MEETING_TABLE.h / 2 + Math.sin(angle) * radius * 0.5;
+      }
+
+      // Apply zoom and pan transformations to agent position
+      const transformedX = agentX * zoomState.scale + zoomState.offsetX;
+      const transformedY = agentY * zoomState.scale + zoomState.offsetY;
+
+      // Check if click is near agent considering current zoom
+      const distance = Math.sqrt(Math.pow(x - transformedX, 2) + Math.pow(y - transformedY, 2));
+      const clickRadius = 25 / zoomState.scale; // Adjust click radius based on zoom level
+      
+      if (distance < clickRadius) { // 25px radius around agent adjusted for zoom
+        setSelectedAgent(selectedAgent === id ? null : id);
+        triggerSpeechBubble(id);
+        clickedAgent = true;
+      }
+    });
+
+    if (!clickedAgent) {
+      // 如果没有点击到Agent，则开始拖拽
+      setDragState({
+        isDragging: true,
+        dragStart: { x, y },
+        offset: { x: zoomState.offsetX, y: zoomState.offsetY },
+        initialOffset: { x: zoomState.offsetX, y: zoomState.offsetY }
+      });
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!dragState.isDragging) return;
+    
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const deltaX = x - dragState.dragStart.x;
+    const deltaY = y - dragState.dragStart.y;
+    
+    setZoomState(prev => ({
+      ...prev,
+      offsetX: dragState.initialOffset.x + deltaX,
+      offsetY: dragState.initialOffset.y + deltaY
+    }));
+  };
+
+  const handleMouseUp = () => {
+    setDragState(prev => ({ ...prev, isDragging: false }));
+  };
+
+  const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    
+    const scaleFactor = 0.1;
+    const delta = e.deltaY > 0 ? -scaleFactor : scaleFactor;
+    
+    // 计算新的缩放比例
+    const newScale = Math.min(Math.max(0.5, zoomState.scale + delta), 3);
+    
+    // 计算鼠标在canvas上的位置
+    const rect = canvasRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    // 计算相对于缩放中心的偏移
+    const relX = mouseX - zoomState.offsetX;
+    const relY = mouseY - zoomState.offsetY;
+    
+    // 更新缩放和偏移
+    setZoomState(prev => ({
+      scale: newScale,
+      offsetX: prev.offsetX + relX * (delta),
+      offsetY: prev.offsetY + relY * (delta)
+    }));
+  };
+
   // 初始加载
   const fetchAgents = useCallback(async () => {
     try {
@@ -173,20 +322,187 @@ export default function OfficePage() {
   // 获取工作记录
   const fetchWorkRecords = useCallback(async () => {
     try {
-      // 模拟获取工作记录
-      const mockRecords: WorkRecord[] = [
-        { id: '1', agent: 'Developer', task: 'Implementing Command Center UI', startTime: '2023-05-15T10:00:00Z', endTime: '2023-05-15T12:00:00Z', status: 'completed', duration: 7200 },
-        { id: '2', agent: 'Researcher', task: 'Competitive analysis: AI agent frameworks', startTime: '2023-05-15T09:30:00Z', endTime: '2023-05-15T11:30:00Z', status: 'completed', duration: 7200 },
-        { id: '3', agent: 'Creative', task: 'Creating visual assets for campaign', startTime: '2023-05-15T10:15:00Z', status: 'active', duration: 3600 },
-        { id: '4', agent: 'Writer', task: 'Writing blog post about AI trends', startTime: '2023-05-15T09:00:00Z', endTime: '2023-05-15T11:00:00Z', status: 'completed', duration: 7200 },
-        { id: '5', agent: 'CEO', task: 'Reviewing Q1 roadmap', startTime: '2023-05-15T08:30:00Z', status: 'active', duration: 5400 },
-      ]
-      setWorkRecords(mockRecords)
-      setTimesheets(TIMESHEETS)
-      setPaySlips(PAY_SLIPS)
-      setHandoffs(HANDOFF_RECORDS)
-      setCultureLoops(CULTURE_LOOPS)
-      setGrowthWatch(GROWTH_WATCH)
+      // Fetch real data from Supabase
+      // Fetch tasks as work records
+      const { data: tasksData, error: tasksError } = await supabase
+        .from('tasks')
+        .select(`
+          id,
+          title,
+          description,
+          assignee,
+          status,
+          created_at,
+          updated_at
+        `)
+        .order('created_at', { ascending: false })
+        .limit(50)
+
+      if (tasksError) {
+        console.error('Error fetching tasks:', tasksError)
+      } else {
+        const workRecordsFromTasks: WorkRecord[] = tasksData.map((task: any) => ({
+          id: task.id,
+          agent: task.assignee || 'Unknown',
+          task: task.title || task.description || 'Untitled task',
+          startTime: task.created_at,
+          endTime: task.updated_at,
+          status: task.status === 'completed' ? 'completed' : task.status === 'in_progress' ? 'active' : 'pending',
+          duration: task.updated_at ? 
+            Math.floor((new Date(task.updated_at).getTime() - new Date(task.created_at).getTime()) / 1000) : 
+            Math.floor((Date.now() - new Date(task.created_at).getTime()) / 1000)
+        }))
+        setWorkRecords(workRecordsFromTasks)
+      }
+
+      // Fetch timesheets from tasks
+      const { data: timesheetData, error: timesheetError } = await supabase
+        .from('tasks')
+        .select(`
+          id,
+          title,
+          assignee,
+          created_at,
+          updated_at,
+          status
+        `)
+        .gte('created_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()) // Last 7 days
+        .order('created_at', { ascending: false })
+
+      if (timesheetError) {
+        console.error('Error fetching timesheets:', timesheetError)
+      } else {
+        const timesheetsData = timesheetData.map((task: any) => {
+          const startDate = new Date(task.created_at)
+          const endDate = task.updated_at ? new Date(task.updated_at) : new Date()
+          const duration = Math.floor((endDate.getTime() - startDate.getTime()) / 1000)
+          
+          return {
+            id: task.id,
+            agent: task.assignee || 'Unknown',
+            task: task.title || 'Untitled task',
+            date: startDate.toISOString().split('T')[0],
+            startTime: startDate.toTimeString().substring(0, 5),
+            endTime: task.updated_at ? new Date(task.updated_at).toTimeString().substring(0, 5) : null,
+            duration: duration,
+            status: task.status === 'completed' ? 'completed' : 'active'
+          }
+        })
+        setTimesheets(timesheetsData)
+      }
+
+      // Fetch events as handoff records
+      const { data: eventsData, error: eventsError } = await supabase
+        .from('events')
+        .select(`
+          id,
+          agent_id,
+          action,
+          details,
+          created_at
+        `)
+        .order('created_at', { ascending: false })
+        .limit(50)
+
+      if (eventsError) {
+        console.error('Error fetching events:', eventsError)
+      } else {
+        const handoffRecords = eventsData.map((event: any) => ({
+          id: event.id,
+          from: event.agent_id,
+          to: 'System', // We don't have explicit to field in our schema
+          task: event.action,
+          timestamp: event.created_at,
+          status: 'completed'
+        }))
+        setHandoffs(handoffRecords)
+      }
+
+      // Fetch proposals as culture loops
+      const { data: proposalsData, error: proposalsError } = await supabase
+        .from('proposals')
+        .select(`
+          id,
+          title,
+          description,
+          agent_id,
+          status,
+          created_at
+        `)
+        .order('created_at', { ascending: false })
+        .limit(20)
+
+      if (proposalsError) {
+        console.error('Error fetching proposals:', proposalsError)
+      } else {
+        const cultureLoopsData = proposalsData.map((proposal: any) => ({
+          id: proposal.id,
+          topic: proposal.title,
+          participants: [proposal.agent_id], // Simplified - just the proposer for now
+          date: new Date(proposal.created_at).toISOString().split('T')[0],
+          status: proposal.status === 'accepted' ? 'completed' : proposal.status,
+          feedback: proposal.description || 'No feedback provided'
+        }))
+        setCultureLoops(cultureLoopsData)
+      }
+
+      // Fetch agent memory as growth watch metrics
+      const { data: memoryData, error: memoryError } = await supabase
+        .from('memory')
+        .select(`
+          id,
+          agent_id,
+          type,
+          content,
+          created_at
+        `)
+        .order('created_at', { ascending: false })
+        .limit(50)
+
+      if (memoryError) {
+        console.error('Error fetching memory:', memoryError)
+      } else {
+        // Group memories by agent and calculate metrics
+        const agentMemories: Record<string, any[]> = {}
+        memoryData.forEach((mem: any) => {
+          if (!agentMemories[mem.agent_id]) {
+            agentMemories[mem.agent_id] = []
+          }
+          agentMemories[mem.agent_id].push(mem)
+        })
+
+        const growthWatchData = Object.entries(agentMemories).map(([agentId, memories], index) => {
+          const current = Math.min(10, memories.length * 0.5) // Scale factor for demo
+          const target = 10
+          const trend = index % 3 === 0 ? 'up' : index % 3 === 1 ? 'stable' : 'down'
+          const improvement = trend === 'up' ? `Week +${(current * 0.1).toFixed(1)}` : 
+                             trend === 'down' ? `Week -${(current * 0.05).toFixed(1)}` : 'Stable'
+          
+          return {
+            id: `${index}`,
+            agent: agentId,
+            metric: 'Learning Index',
+            current: parseFloat(current.toFixed(1)),
+            target,
+            trend,
+            improvement
+          }
+        }).slice(0, 10)
+        
+        setGrowthWatch(growthWatchData)
+      }
+
+      // For pay slips, we'll use mock data since we don't have a dedicated table for payroll
+      const mockPaySlips = [
+        { id: '1', agent: '代码侠', period: '2024-03-01 to 2024-03-31', amount: 4500, currency: 'USD', status: 'paid', hours: 120 },
+        { id: '2', agent: '洞察者', period: '2024-03-01 to 2024-03-31', amount: 4200, currency: 'USD', status: 'paid', hours: 115 },
+        { id: '3', agent: '配色师', period: '2024-03-01 to 2024-03-31', amount: 4300, currency: 'USD', status: 'paid', hours: 118 },
+        { id: '4', agent: '文案君', period: '2024-03-01 to 2024-03-31', amount: 3800, currency: 'USD', status: 'paid', hours: 105 },
+        { id: '5', agent: '诸葛灯泡', period: '2024-03-01 to 2024-03-31', amount: 5500, currency: 'USD', status: 'paid', hours: 130 },
+        { id: '6', agent: '守护者', period: '2024-03-01 to 2024-03-31', amount: 3600, currency: 'USD', status: 'paid', hours: 100 },
+        { id: '7', agent: '掌舵人', period: '2024-03-01 to 2024-03-31', amount: 4100, currency: 'USD', status: 'paid', hours: 112 },
+      ];
+      setPaySlips(mockPaySlips)
     } catch (error) {
       console.error('Failed to fetch work records:', error)
     }
@@ -209,8 +525,8 @@ export default function OfficePage() {
         },
         (payload) => {
           console.log('Agent update:', payload)
-          const newRecord = payload.new as AgentData | undefined
-          const oldRecord = payload.old as AgentData | undefined
+          const newRecord = payload.new as AgentProphet | undefined
+          const oldRecord = payload.old as AgentProphet | undefined
           
           if (payload.eventType === 'DELETE' && oldRecord) {
             setAgents(prev => {
@@ -387,6 +703,10 @@ export default function OfficePage() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    // 启用图像平滑以改善缩放效果
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
     let animationFrame: number
     let time = 0
 
@@ -397,12 +717,22 @@ export default function OfficePage() {
       ctx.fillStyle = '#0f0f1a'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Draw floor pattern
+      // 应用缩放和平移变换
+      ctx.save();
+      ctx.translate(zoomState.offsetX, zoomState.offsetY);
+      ctx.scale(zoomState.scale, zoomState.scale);
+
+      // Draw floor pattern - optimized to only draw visible area
       ctx.fillStyle = '#1a1a2e'
-      for (let x = 0; x < canvas.width; x += 40) {
-        for (let y = 0; y < canvas.height; y += 40) {
-          if ((x + y) % 80 === 0) {
-            ctx.fillRect(x, y, 40, 40)
+      const startX = Math.floor((-zoomState.offsetX) / (40 * zoomState.scale))
+      const endX = Math.ceil((canvas.width - zoomState.offsetX) / (40 * zoomState.scale))
+      const startY = Math.floor((-zoomState.offsetY) / (40 * zoomState.scale))
+      const endY = Math.ceil((canvas.height - zoomState.offsetY) / (40 * zoomState.scale))
+      
+      for (let x = startX; x < endX; x++) {
+        for (let y = startY; y < endY; y++) {
+          if ((x + y) % 2 === 0) {
+            ctx.fillRect(x * 40, y * 40, 40, 40)
           }
         }
       }
@@ -626,41 +956,54 @@ export default function OfficePage() {
         ctx.fillText('💡', MEETING_TABLE.x + MEETING_TABLE.w / 2, MEETING_TABLE.y - 20)
       }
 
-      // Stats overlay
+      // Restore original transformation
+      ctx.restore();
+
+      // Stats overlay (drawn in original scale)
       const busyCount = Object.values(agents).filter(a => a.status === 'busy').length
       const meetingCount = Object.values(agents).filter(a => a.activity === 'meeting').length
       ctx.fillStyle = '#4a4a6a'
-      ctx.fillRect(10, 10, 180, 100)
+      ctx.fillRect(10, 10, 220, 120)
       ctx.font = '12px Arial'
       ctx.textAlign = 'left'
       ctx.fillStyle = '#fff'
       ctx.fillText(`活跃: ${busyCount} / ${Object.keys(agents).length}`, 20, 30)
       ctx.fillText(`会议: ${meetingCount}`, 20, 50)
+      ctx.fillText(`缩放: ${(zoomState.scale * 100).toFixed(0)}%`, 20, 70)
       ctx.fillStyle = connectionStatus === 'connected' ? '#22c55e' : '#ef4444'
-      ctx.fillText(`● ${connectionStatus === 'connected' ? '实时连接' : '离线'}`, 20, 70)
+      ctx.fillText(`● ${connectionStatus === 'connected' ? '实时连接' : connectionStatus === 'connecting' ? '连接中...' : '离线'}`, 20, 90)
       ctx.fillStyle = '#888'
       ctx.textAlign = 'right'
-      ctx.fillText(`更新: ${lastUpdate}`, 180, 30)
+      ctx.fillText(`更新: ${lastUpdate}`, 210, 30)
+      ctx.fillText(`拖拽: ${dragState.isDragging ? '是' : '否'}`, 210, 50)
 
-      // Performance indicators
+      // Performance indicators (drawn in original scale)
       Object.entries(agents).forEach(([id, agent], index) => {
         if (agent.status === 'busy') {
+          // Calculate positions accounting for transforms
           const desk = DESKS.find(d => d.id === id)
           if (desk) {
-            const x = desk.x + desk.w / 2
-            const y = desk.y + desk.h + 50
+            // Only draw if agent is potentially visible in current view
+            const x = (desk.x + desk.w / 2) * zoomState.scale + zoomState.offsetX
+            const y = (desk.y + desk.h + 50) * zoomState.scale + zoomState.offsetY
             
-            // CPU usage indicator
-            ctx.fillStyle = '#3b82f6'
-            ctx.fillRect(x - 15, y, 30, 5)
-            ctx.fillStyle = '#1e40af'
-            ctx.fillRect(x - 15, y, 30 * (agent.resources?.cpu || 50) / 100, 5)
-            
-            // Memory usage indicator
-            ctx.fillStyle = '#8b5cf6'
-            ctx.fillRect(x - 15, y + 7, 30, 3)
-            ctx.fillStyle = '#7c3aed'
-            ctx.fillRect(x - 15, y + 7, 30 * (agent.resources?.memory || 50) / 100, 3)
+            if (x > -20 && x < canvas.width + 20 && y > -20 && y < canvas.height + 20) {
+              // CPU usage indicator
+              ctx.fillStyle = '#3b82f6'
+              ctx.fillRect(10, 140 + index * 20, 30, 5)
+              ctx.fillStyle = '#1e40af'
+              ctx.fillRect(10, 140 + index * 20, 30 * (agent.resources?.cpu || 50) / 100, 5)
+              
+              // Memory usage indicator
+              ctx.fillStyle = '#8b5cf6'
+              ctx.fillRect(10, 147 + index * 20, 30, 3)
+              ctx.fillStyle = '#7c3aed'
+              ctx.fillRect(10, 147 + index * 20, 30 * (agent.resources?.memory || 50) / 100, 3)
+              
+              ctx.fillStyle = '#fff'
+              ctx.font = '10px Arial'
+              ctx.fillText(`${agent.name.substring(0, 8)}...`, 45, 145 + index * 20)
+            }
           }
         }
       })
@@ -670,10 +1013,35 @@ export default function OfficePage() {
 
     draw()
 
+    // 添加键盘事件监听器
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // 缩放控制: +/- 或 Ctrl + 鼠标滚轮
+      if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        const newScale = Math.min(zoomState.scale + 0.1, 3);
+        setZoomState(prev => ({ ...prev, scale: newScale }));
+      } else if (e.key === '-' || e.key === '_') {
+        e.preventDefault();
+        const newScale = Math.max(zoomState.scale - 0.1, 0.5);
+        setZoomState(prev => ({ ...prev, scale: newScale }));
+      } else if (e.key === '0' || e.key === 'Home') {
+        // 重置视图
+        e.preventDefault();
+        setZoomState({ scale: 1, offsetX: 0, offsetY: 0 });
+      } else if (e.key === 'f' || e.key === 'F') {
+        // 全屏切换
+        e.preventDefault();
+        setIsFullscreen(!isFullscreen);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       cancelAnimationFrame(animationFrame)
+      window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [agents, moveTrails, lastUpdate, connectionStatus])
+  }, [agents, moveTrails, lastUpdate, connectionStatus, zoomState, dragState, isFullscreen])
 
   // Format duration in seconds to HH:MM:SS
   const formatDuration = (seconds: number) => {
@@ -712,11 +1080,21 @@ export default function OfficePage() {
           </div>
           <div className="flex items-center gap-4 lg:gap-6">
             <div className="flex items-center gap-2 text-base lg:text-lg">
-              <span className={`w-3 h-3 rounded-full ${connectionStatus === 'connected' ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+              <span className={`w-3 h-3 rounded-full ${connectionStatus === 'connected' ? 'bg-green-500 animate-pulse' : connectionStatus === 'connecting' ? 'bg-yellow-500' : 'bg-red-500'}`} />
               <span className="text-gray-400">
-                {connectionStatus === 'connected' ? 'WebSocket 实时' : '离线模式'}
+                {connectionStatus === 'connected' ? 'WebSocket 实时' : connectionStatus === 'connecting' ? '连接中...' : '离线模式'}
               </span>
             </div>
+            <button
+              onClick={() => {
+                // 重置缩放和平移
+                setZoomState({ scale: 1, offsetX: 0, offsetY: 0 });
+              }}
+              className="p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
+              title="重置视图"
+            >
+              <Target className="w-6 h-6" />
+            </button>
             <button
               onClick={() => setIsFullscreen(!isFullscreen)}
               className="p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
@@ -739,46 +1117,49 @@ export default function OfficePage() {
       </div>
 
       {/* View Tabs */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-6">
-        <div className="flex border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+        <div className="flex gap-1 sm:gap-2 p-1 bg-white/5 rounded-xl border border-white/10">
           <button
-            className={`px-6 py-3 font-medium text-base ${
+            className={`flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 font-medium text-sm sm:text-base rounded-lg transition-all duration-300 ${
               activeView === 'office'
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'bg-primary-500/20 text-primary-400 border border-primary-500/30 shadow-lg shadow-primary-500/10'
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}
             onClick={() => setActiveView('office')}
           >
-            <Eye className="w-5 h-5 inline mr-2" />
-            办公室
+            <Eye className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1.5 sm:mr-2" />
+            <span className="hidden sm:inline">办公室</span>
+            <span className="sm:hidden">办公室</span>
           </button>
           <button
-            className={`px-6 py-3 font-medium text-base ${
+            className={`flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 font-medium text-sm sm:text-base rounded-lg transition-all duration-300 ${
               activeView === 'ledger'
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'bg-primary-500/20 text-primary-400 border border-primary-500/30 shadow-lg shadow-primary-500/10'
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}
             onClick={() => setActiveView('ledger')}
           >
-            <FileText className="w-5 h-5 inline mr-2" />
-            记录
+            <FileText className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1.5 sm:mr-2" />
+            <span className="hidden sm:inline">记录</span>
+            <span className="sm:hidden">记录</span>
           </button>
           <button
-            className={`px-6 py-3 font-medium text-base ${
+            className={`flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 font-medium text-sm sm:text-base rounded-lg transition-all duration-300 ${
               activeView === 'stats'
-                ? 'text-purple-400 border-b-2 border-purple-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'bg-primary-500/20 text-primary-400 border border-primary-500/30 shadow-lg shadow-primary-500/10'
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}
             onClick={() => setActiveView('stats')}
           >
-            <BarChart3 className="w-5 h-5 inline mr-2" />
-            统计
+            <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 inline mr-1.5 sm:mr-2" />
+            <span className="hidden sm:inline">统计</span>
+            <span className="sm:hidden">统计</span>
           </button>
         </div>
       </div>
 
       {/* Office View */}
-      {activeView === 'office' && (
+      <div className={`transition-all duration-500 ease-in-out ${activeView === 'office' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 hidden'}`}>
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-8">
           <div className={`
             bg-[#0f0f1a] rounded-xl border border-white/10 overflow-hidden
@@ -788,7 +1169,12 @@ export default function OfficePage() {
               ref={canvasRef}
               width={1400}
               height={900}
-              className="w-full h-auto max-h-[75vh] lg:max-h-[85vh] object-contain"
+              className="w-full h-auto max-h-[75vh] lg:max-h-[85vh] object-contain cursor-grab"
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onWheel={handleWheel}
             />
           </div>
           
@@ -797,13 +1183,51 @@ export default function OfficePage() {
             👆 点击 Agent 卡片查看详情
           </p>
         </section>
-      )}
+      </div>
 
       {/* Office Ledger View */}
-      {activeView === 'ledger' && (
+      <div className={`transition-all duration-500 ease-in-out ${activeView === 'ledger' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 hidden'}`}>
         <section className="max-w-7xl mx-auto px-6 lg:px-8 mb-8 lg:mb-12">
           <div className="bg-white/5 rounded-xl border border-white/10 p-6 lg:p-8">
-            <h2 className="text-2xl lg:text-3xl font-semibold mb-6 lg:mb-8">Office Ledger</h2>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 lg:mb-8 gap-4">
+              <h2 className="text-2xl lg:text-3xl font-semibold">Office Ledger 2.0</h2>
+              
+              {/* Agent Filter */}
+              <div className="flex items-center gap-2">
+                <label htmlFor="agent-filter" className="text-sm text-gray-400">筛选:</label>
+                <select
+                  id="agent-filter"
+                  value={selectedAgentFilter}
+                  onChange={(e) => setSelectedAgentFilter(e.target.value)}
+                  className="bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                >
+                  <option value="all">全部智能体</option>
+                  {AGENT_LIST.map(agent => (
+                    <option key={agent.id} value={agent.id}>{agent.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                <div className="text-2xl font-bold text-blue-400">{timesheets.length}</div>
+                <div className="text-sm text-gray-400">工时记录</div>
+              </div>
+              <div className="p-4 bg-green-500/10 rounded-lg border border-green-500/20">
+                <div className="text-2xl font-bold text-green-400">{paySlips.length}</div>
+                <div className="text-sm text-gray-400">薪资单</div>
+              </div>
+              <div className="p-4 bg-purple-500/10 rounded-lg border border-primary-500/20">
+                <div className="text-2xl font-bold text-primary-400">{handoffs.length}</div>
+                <div className="text-sm text-gray-400">交接记录</div>
+              </div>
+              <div className="p-4 bg-teal-500/10 rounded-lg border border-teal-500/20">
+                <div className="text-2xl font-bold text-teal-400">{cultureLoops.length}</div>
+                <div className="text-sm text-gray-400">文化循环</div>
+              </div>
+            </div>
             
             {/* Timesheets Section */}
             <div className="mb-8">
@@ -830,7 +1254,10 @@ export default function OfficePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {timesheets.map(timesheet => (
+                    {timesheets
+                      .filter(timesheet => selectedAgentFilter === 'all' || 
+                        AGENT_LIST.some(agent => agent.name === timesheet.agent && agent.id === selectedAgentFilter))
+                      .map(timesheet => (
                       <tr key={timesheet.id} className="border-b border-white/5 hover:bg-white/5">
                         <td className="py-3">{timesheet.agent}</td>
                         <td className="py-3">{timesheet.task}</td>
@@ -878,7 +1305,10 @@ export default function OfficePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {paySlips.map(paySlip => (
+                    {paySlips
+                      .filter(paySlip => selectedAgentFilter === 'all' || 
+                        AGENT_LIST.some(agent => agent.name === paySlip.agent && agent.id === selectedAgentFilter))
+                      .map(paySlip => (
                       <tr key={paySlip.id} className="border-b border-white/5 hover:bg-white/5">
                         <td className="py-3">{paySlip.agent}</td>
                         <td className="py-3">{paySlip.period}</td>
@@ -905,7 +1335,7 @@ export default function OfficePage() {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5 text-purple-400" />
+                  <MessageCircle className="w-5 h-5 text-primary-400" />
                   Handoffs
                 </h3>
                 <button className="px-3 py-1.5 bg-indigo-500/20 text-indigo-400 rounded-lg text-sm hover:bg-indigo-500/30 transition-colors">
@@ -924,7 +1354,10 @@ export default function OfficePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {handoffs.map(handoff => (
+                    {handoffs
+                      .filter(handoff => selectedAgentFilter === 'all' || 
+                        AGENT_LIST.some(agent => (agent.name === handoff.from || agent.name === handoff.to) && agent.id === selectedAgentFilter))
+                      .map(handoff => (
                       <tr key={handoff.id} className="border-b border-white/5 hover:bg-white/5">
                         <td className="py-3">{handoff.from}</td>
                         <td className="py-3">{handoff.to}</td>
@@ -969,7 +1402,11 @@ export default function OfficePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cultureLoops.map(loop => (
+                    {cultureLoops
+                      .filter(loop => selectedAgentFilter === 'all' || 
+                        loop.participants.some((participant: string) => 
+                          AGENT_LIST.some(agent => agent.name === participant && agent.id === selectedAgentFilter)))
+                      .map(loop => (
                       <tr key={loop.id} className="border-b border-white/5 hover:bg-white/5">
                         <td className="py-3">{loop.topic}</td>
                         <td className="py-3">{loop.participants.join(', ')}</td>
@@ -1003,7 +1440,10 @@ export default function OfficePage() {
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {growthWatch.map(watch => (
+                {growthWatch
+                  .filter(watch => selectedAgentFilter === 'all' || 
+                    AGENT_LIST.some(agent => agent.name === watch.agent && agent.id === selectedAgentFilter))
+                  .map(watch => (
                   <div key={watch.id} className="p-4 bg-white/5 rounded-lg border border-white/10">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-medium">{watch.agent}</h4>
@@ -1036,15 +1476,15 @@ export default function OfficePage() {
             </div>
           </div>
         </section>
-      )}
+      </div>
 
       {/* Stats View */}
-      {activeView === 'stats' && (
+      <div className={`transition-all duration-500 ease-in-out ${activeView === 'stats' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 hidden'}`}>
         <section className="max-w-6xl lg:max-w-7xl mx-auto mb-8 lg:mb-12">
           {/* RPG Stats Grid */}
           <div className="mb-8">
             <h2 className="text-xl lg:text-2xl font-semibold mb-4 lg:mb-6 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 lg:w-6 lg:h-6 text-purple-400" />
+              <BarChart3 className="w-5 h-5 lg:w-6 lg:h-6 text-primary-400" />
               Agent RPG Stats
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
@@ -1052,7 +1492,7 @@ export default function OfficePage() {
               <AgentRPGCard
                 name="诸葛灯泡"
                 codeName="Zhuge"
-                role="管理员&进化官"
+                role="造梦者"
                 color="coordinator"
                 icon={<Target className="w-5 h-5 sm:w-6 sm:h-6" />}
                 stats={{
@@ -1065,10 +1505,10 @@ export default function OfficePage() {
                 }}
               />
               
-              {/* 协调员 - Minion */}
+              {/* 掌舵人 - Pilot */}
               <AgentRPGCard
-                name="协调员"
-                codeName="Minion"
+                name="掌舵人"
+                codeName="Pilot"
                 role="任务分配"
                 color="coordinator"
                 icon={<Target className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -1082,10 +1522,10 @@ export default function OfficePage() {
                 }}
               />
               
-              {/* 研究员 - Scout */}
+              {/* 洞察者 - Radar */}
               <AgentRPGCard
-                name="研究员"
-                codeName="Scout"
+                name="洞察者"
+                codeName="Radar"
                 role="研究分析"
                 color="researcher"
                 icon={<Search className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -1099,10 +1539,10 @@ export default function OfficePage() {
                 }}
               />
               
-              {/* 文案 - Quill */}
+              {/* 文案君 - Ink */}
               <AgentRPGCard
-                name="文案"
-                codeName="Quill"
+                name="文案君"
+                codeName="Ink"
                 role="内容创作"
                 color="writer"
                 icon={<PenTool className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -1116,10 +1556,10 @@ export default function OfficePage() {
                 }}
               />
               
-              {/* 工程师 - Sage */}
+              {/* 代码侠 - Forge */}
               <AgentRPGCard
-                name="工程师"
-                codeName="Sage"
+                name="代码侠"
+                codeName="Forge"
                 role="技术开发"
                 color="engineer"
                 icon={<Code className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -1133,10 +1573,10 @@ export default function OfficePage() {
                 }}
               />
               
-              {/* 设计师 - Xalt */}
+              {/* 配色师 - Canvas */}
               <AgentRPGCard
-                name="设计师"
-                codeName="Xalt"
+                name="配色师"
+                codeName="Canvas"
                 role="视觉设计"
                 color="designer"
                 icon={<Palette className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -1150,10 +1590,10 @@ export default function OfficePage() {
                 }}
               />
               
-              {/* 支持专员 - Observer */}
+              {/* 守护者 - Angel */}
               <AgentRPGCard
-                name="支持专员"
-                codeName="Observer"
+                name="守护者"
+                codeName="Angel"
                 role="用户支持"
                 color="support"
                 icon={<Wrench className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -1198,10 +1638,10 @@ export default function OfficePage() {
               
               <div className="p-4 bg-white/5 rounded-lg border border-white/10">
                 <div className="flex items-center gap-3 mb-2">
-                  <Zap className="w-6 h-6 text-purple-400" />
+                  <Zap className="w-6 h-6 text-primary-400" />
                   <h3 className="font-medium">总工时</h3>
                 </div>
-                <div className="text-2xl font-bold text-purple-400">
+                <div className="text-2xl font-bold text-primary-400">
                   {formatDuration(workRecords.reduce((sum, r) => sum + (r.duration || 0), 0))}
                 </div>
                 <div className="text-sm text-gray-400">累计工作时长</div>
@@ -1311,7 +1751,7 @@ export default function OfficePage() {
             </div>
           </div>
         </section>
-      )}
+      </div>
 
       {/* Agent List - Enhanced Cards */}
       <section className="max-w-6xl lg:max-w-7xl mx-auto">
@@ -1329,7 +1769,7 @@ export default function OfficePage() {
                 ${agent.status === 'busy'
                   ? 'bg-white/10 border-white/30'
                   : 'bg-white/5 border-white/10 hover:border-white/30'}
-                ${selectedAgent === id ? 'ring-2 ring-purple-500' : ''}
+                ${selectedAgent === id ? 'ring-2 ring-primary-500' : ''}
               `}
             >
               <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
@@ -1381,7 +1821,7 @@ export default function OfficePage() {
                 </div>
               )}
               {agent.speechBubble && (
-                <div className="flex items-center gap-1 text-xs text-purple-400 mt-1">
+                <div className="flex items-center gap-1 text-xs text-primary-400 mt-1">
                   <MessageCircle className="w-3 h-3" />
                   {agent.speechBubble}
                 </div>
@@ -1428,6 +1868,23 @@ export default function OfficePage() {
           <li>✅ 资源监控 - 实时显示 CPU/内存使用情况</li>
           <li>✅ 工作记录 - 跟踪任务完成情况</li>
         </ul>
+      </section>
+      
+      {/* 控制说明 */}
+      <section className="max-w-6xl lg:max-w-7xl mx-auto mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
+        <h3 className="font-semibold mb-2 text-base lg:text-lg">🖱️ 交互控制</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-400">
+          <div>
+            <p><span className="text-white">点击 Agent</span> - 查看详细信息</p>
+            <p><span className="text-white">鼠标拖拽</span> - 平移视图</p>
+            <p><span className="text-white">滚轮</span> - 缩放视图</p>
+          </div>
+          <div>
+            <p><span className="text-white">+/- 键</span> - 快捷缩放</p>
+            <p><span className="text-white">0 键</span> - 重置视图</p>
+            <p><span className="text-white">F 键</span> - 全屏切换</p>
+          </div>
+        </div>
       </section>
     </main>
   )

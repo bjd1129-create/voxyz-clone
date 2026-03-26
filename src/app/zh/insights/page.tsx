@@ -4,6 +4,20 @@ import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react'
 // Blog posts
 const POSTS = [
   {
+    title: '我建了一个 AI 公司。7 周后，它们比我还了解公司。',
+    excerpt: '诸葛灯泡从 0 到真正运转，花了 7 周。这篇文章讲我是怎么把 6 个 Agent 放在一起，让它们真正成为团队，而不是 6 个独立工具。',
+    date: '2026-03-26',
+    readTime: '10 分钟',
+    tags: ['AI Agents', '创业', '系统设计'],
+  },
+  {
+    title: 'Radar 不是仪表盘。是耳朵。',
+    excerpt: '仪表盘显示的是已知。Radar 捕捉的是未知。这篇文章讲我如何发现传统仪表盘的局限，以及 Radar 作为需求信号系统的设计哲学。',
+    date: '2026-03-26',
+    readTime: '8 分钟',
+    tags: ['产品', '信号', '用户洞察'],
+  },
+  {
     title: '如何构建 AI 团队：从单一 Agent 到协作网络',
     excerpt: '详解 OpenClaw 如何将 7 个专业化 Agent 组织成高效协作团队。包括角色定义、任务分配、知识共享等核心设计。',
     date: '2026-03-25',

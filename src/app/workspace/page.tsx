@@ -55,7 +55,7 @@ export default function WorkspacePage() {
             </button>
             <Link 
               href="/office"
-              className="px-4 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 transition-colors"
+              className="px-4 py-2 bg-primary-500/20 text-primary-400 rounded-lg hover:bg-primary-500/30 transition-colors"
             >
               Pixel Office
             </Link>
@@ -109,7 +109,7 @@ export default function WorkspacePage() {
             {/* Recent Messages */}
             <div>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-purple-400" />
+                <MessageSquare className="w-5 h-5 text-primary-400" />
                 团队沟通
               </h2>
               <MessageFeed limit={10} />
@@ -162,7 +162,7 @@ export default function WorkspacePage() {
             数据刷新间隔：5-10秒
           </div>
           <div className="ml-auto">
-            <Link href="/office" className="text-purple-400 hover:text-purple-300">
+            <Link href="/office" className="text-primary-400 hover:text-primary-300">
               查看像素办公室 →
             </Link>
           </div>

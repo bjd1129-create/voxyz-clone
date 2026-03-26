@@ -52,14 +52,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'agent_id, type, and content are required' }, { status: 400 });
     }
 
-    const memoryData: Record<string, unknown> = {
+    const memoryProphet: Record<string, unknown> = {
       agent_id,
       type,
       content,
     };
 
     if (embedding) {
-      memoryData.embedding = embedding;
+      memoryProphet.embedding = embedding;
     }
 
     const response = await fetch(
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
           'Content-Type': 'application/json',
           'Prefer': 'return=representation',
         },
-        body: JSON.stringify(memoryData),
+        body: JSON.stringify(memoryProphet),
       }
     );
 

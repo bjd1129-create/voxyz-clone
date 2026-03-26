@@ -80,7 +80,7 @@ export default function RadarIsNotDashboardPage() {
             去年，我做了第一个 Radar。初心很简单：不想错过重要信号。
           </p>
           <p className="text-gray-400 mb-4">
-            我让研究员 Agent（Scout）订阅了几个关键词：公司名、竞品名、行业术语。每天早上，它会把发现推给我。
+            我让洞察者 Agent（Radar）订阅了几个关键词：公司名、竞品名、行业术语。每天早上，它会把发现推给我。
           </p>
           <p className="text-gray-400 mb-4">
             第三天，它捕获了一条不起眼的推文。一个用户说："X 产品有个功能很好用，可惜 Y 竞品没有。"
@@ -112,13 +112,13 @@ export default function RadarIsNotDashboardPage() {
             现在的 Radar 有三层：
           </p>
           <p className="text-gray-400 mb-4">
-            <strong>第一层：信号捕获</strong>。研究员 Agent 监控关键词、论坛、社交媒体。所有信号都进入一个池子。
+            <strong>第一层：信号捕获</strong>。洞察者 Agent 监控关键词、论坛、社交媒体。所有信号都进入一个池子。
           </p>
           <p className="text-gray-400 mb-4">
-            <strong>第二层：信号分类</strong>。协调员 Agent 判断：这是抱怨？这是需求？这是机会？这是噪音？每个信号被打上标签，推给对应的人。
+            <strong>第二层：信号分类</strong>。掌舵人 Agent 判断：这是抱怨？这是需求？这是机会？这是噪音？每个信号被打上标签，推给对应的人。
           </p>
           <p className="text-gray-400 mb-4">
-            <strong>第三层：信号行动</strong>。产品经理收到需求信号。市场团队收到舆情信号。工程师收到 bug 信号。每个信号都有行动建议。
+            <strong>第三层：信号行动</strong>。产品经理收到需求信号。市场团队收到舆情信号。代码侠收到 bug 信号。每个信号都有行动建议。
           </p>
           <p className="text-gray-400 mb-4">
             整个过程不需要我主动看任何东西。信号会自己流向我。

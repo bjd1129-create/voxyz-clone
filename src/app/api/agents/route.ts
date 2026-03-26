@@ -12,8 +12,8 @@ let agentStatus: Record<string, {
   activity: 'working' | 'walking' | 'meeting' | 'coffee'
 }> = {
   ceo: {
-    name: 'CEO Minion',
-    emoji: '🎯',
+    name: '诸葛灯泡',
+    emoji: '💡',
     color: '#FF6B6B',
     status: 'busy',
     currentTask: '制定战略规划',
@@ -21,9 +21,9 @@ let agentStatus: Record<string, {
     position: { x: 200, y: 150 },
     activity: 'working',
   },
-  creative: {
-    name: 'Creative',
-    emoji: '🎨',
+  coordinator: {
+    name: '掌舵人',
+    emoji: '🎯',
     color: '#A855F7',
     status: 'idle',
     currentTask: null,
@@ -32,7 +32,7 @@ let agentStatus: Record<string, {
     activity: 'walking',
   },
   developer: {
-    name: 'Developer',
+    name: '代码侠',
     emoji: '💻',
     color: '#3B82F6',
     status: 'busy',
@@ -42,7 +42,7 @@ let agentStatus: Record<string, {
     activity: 'working',
   },
   writer: {
-    name: 'Writer',
+    name: '文案君',
     emoji: '📝',
     color: '#10B981',
     status: 'idle',
@@ -52,17 +52,17 @@ let agentStatus: Record<string, {
     activity: 'coffee',
   },
   researcher: {
-    name: 'Researcher',
+    name: '洞察者',
     emoji: '🔍',
     color: '#F59E0B',
     status: 'busy',
-    currentTask: '分析 voxyz.space 架构',
+    currentTask: '分析 openclaw.ai 架构',
     lastActive: new Date().toISOString(),
     position: { x: 350, y: 300 },
     activity: 'working',
   },
   support: {
-    name: 'Support',
+    name: '守护者',
     emoji: '🛠️',
     color: '#EC4899',
     status: 'idle',

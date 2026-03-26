@@ -107,7 +107,7 @@ function getProposalIdeas(agentId: string): Array<{ title: string; description: 
     ],
     researcher: [
       { title: '调研 Agent 记忆方案', description: '研究如何让 Agent 拥有长期记忆', type: 'idea' },
-      { title: '对比竞品新功能', description: '分析 voxyz.space 最新更新', type: 'idea' },
+      { title: '对比竞品新功能', description: '分析 openclaw.ai 最新更新', type: 'idea' },
     ],
     writer: [
       { title: '撰写技术博客', description: '分享数据闭环设计经验', type: 'idea' },

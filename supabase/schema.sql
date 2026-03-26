@@ -69,6 +69,14 @@ INSERT INTO agents (id, name, role, emoji, color) VALUES
   ('researcher', 'Researcher', 'Analysis Lead', '🔍', '#F59E0B'),
   ('support', 'Support', 'Customer Success', '🛠️', '#EC4899');
 
+-- Operations Policy table
+CREATE TABLE ops_policy (
+  policy_key TEXT PRIMARY KEY,
+  value JSONB,
+  description TEXT,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Create indexes
 CREATE INDEX idx_tasks_assignee ON tasks(assignee);
 CREATE INDEX idx_events_agent ON events(agent_id);

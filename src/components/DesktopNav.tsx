@@ -29,7 +29,7 @@ export default function DesktopNav({
   return (
     <nav className="hidden md:flex fixed top-0 left-0 right-0 z-50 items-center justify-between px-8 lg:px-12 py-4 lg:py-5 bg-black/60 backdrop-blur-xl border-b border-white/5">
       <Link href="/" className="flex items-center gap-2.5">
-        <Bot className="w-7 h-7 lg:w-8 lg:h-8 text-purple-400" />
+        <Bot className="w-7 h-7 lg:w-8 lg:h-8 text-primary-400" />
         <span className="font-semibold text-white text-lg lg:text-xl">OpenClaw</span>
       </Link>
       

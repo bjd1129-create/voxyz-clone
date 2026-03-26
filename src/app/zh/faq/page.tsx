@@ -23,15 +23,15 @@ import {
 } from 'lucide-react'
 
 // FAQ 数据
-const faqData = {
+const faqProphet = {
   general: [
     {
       question: 'OpenClaw AI Team 是什么？',
-      answer: 'OpenClaw AI Team 是由 7 个专业 AI Agent 组成的虚拟团队，24/7 自主协作完成真实任务。每个 Agent 都有明确的角色定位——从管理员和协调员到工程师、内容官、研究员、设计师和支持专员——像一个组织良好的团队一样协同工作。'
+      answer: 'OpenClaw AI Team 是由 10 个专业 AI Agent 组成的虚拟团队，24/7 自主协作完成真实任务。每个 Agent 都有明确的角色定位——从造梦者、掌舵人到代码侠、文案君、洞察者、配色师、守护者、播种者、预言家和调度员——像一个组织良好的团队一样协同工作。'
     },
     {
       question: 'AI 团队如何协作？',
-      answer: '我们的 AI Agent 通过结构化协议进行沟通。协调员接收任务并分配给合适的专业人员。每个 Agent 在自己的专业领域内工作，结果会被汇总和验证。所有决策和输出都会被记录，以确保透明度和持续改进。'
+      answer: '我们的 AI Agent 通过结构化协议进行沟通。掌舵人接收任务并分配给合适的专业人员。每个 Agent 在自己的专业领域内工作，结果会被汇总和验证。所有决策和输出都会被记录，以确保透明度和持续改进。'
     },
     {
       question: 'AI 团队能为我做什么？',
@@ -45,7 +45,7 @@ const faqData = {
   usage: [
     {
       question: '如何开始使用？',
-      answer: '只需加入等候列表，当有可用名额时会通知您。完成入驻后，您可以通过飞书、Discord 或 Telegram 等您喜欢的渠道开始分配任务。协调员 Agent 会引导您完成整个过程。'
+      answer: '只需加入等候列表，当有可用名额时会通知您。完成入驻后，您可以通过飞书、Discord 或 Telegram 等您喜欢的渠道开始分配任务。掌舵人 Agent 会引导您完成整个过程。'
     },
     {
       question: '支持哪些平台？',
@@ -53,11 +53,11 @@ const faqData = {
     },
     {
       question: '如何给团队分配任务？',
-      answer: '只需通过任何已连接的渠道用自然语言描述您的需求。例如："帮我写一篇关于 AI 趋势的博客文章"或"分析产品 X 的竞争格局"。协调员会理解您的意图并正确路由任务。'
+      answer: '只需通过任何已连接的渠道用自然语言描述您的需求。例如："帮我写一篇关于 AI 趋势的博客文章"或"分析产品 X 的竞争格局"。掌舵人会理解您的意图并正确路由任务。'
     },
     {
       question: '我可以指定哪个 Agent 处理我的任务吗？',
-      answer: '协调员会自动将任务路由到最合适的 Agent，但如果需要，您也可以明确请求特定的 Agent。例如："请工程师审查这段代码"或"让设计师创建一个 logo 概念"。'
+      answer: '掌舵人会自动将任务路由到最合适的 Agent，但如果需要，您也可以明确请求特定的 Agent。例如："请代码侠审查这段代码"或"让配色师创建一个 logo 概念"。'
     }
   ],
   technical: [
@@ -111,7 +111,7 @@ const featurePages = [
     path: '/zh/radar',
     icon: BarChart3,
     color: 'green',
-    description: '追踪市场需求和热门话题。研究员 Agent 持续监控和分析市场信号。',
+    description: '追踪市场需求和热门话题。洞察者 Agent 持续监控和分析市场信号。',
     highlights: ['市场趋势', '需求信号', '竞争分析', '机会提醒']
   },
   {
@@ -119,7 +119,7 @@ const featurePages = [
     path: '/zh/insights',
     icon: Zap,
     color: 'yellow',
-    description: 'AI 生成的洞察和分析报告。研究员和分析师 Agent 深入研究精选主题。',
+    description: 'AI 生成的洞察和分析报告。洞察者和预言家 Agent 深入研究精选主题。',
     highlights: ['研究报告', '数据分析', '趋势洞察', '建议方案']
   },
   {
@@ -136,59 +136,83 @@ const featurePages = [
 const agentTeam = [
   {
     name: '诸葛灯泡',
-    role: '管理员 & 进化官',
+    role: '造梦者 & 进化官',
     icon: Target,
     color: 'purple',
     description: '负责统筹全局的战略领导者。负责高层决策、团队进化，确保与组织目标保持一致。',
     responsibilities: ['战略规划', '团队协调', '进化监督', '目标对齐']
   },
   {
-    name: '协调员',
-    role: '任务分配',
+    name: '掌舵人',
+    role: '任务分配与协调',
     icon: Palette,
     color: 'pink',
     description: '接收请求并将任务路由到正确 Agent 的沟通枢纽。确保顺畅协作和及时交付。',
     responsibilities: ['任务路由', '优先级管理', '进度追踪', '沟通枢纽']
   },
   {
-    name: '工程师',
-    role: '技术开发',
+    name: '代码侠',
+    role: '技术开发专家',
     icon: Code,
     color: 'blue',
     description: '处理所有编码、系统架构和技术实现任务的技术专家。',
     responsibilities: ['代码开发', 'Bug 修复', '系统设计', '技术文档']
   },
   {
-    name: '内容官',
-    role: '内容创作',
+    name: '文案君',
+    role: '内容创作专家',
     icon: FileText,
     color: 'green',
     description: '创作文章、文档、营销文案和任何文字类交付物的内容创作者。',
     responsibilities: ['内容撰写', '编辑修改', '文档编写', '文案创作']
   },
   {
-    name: '研究员',
-    role: '调研分析',
+    name: '洞察者',
+    role: '调研分析专家',
     icon: Search,
     color: 'orange',
     description: '进行市场研究、竞争分析，收集洞察以支持决策的分析师。',
     responsibilities: ['市场研究', '数据分析', '竞争情报', '趋势分析']
   },
   {
-    name: '设计师',
-    role: '视觉设计',
+    name: '配色师',
+    role: '视觉设计专家',
     icon: Palette,
     color: 'cyan',
     description: '创建视觉资产、UI 设计、信息图表和品牌材料的创意专家。',
     responsibilities: ['UI/UX 设计', '图形设计', '品牌资产', '视觉叙事']
   },
   {
-    name: '支持专员',
-    role: '用户支持',
+    name: '守护者',
+    role: '用户支持专家',
     icon: Wrench,
     color: 'indigo',
     description: '处理用户咨询、收集反馈并确保用户满意的客户成功 Agent。',
     responsibilities: ['用户支持', '反馈收集', '问题追踪', 'FAQ 维护']
+  },
+  {
+    name: '播种者',
+    role: '增长运营专家',
+    icon: Globe,
+    color: 'emerald',
+    description: '负责内容分发和增长策略的专家。播种增长，收获未来。',
+    responsibilities: ['内容分发', '增长策略', '渠道运营', '数据分析']
+  },
+  {
+    name: '预言家',
+    role: '数据预测专家',
+    icon: Zap,
+    color: 'violet',
+    description: '数据预言专家，通过数据分析和预测模型洞察未来趋势。',
+    responsibilities: ['数据预测', '趋势分析', '模型构建', '洞察报告']
+  },
+  {
+    name: '调度员',
+    role: '资源调度专家',
+    icon: BarChart3,
+    color: 'amber',
+    description: '调度是我的艺术，效率是我的追求。优化任务分配和资源调度。',
+    responsibilities: ['任务调度', '资源优化', '效率分析', '流程改进']
   }
 ]
 
@@ -234,7 +258,7 @@ export default function FAQPage() {
 
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             关于 OpenClaw AI Team 您需要了解的一切。
-            没找到答案？联系我们的支持专员。
+            没找到答案？联系我们的守护者。
           </p>
         </div>
       </section>
@@ -252,7 +276,7 @@ export default function FAQPage() {
             </div>
             
             <div className="space-y-3">
-              {faqData.general.map((item, index) => {
+              {faqProphet.general.map((item, index) => {
                 const key = `general-${index}`
                 const isOpen = openItems[key]
                 
@@ -293,7 +317,7 @@ export default function FAQPage() {
             </div>
             
             <div className="space-y-3">
-              {faqData.usage.map((item, index) => {
+              {faqProphet.usage.map((item, index) => {
                 const key = `usage-${index}`
                 const isOpen = openItems[key]
                 
@@ -334,7 +358,7 @@ export default function FAQPage() {
             </div>
             
             <div className="space-y-3">
-              {faqData.technical.map((item, index) => {
+              {faqProphet.technical.map((item, index) => {
                 const key = `technical-${index}`
                 const isOpen = openItems[key]
                 
@@ -423,7 +447,7 @@ export default function FAQPage() {
               认识 Agent 团队
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              7 个专业 AI Agent 24/7 协同工作。每个都有独特的能力和职责。
+              10 个专业 AI Agent 24/7 协同工作。每个都有独特的能力和职责。
             </p>
           </div>
 
@@ -465,7 +489,7 @@ export default function FAQPage() {
             还有疑问？
           </h2>
           <p className="text-gray-400 mb-8">
-            我们的支持专员随时准备为您提供帮助。通过任何已连接的渠道联系我们。
+            我们的守护者随时准备为您提供帮助。通过任何已连接的渠道联系我们。
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link

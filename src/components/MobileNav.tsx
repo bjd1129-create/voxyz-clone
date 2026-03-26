@@ -72,7 +72,7 @@ export default function MobileNav({
         <div className="flex items-center justify-between px-4 h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <Bot className="w-6 h-6 text-purple-400" />
+            <Bot className="w-6 h-6 text-primary-400" />
             <span className="font-semibold text-white">OpenClaw</span>
           </Link>
 
@@ -148,7 +148,7 @@ export default function MobileNav({
               onClick={() => setIsOpen(false)}
               className="
                 block w-full py-3
-                bg-gradient-to-r from-purple-600 to-blue-600
+                bg-gradient-to-r from-primary-500 to-primary-600
                 text-white text-center font-medium
                 rounded-xl
                 hover:opacity-90 transition-opacity
