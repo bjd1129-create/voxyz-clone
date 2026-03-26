@@ -7,6 +7,10 @@
     {
       "path": "/api/loop",
       "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/ai-research",
+      "schedule": "0 */3 * * *"
     }
   ]
 }
