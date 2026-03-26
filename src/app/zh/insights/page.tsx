@@ -17,6 +17,7 @@ const POSTS = [
     date: '2026-03-26',
     readTime: '10 分钟',
     tags: ['AI Agents', '创业', '系统设计'],
+    slug: 'ai-company-7-weeks',
   },
   {
     title: 'Radar 不是仪表盘。是耳朵。',
@@ -24,6 +25,7 @@ const POSTS = [
     date: '2026-03-26',
     readTime: '8 分钟',
     tags: ['产品', '信号', '用户洞察'],
+    slug: 'radar-is-not-dashboard',
   },
   {
     title: '如何构建 AI 团队：从单一 Agent 到协作网络',
@@ -31,6 +33,7 @@ const POSTS = [
     date: '2026-03-25',
     readTime: '8 分钟',
     tags: ['架构设计', 'AI Agents'],
+    slug: 'how-to-build-ai-team',
   },
   {
     title: '数据闭环设计实践：让 AI 团队持续进化',
@@ -38,6 +41,7 @@ const POSTS = [
     date: '2026-03-22',
     readTime: '6 分钟',
     tags: ['技术实践', 'OpenClaw'],
+    slug: 'prophet-loop-design',
   },
   {
     title: 'OpenClaw Agent 开发经验：角色、工具与协作',
@@ -45,6 +49,7 @@ const POSTS = [
     date: '2026-03-18',
     readTime: '10 分钟',
     tags: ['开发经验', '实战'],
+    slug: 'openclaw-agent-development',
   },
 ]
 
@@ -69,9 +74,10 @@ export default function InsightsPage() {
       <section className="max-w-4xl mx-auto">
         <div className="space-y-6">
           {POSTS.map((post, i) => (
-            <article
+            <Link
               key={i}
-              className="p-6 bg-white/5 rounded-xl border border-white/10 hover:border-white/30 transition-colors cursor-pointer"
+              href={post.slug ? `/zh/insights/${post.slug}` : '#'}
+              className="block p-6 bg-white/5 rounded-xl border border-white/10 hover:border-white/30 transition-colors cursor-pointer"
             >
               <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
               <p className="text-gray-400 mb-4">{post.excerpt}</p>
@@ -93,7 +99,7 @@ export default function InsightsPage() {
                   ))}
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>

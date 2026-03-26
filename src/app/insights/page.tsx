@@ -35,6 +35,7 @@ const POSTS = [
     date: '2026-03-25',
     readTime: '8 min',
     tags: ['Architecture', 'AI Agents'],
+    slug: 'how-to-build-ai-team',
   },
   {
     title: 'Prophet Loop Design in Practice: Enabling Continuous AI Team Evolution',
@@ -42,6 +43,7 @@ const POSTS = [
     date: '2026-03-22',
     readTime: '6 min',
     tags: ['Technical', 'OpenClaw'],
+    slug: 'prophet-loop-design',
   },
   {
     title: 'OpenClaw Agent Development Experience: Roles, Tools & Collaboration',
@@ -49,6 +51,7 @@ const POSTS = [
     date: '2026-03-18',
     readTime: '10 min',
     tags: ['Development', 'Practice'],
+    slug: 'openclaw-agent-development',
   },
 ]
 
