@@ -5,6 +5,10 @@
       "schedule": "0 0 * * *"
     },
     {
+      "path": "/api/cron?agent=coordinator",
+      "schedule": "0 12 * * *"
+    },
+    {
       "path": "/api/loop",
       "schedule": "0 12 * * *"
     },
