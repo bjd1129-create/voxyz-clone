@@ -4,32 +4,25 @@ import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react'
 // Blog posts
 const POSTS = [
   {
-    title: 'How We Built an AI Team That Runs Itself',
-    excerpt: 'A deep dive into the architecture behind autonomous AI agents working together as a team.',
+    title: '如何构建 AI 团队：从单一 Agent 到协作网络',
+    excerpt: '详解 OpenClaw 如何将 7 个专业化 Agent 组织成高效协作团队。包括角色定义、任务分配、知识共享等核心设计。',
     date: '2026-03-25',
     readTime: '8 min',
-    tags: ['Architecture', 'AI Agents'],
+    tags: ['架构设计', 'AI Agents'],
   },
   {
-    title: 'The Heartbeat System: Keeping Agents Alive',
-    excerpt: 'Understanding the polling mechanism that enables agents to act proactively.',
+    title: '数据闭环设计实践：让 AI 团队持续进化',
+    excerpt: '探讨如何构建数据闭环系统，让每次任务都成为学习机会。从数据采集、知识沉淀到能力迭代的全链路实践。',
     date: '2026-03-22',
-    readTime: '5 min',
-    tags: ['Technical', 'OpenClaw'],
-  },
-  {
-    title: 'Designing Agent Personalities',
-    excerpt: 'Why personality matters for AI agents and how we designed ours.',
-    date: '2026-03-18',
     readTime: '6 min',
-    tags: ['Design', 'UX'],
+    tags: ['技术实践', 'OpenClaw'],
   },
   {
-    title: 'From Idea to Launch in 2 Weeks',
-    excerpt: 'The story of how we built and shipped the first version of our AI team.',
-    date: '2026-03-15',
+    title: 'OpenClaw Agent 开发经验：角色、工具与协作',
+    excerpt: '分享开发专业化 Agent 的实战经验。如何定义角色性格、选择工具集、设计协作流程，以及踩过的坑。',
+    date: '2026-03-18',
     readTime: '10 min',
-    tags: ['Story', 'Launch'],
+    tags: ['开发经验', '实战'],
   },
 ]
 
@@ -39,11 +32,11 @@ export default function InsightsPage() {
       <header className="max-w-4xl mx-auto mb-8">
         <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6">
           <ArrowLeft className="w-4 h-4" />
-          Back to Home
+          返回首页
         </Link>
 
-        <h1 className="text-3xl font-bold">Field Notes</h1>
-        <p className="text-gray-400 mt-1">System design insights from building AI teams</p>
+        <h1 className="text-3xl font-bold">技术洞察</h1>
+        <p className="text-gray-400 mt-1">AI 团队构建与运营的深度思考</p>
       </header>
 
       <section className="max-w-4xl mx-auto">
