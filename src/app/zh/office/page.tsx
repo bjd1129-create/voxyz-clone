@@ -329,73 +329,85 @@ export default function OfficePage() {
     }
   }
 
-  // 绘制简洁小人 - 参考 VoxYZ 风格
+  // 绘制像素小人 - 参考 Star-Office-UI 风格
   const drawAgent = (ctx: CanvasRenderingContext2D, x: number, y: number, agent: AgentProphet, time: number) => {
-    const size = 24
-    const halfSize = size / 2
+    const scale = 2
     
     // 移动动画
-    const walkBob = agent.activity === 'walking' ? Math.sin(time * 12) * 3 : 0
+    const walkBob = agent.activity === 'walking' ? Math.sin(time * 12) * 4 : 0
     const walkSway = agent.activity === 'walking' ? Math.sin(time * 12) * 2 : 0
     
     // 阴影
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
     ctx.beginPath()
-    ctx.ellipse(x, y + halfSize + 8, halfSize, 6, 0, 0, Math.PI * 2)
+    ctx.ellipse(x, y + 28, 12, 5, 0, 0, Math.PI * 2)
     ctx.fill()
     
-    // 身体（简单的圆形）
+    // 腿部动画
+    const legOffset = agent.activity === 'walking' ? Math.sin(time * 12) * 3 : 0
+    ctx.fillStyle = '#2d2d2d'
+    ctx.fillRect(x - 6 + legOffset, y + 20 + walkBob, 5, 10)
+    ctx.fillRect(x + 1 - legOffset, y + 20 + walkBob, 5, 10)
+    
+    // 身体
     ctx.fillStyle = agent.color
-    ctx.beginPath()
-    ctx.arc(x + walkSway, y + walkBob, halfSize, 0, Math.PI * 2)
-    ctx.fill()
+    ctx.fillRect(x - 8 + walkSway, y + 8 + walkBob, 16, 14)
     
-    // 身体边框
-    ctx.strokeStyle = 'rgba(255,255,255,0.3)'
-    ctx.lineWidth = 2
-    ctx.stroke()
+    // 衣服细节
+    ctx.fillStyle = 'rgba(255,255,255,0.2)'
+    ctx.fillRect(x - 6 + walkSway, y + 10 + walkBob, 12, 4)
     
-    // 头部（简单的圆形，比身体小）
-    const headSize = size * 0.6
-    ctx.fillStyle = '#ffdbac'
-    ctx.beginPath()
-    ctx.arc(x + walkSway, y + walkBob - headSize/2, headSize/2, 0, Math.PI * 2)
-    ctx.fill()
-    
-    // 眼睛（简单的点）
-    ctx.fillStyle = '#000'
-    const blink = Math.sin(time * 3) > 0.9
-    if (blink) {
-      // 闭眼
-      ctx.beginPath()
-      ctx.moveTo(x + walkSway - 4, y + walkBob - headSize/2)
-      ctx.lineTo(x + walkSway + 4, y + walkBob - headSize/2)
-      ctx.stroke()
+    // 手臂
+    if (agent.activity === 'walking') {
+      const armSwing = Math.sin(time * 12) * 4
+      ctx.fillRect(x - 12 + walkSway, y + 10 + armSwing + walkBob, 4, 10)
+      ctx.fillRect(x + 8 + walkSway, y + 10 - armSwing + walkBob, 4, 10)
     } else {
-      // 睁眼
-      ctx.beginPath()
-      ctx.arc(x + walkSway - 3, y + walkBob - headSize/2, 1.5, 0, Math.PI * 2)
-      ctx.arc(x + walkSway + 3, y + walkBob - headSize/2, 1.5, 0, Math.PI * 2)
-      ctx.fill()
+      ctx.fillRect(x - 12 + walkSway, y + 16 + walkBob, 4, 10)
+      ctx.fillRect(x + 8 + walkSway, y + 16 + walkBob, 4, 10)
     }
     
-    // 状态光环（忙碌时）
+    // 头部
+    ctx.fillStyle = '#ffdbac'
+    ctx.fillRect(x - 8 + walkSway, y - 8 + walkBob, 16, 16)
+    
+    // 头发
+    ctx.fillStyle = agent.color
+    ctx.fillRect(x - 8 + walkSway, y - 8 + walkBob, 16, 5)
+    
+    // 眼睛
+    const blink = Math.sin(time * 3) > 0.9
+    if (blink) {
+      ctx.fillStyle = '#000'
+      ctx.fillRect(x - 5 + walkSway, y - 2 + walkBob, 4, 2)
+      ctx.fillRect(x + 1 + walkSway, y - 2 + walkBob, 4, 2)
+    } else {
+      ctx.fillStyle = '#000'
+      ctx.fillRect(x - 5 + walkSway, y - 3 + walkBob, 3, 3)
+      ctx.fillRect(x + 2 + walkSway, y - 3 + walkBob, 3, 3)
+    }
+    
+    // 嘴巴
+    ctx.fillStyle = '#d4889e'
+    ctx.fillRect(x - 3 + walkSway, y + 3 + walkBob, 6, 2)
+    
+    // 状态光环
     if (agent.status === 'busy') {
       const pulse = Math.sin(time * 5) * 0.3 + 0.7
       ctx.strokeStyle = `rgba(34, 197, 94, ${pulse})`
       ctx.lineWidth = 2
       ctx.beginPath()
-      ctx.arc(x + walkSway, y + walkBob, halfSize + 6, 0, Math.PI * 2)
+      ctx.arc(x + walkSway, y + walkBob, 22, 0, Math.PI * 2)
       ctx.stroke()
     }
     
-    // Emoji 标签（浮动）
+    // Emoji 标签
     const emojiFloat = Math.sin(time * 4) * 2
     ctx.font = '16px Arial'
     ctx.textAlign = 'center'
     ctx.shadowColor = 'rgba(0,0,0,0.3)'
     ctx.shadowBlur = 4
-    ctx.fillText(agent.emoji, x + walkSway, y + walkBob + size + 8 + emojiFloat)
+    ctx.fillText(agent.emoji, x + walkSway, y + 48 + emojiFloat + walkBob)
     ctx.shadowBlur = 0
   }
 
