@@ -95,6 +95,12 @@ export default function Home() {
                 <span className="text-white/40">EN</span>
               </div>
               <Link 
+                href="/redarmy" 
+                className="px-4 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-full transition-colors mr-2"
+              >
+                红军服务
+              </Link>
+              <Link 
                 href="/vault" 
                 className="px-4 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-full transition-colors"
               >
