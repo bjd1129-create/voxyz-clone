@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 
-// Agent status store (in production, use Supabase or Redis)
 let agentStatus: Record<string, {
   name: string
   emoji: string
@@ -15,11 +14,11 @@ let agentStatus: Record<string, {
     name: '诸葛灯泡',
     emoji: '💡',
     color: '#FF6B6B',
-    status: 'busy',
-    currentTask: '心跳检查',
+    status: 'idle',
+    currentTask: null,
     lastActive: new Date().toISOString(),
     position: { x: 200, y: 150 },
-    activity: 'working',
+    activity: 'coffee',
   },
   coordinator: {
     name: '掌舵人',
@@ -73,12 +72,10 @@ let agentStatus: Record<string, {
   },
 }
 
-// GET - fetch all agent status
 export async function GET() {
   return NextResponse.json(agentStatus)
 }
 
-// POST - update agent status
 export async function POST(request: Request) {
   const body = await request.json()
   const { agentId, ...updates } = body

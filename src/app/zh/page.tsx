@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, Bot, Sparkles, Zap, Globe, MessageSquare, Target, Palette, Code, FileText, Search, Wrench } from 'lucide-react'
 import ParticleBackground from '@/components/ParticleBackground'
-import AnimatedCounter from '@/components/AnimatedCounter'
 import GlowingButton from '@/components/GlowingButton'
 import AgentCard from '@/components/AgentCard'
 import MobileNav from '@/components/MobileNav'
@@ -49,19 +48,19 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-8 mb-12">
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent">
-                <AnimatedCounter end={10} />
+                10
               </div>
               <div className="text-sm text-gray-500">专业 Agent</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                <AnimatedCounter end={24} />/<AnimatedCounter end={7} />
+                24/7
               </div>
               <div className="text-sm text-gray-500">全天候协作</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-primary-400 bg-clip-text text-transparent">
-                <AnimatedCounter end={5} />+
+                5+
               </div>
               <div className="text-sm text-gray-500">协作渠道</div>
             </div>

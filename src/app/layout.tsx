@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono, Kalam } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({ 
@@ -10,6 +10,12 @@ const inter = Inter({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
+})
+
+const kalam = Kalam({
+  weight: ['300', '400', '700'],
+  subsets: ['latin'],
+  variable: '--font-kalam',
 })
 
 export const metadata: Metadata = {
@@ -23,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>{children}</body>
+    <html lang="en">
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${kalam.variable}`}>{children}</body>
     </html>
   )
 }
