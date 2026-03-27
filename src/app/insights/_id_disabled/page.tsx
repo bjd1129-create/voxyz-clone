@@ -1707,3 +1707,14 @@ export default function ArticlePage() {
     </div>
   )
 }
+export function generateStaticParams() {
+  return [
+    { id: 'claude-code-best-practices' },
+    { id: 'ai-company-7-weeks' },
+    { id: 'how-to-build-ai-team' },
+    { id: 'more-rules-less-obedient' },
+    { id: 'openclaw-agent-development' },
+    { id: 'prophet-loop-design' },
+    { id: 'radar-is-not-dashboard' },
+  ]
+}
