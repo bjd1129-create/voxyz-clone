@@ -18,19 +18,28 @@ interface AgentProphet {
   speechTimeout?: number
 }
 
-// Office layout
+// Office layout - 10 desks for all agents (参考 Star-Office-UI)
 const DESKS = [
-  { id: 'zhuge', x: 80, y: 100, w: 90, h: 55 },      // 诸葛灯泡
-  { id: 'coordinator', x: 200, y: 100, w: 90, h: 55 }, // 掌舵人
-  { id: 'engineer', x: 320, y: 100, w: 90, h: 55 },    // 代码侠
-  { id: 'writer', x: 440, y: 100, w: 90, h: 55 },      // 文案君
-  { id: 'researcher', x: 560, y: 100, w: 90, h: 55 },  // 洞察者
-  { id: 'designer', x: 200, y: 250, w: 90, h: 55 },     // 配色师
-  { id: 'support', x: 320, y: 250, w: 90, h: 55 },     // 守护者
+  { id: 'zhuge', x: 60, y: 80, w: 100, h: 60 },       // 诸葛灯泡
+  { id: 'coordinator', x: 200, y: 80, w: 100, h: 60 }, // 掌舵人
+  { id: 'engineer', x: 340, y: 80, w: 100, h: 60 },    // 代码侠
+  { id: 'writer', x: 480, y: 80, w: 100, h: 60 },      // 文案君
+  { id: 'researcher', x: 620, y: 80, w: 100, h: 60 },  // 洞察者
+  { id: 'designer', x: 60, y: 220, w: 100, h: 60 },     // 配色师
+  { id: 'support', x: 200, y: 220, w: 100, h: 60 },     // 守护者
+  { id: 'growth', x: 340, y: 220, w: 100, h: 60 },      // 播种者
+  { id: 'prophet', x: 480, y: 220, w: 100, h: 60 },     // 预言家
+  { id: 'scheduler', x: 620, y: 220, w: 100, h: 60 },   // 调度员
 ]
 
-const MEETING_TABLE = { x: 300, y: 420, w: 150, h: 80 }
-const COFFEE_AREA = { x: 50, y: 400, w: 80, h: 60 }
+const MEETING_TABLE = { x: 280, y: 380, w: 180, h: 100 }
+const COFFEE_AREA = { x: 40, y: 360, w: 100, h: 80 }
+const PLANT_SPOTS = [
+  { x: 20, y: 20 },
+  { x: 740, y: 20 },
+  { x: 20, y: 340 },
+  { x: 740, y: 340 },
+]
 
 // 对话气泡内容
 const SPEECH_BUBBLES = {
@@ -80,35 +89,54 @@ export default function OfficePage() {
     trailsRef.current = moveTrails
   }, [moveTrails])
 
-  // 初始加载
+  // 初始加载 - 使用模拟数据
   const fetchAgents = useCallback(async () => {
     try {
-      const res = await fetch('/api/agents')
-      const data = await res.json()
-      setAgents(data)
+      // 模拟 Agent 数据
+      const mockAgents: Record<string, AgentProphet> = {
+        zhuge: { name: '诸葛灯泡', emoji: '🎯', color: '#22c55e', status: 'busy', currentTask: '系统优化', lastActive: new Date().toISOString(), position: { x: 80, y: 100 }, activity: 'working' },
+        coordinator: { name: '掌舵人', emoji: '📋', color: '#a855f7', status: 'busy', currentTask: '分配任务', lastActive: new Date().toISOString(), position: { x: 200, y: 100 }, activity: 'working' },
+        engineer: { name: '代码侠', emoji: '💻', color: '#3b82f6', status: 'busy', currentTask: '编写代码', lastActive: new Date().toISOString(), position: { x: 320, y: 100 }, activity: 'working' },
+        writer: { name: '文案君', emoji: '📝', color: '#10b981', status: 'idle', currentTask: null, lastActive: new Date().toISOString(), position: { x: 440, y: 100 }, activity: 'coffee' },
+        researcher: { name: '洞察者', emoji: '🔍', color: '#f59e0b', status: 'busy', currentTask: '市场调研', lastActive: new Date().toISOString(), position: { x: 560, y: 100 }, activity: 'working' },
+        designer: { name: '配色师', emoji: '🎨', color: '#ec4899', status: 'idle', currentTask: null, lastActive: new Date().toISOString(), position: { x: 80, y: 250 }, activity: 'walking' },
+        support: { name: '守护者', emoji: '🛠️', color: '#06b6d4', status: 'busy', currentTask: '处理工单', lastActive: new Date().toISOString(), position: { x: 200, y: 250 }, activity: 'working' },
+        growth: { name: '播种者', emoji: '🌱', color: '#84cc16', status: 'idle', currentTask: null, lastActive: new Date().toISOString(), position: { x: 320, y: 250 }, activity: 'coffee' },
+        prophet: { name: '预言家', emoji: '📊', color: '#6366f1', status: 'busy', currentTask: '分析数据', lastActive: new Date().toISOString(), position: { x: 440, y: 250 }, activity: 'working' },
+        scheduler: { name: '调度员', emoji: '⚙️', color: '#64748b', status: 'idle', currentTask: null, lastActive: new Date().toISOString(), position: { x: 560, y: 250 }, activity: 'walking' },
+      }
+      setAgents(mockAgents)
+      setConnectionStatus('connected')
       setLastUpdate(new Date().toLocaleTimeString())
     } catch (error) {
       console.error('Failed to fetch agents:', error)
+      setConnectionStatus('disconnected')
     }
   }, [])
 
   useEffect(() => {
     fetchAgents()
 
-    // 模拟实时更新
+    // 模拟实时更新 - 加快移动速度
     const interval = setInterval(() => {
       setAgents(prev => {
         const updated = { ...prev }
         Object.keys(updated).forEach(id => {
           const agent = updated[id]
-          if (agent.status === 'busy' && Math.random() > 0.9) {
-            updated[id] = { ...agent, activity: 'working' }
+          
+          // 随机改变状态
+          if (Math.random() > 0.95) {
+            updated[id] = { 
+              ...agent, 
+              status: Math.random() > 0.5 ? 'busy' : 'idle',
+              activity: Math.random() > 0.7 ? 'walking' : (Math.random() > 0.5 ? 'working' : 'coffee')
+            }
           }
         })
         return updated
       })
       setLastUpdate(new Date().toLocaleTimeString())
-    }, 5000)
+    }, 2000) // 更快更新
 
     return () => clearInterval(interval)
   }, [fetchAgents])
@@ -140,6 +168,237 @@ export default function OfficePage() {
     }, 3000)
   }, [])
 
+  // 绘制地板分区（参考 Star-Office-UI）
+  const drawFloor = (ctx: CanvasRenderingContext2D) => {
+    // 工作区 - 浅灰色地砖
+    ctx.fillStyle = '#e8e8e8'
+    ctx.fillRect(0, 0, 800, 340)
+    
+    // 地砖纹理
+    ctx.strokeStyle = '#d0d0d0'
+    ctx.lineWidth = 1
+    for (let x = 0; x < 800; x += 40) {
+      for (let y = 0; y < 340; y += 40) {
+        ctx.strokeRect(x, y, 40, 40)
+      }
+    }
+    
+    // 休闲区 - 木质地板
+    ctx.fillStyle = '#d4a574'
+    ctx.fillRect(0, 340, 800, 120)
+    
+    // 木纹纹理
+    ctx.strokeStyle = '#c49564'
+    ctx.lineWidth = 2
+    for (let x = 0; x < 800; x += 60) {
+      ctx.beginPath()
+      ctx.moveTo(x, 340)
+      ctx.lineTo(x, 460)
+      ctx.stroke()
+    }
+  }
+
+  // 绘制像素办公桌（参考 Star-Office-UI）
+  const drawDesk = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) => {
+    // 桌子主体
+    ctx.fillStyle = '#8b7355'
+    ctx.fillRect(x, y, w, h)
+    
+    // 桌面边框
+    ctx.strokeStyle = '#6b5344'
+    ctx.lineWidth = 3
+    ctx.strokeRect(x, y, w, h)
+    
+    // 电脑显示器
+    ctx.fillStyle = '#2d2d2d'
+    ctx.fillRect(x + w/2 - 20, y + 10, 40, 30)
+    
+    // 显示器屏幕
+    ctx.fillStyle = '#4a9eff'
+    ctx.fillRect(x + w/2 - 17, y + 13, 34, 24)
+    
+    // 键盘
+    ctx.fillStyle = '#f0f0f0'
+    ctx.fillRect(x + w/2 - 25, y + 45, 50, 12)
+    
+    // 椅子
+    ctx.fillStyle = '#4a4a4a'
+    ctx.fillRect(x + w/2 - 15, y + h + 5, 30, 25)
+  }
+
+  // 绘制会议桌
+  const drawMeetingTable = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) => {
+    // 桌子主体
+    ctx.fillStyle = '#a08060'
+    ctx.fillRect(x, y, w, h)
+    
+    // 桌子边框
+    ctx.strokeStyle = '#806040'
+    ctx.lineWidth = 4
+    ctx.strokeRect(x, y, w, h)
+    
+    // 笔记本电脑
+    ctx.fillStyle = '#3d3d3d'
+    ctx.fillRect(x + w/2 - 30, y + h/2 - 15, 60, 30)
+    
+    ctx.fillStyle = '#5a9eff'
+    ctx.fillRect(x + w/2 - 27, y + h/2 - 12, 54, 24)
+  }
+
+  // 绘制咖啡区
+  const drawCoffeeArea = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) => {
+    // 沙发
+    ctx.fillStyle = '#6b8e6b'
+    ctx.fillRect(x, y, w, h)
+    
+    // 沙发靠背
+    ctx.fillStyle = '#5a7d5a'
+    ctx.fillRect(x, y, w, 15)
+    
+    // 咖啡机
+    ctx.fillStyle = '#2d2d2d'
+    ctx.fillRect(x + w + 10, y, 30, 40)
+    
+    ctx.fillStyle = '#8b4513'
+    ctx.fillRect(x + w + 15, y + 10, 20, 25)
+  }
+
+  // 绘制绿植
+  const drawPlant = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
+    // 花盆
+    ctx.fillStyle = '#8b4513'
+    ctx.fillRect(x, y, 20, 20)
+    
+    // 植物
+    ctx.fillStyle = '#228b22'
+    ctx.beginPath()
+    ctx.arc(x + 10, y - 10, 15, 0, Math.PI * 2)
+    ctx.fill()
+  }
+
+  // 绘制移动轨迹 - 参考 VoxYZ
+  const drawMoveTrails = (ctx: CanvasRenderingContext2D) => {
+    Object.entries(moveTrails).forEach(([id, trails]) => {
+      const agent = agents[id]
+      if (!agent || trails.length < 2) return
+      
+      ctx.strokeStyle = agent.color + '60'
+      ctx.lineWidth = 2
+      ctx.setLineDash([4, 4])
+      
+      ctx.beginPath()
+      trails.forEach((trail, index) => {
+        const x = trail.x + 45
+        const y = trail.y + 50
+        
+        if (index === 0) {
+          ctx.moveTo(x, y)
+        } else {
+          ctx.lineTo(x, y)
+        }
+      })
+      ctx.stroke()
+      ctx.setLineDash([])
+    })
+  }
+
+  // 绘制协作连线
+  const drawCollaborationLines = (ctx: CanvasRenderingContext2D) => {
+    const busyAgents = Object.entries(agents).filter(([_, a]) => a.status === 'busy')
+    
+    ctx.strokeStyle = 'rgba(139, 92, 246, 0.2)'
+    ctx.lineWidth = 1
+    
+    for (let i = 0; i < busyAgents.length; i++) {
+      for (let j = i + 1; j < busyAgents.length; j++) {
+        const agent1 = busyAgents[i][1]
+        const agent2 = busyAgents[j][1]
+        
+        const x1 = agent1.position.x + 45
+        const y1 = agent1.position.y + 50
+        const x2 = agent2.position.x + 45
+        const y2 = agent2.position.y + 50
+        
+        if (Math.random() > 0.7) {
+          ctx.beginPath()
+          ctx.moveTo(x1, y1)
+          ctx.lineTo(x2, y2)
+          ctx.stroke()
+        }
+      }
+    }
+  }
+
+  // 绘制简洁小人 - 参考 VoxYZ 风格
+  const drawAgent = (ctx: CanvasRenderingContext2D, x: number, y: number, agent: AgentProphet, time: number) => {
+    const size = 24
+    const halfSize = size / 2
+    
+    // 移动动画
+    const walkBob = agent.activity === 'walking' ? Math.sin(time * 12) * 3 : 0
+    const walkSway = agent.activity === 'walking' ? Math.sin(time * 12) * 2 : 0
+    
+    // 阴影
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
+    ctx.beginPath()
+    ctx.ellipse(x, y + halfSize + 8, halfSize, 6, 0, 0, Math.PI * 2)
+    ctx.fill()
+    
+    // 身体（简单的圆形）
+    ctx.fillStyle = agent.color
+    ctx.beginPath()
+    ctx.arc(x + walkSway, y + walkBob, halfSize, 0, Math.PI * 2)
+    ctx.fill()
+    
+    // 身体边框
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)'
+    ctx.lineWidth = 2
+    ctx.stroke()
+    
+    // 头部（简单的圆形，比身体小）
+    const headSize = size * 0.6
+    ctx.fillStyle = '#ffdbac'
+    ctx.beginPath()
+    ctx.arc(x + walkSway, y + walkBob - headSize/2, headSize/2, 0, Math.PI * 2)
+    ctx.fill()
+    
+    // 眼睛（简单的点）
+    ctx.fillStyle = '#000'
+    const blink = Math.sin(time * 3) > 0.9
+    if (blink) {
+      // 闭眼
+      ctx.beginPath()
+      ctx.moveTo(x + walkSway - 4, y + walkBob - headSize/2)
+      ctx.lineTo(x + walkSway + 4, y + walkBob - headSize/2)
+      ctx.stroke()
+    } else {
+      // 睁眼
+      ctx.beginPath()
+      ctx.arc(x + walkSway - 3, y + walkBob - headSize/2, 1.5, 0, Math.PI * 2)
+      ctx.arc(x + walkSway + 3, y + walkBob - headSize/2, 1.5, 0, Math.PI * 2)
+      ctx.fill()
+    }
+    
+    // 状态光环（忙碌时）
+    if (agent.status === 'busy') {
+      const pulse = Math.sin(time * 5) * 0.3 + 0.7
+      ctx.strokeStyle = `rgba(34, 197, 94, ${pulse})`
+      ctx.lineWidth = 2
+      ctx.beginPath()
+      ctx.arc(x + walkSway, y + walkBob, halfSize + 6, 0, Math.PI * 2)
+      ctx.stroke()
+    }
+    
+    // Emoji 标签（浮动）
+    const emojiFloat = Math.sin(time * 4) * 2
+    ctx.font = '16px Arial'
+    ctx.textAlign = 'center'
+    ctx.shadowColor = 'rgba(0,0,0,0.3)'
+    ctx.shadowBlur = 4
+    ctx.fillText(agent.emoji, x + walkSway, y + walkBob + size + 8 + emojiFloat)
+    ctx.shadowBlur = 0
+  }
+
   // 动画 Canvas
   useEffect(() => {
     const canvas = canvasRef.current
@@ -157,7 +416,7 @@ export default function OfficePage() {
       ctx.fillStyle = '#0f0f1a'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Draw floor pattern
+      // 绘制地板图案
       ctx.fillStyle = '#1a1a2e'
       for (let x = 0; x < canvas.width; x += 40) {
         for (let y = 0; y < canvas.height; y += 40) {
@@ -167,50 +426,26 @@ export default function OfficePage() {
         }
       }
 
-      // Draw coffee area
-      ctx.fillStyle = '#3d2b1f'
-      ctx.fillRect(COFFEE_AREA.x, COFFEE_AREA.y, COFFEE_AREA.w, COFFEE_AREA.h)
-      ctx.fillStyle = '#5c4033'
-      ctx.fillRect(COFFEE_AREA.x + 10, COFFEE_AREA.y + 10, 25, 40)
-      ctx.fillStyle = '#8b5a2b'
-      ctx.fillRect(COFFEE_AREA.x + 50, COFFEE_AREA.y + 20, 20, 30)
-      ctx.font = '20px Arial'
-      ctx.fillText('☕', COFFEE_AREA.x + 30, COFFEE_AREA.y + 45)
+      // 绘制地板分区
+      drawFloor(ctx)
+      
+      // 绘制移动轨迹（参考 VoxYZ）
+      drawMoveTrails(ctx)
+      
+      // 绘制协作连线
+      drawCollaborationLines(ctx)
 
-      // Draw meeting table
-      ctx.fillStyle = '#2d2d4a'
-      ctx.beginPath()
-      ctx.ellipse(
-        MEETING_TABLE.x + MEETING_TABLE.w / 2,
-        MEETING_TABLE.y + MEETING_TABLE.h / 2,
-        MEETING_TABLE.w / 2,
-        MEETING_TABLE.h / 2,
-        0, 0, Math.PI * 2
-      )
-      ctx.fill()
-      ctx.strokeStyle = '#4a4a6a'
-      ctx.stroke()
-      ctx.font = '24px Arial'
-      ctx.textAlign = 'center'
-      ctx.fillText('🤝', MEETING_TABLE.x + MEETING_TABLE.w / 2, MEETING_TABLE.y + MEETING_TABLE.h / 2 + 8)
+      // 绘制绿植装饰
+      PLANT_SPOTS.forEach(spot => drawPlant(ctx, spot.x, spot.y))
 
-      // Draw desks
-      DESKS.forEach(desk => {
-        ctx.fillStyle = '#1e1e3a'
-        ctx.fillRect(desk.x, desk.y, desk.w, desk.h)
-        ctx.strokeStyle = '#3a3a5a'
-        ctx.strokeRect(desk.x, desk.y, desk.w, desk.h)
+      // 绘制办公桌
+      DESKS.forEach(desk => drawDesk(ctx, desk.x, desk.y, desk.w, desk.h))
 
-        ctx.fillStyle = '#2a2a4a'
-        ctx.fillRect(desk.x + 20, desk.y + 10, 60, 30)
+      // 绘制会议桌
+      drawMeetingTable(ctx, MEETING_TABLE.x, MEETING_TABLE.y, MEETING_TABLE.w, MEETING_TABLE.h)
 
-        const agent = agents[desk.id]
-        if (agent?.status === 'busy') {
-          const glowIntensity = Math.sin(time * 2) * 0.1 + 0.2
-          ctx.fillStyle = agent.color + Math.floor(glowIntensity * 255).toString(16).padStart(2, '0')
-          ctx.fillRect(desk.x + 22, desk.y + 12, 56, 26)
-        }
-      })
+      // 绘制咖啡区
+      drawCoffeeArea(ctx, COFFEE_AREA.x, COFFEE_AREA.y, COFFEE_AREA.w, COFFEE_AREA.h)
 
       // Draw agents
       ctx.font = '32px Arial'
@@ -255,7 +490,8 @@ export default function OfficePage() {
         ctx.arc(x, y, 35, 0, Math.PI * 2)
         ctx.fill()
 
-        ctx.fillText(agent.emoji, x, y)
+        // 绘制简洁小人（参考 VoxYZ）
+        drawAgent(ctx, x, y, agent, time)
 
         if (agent.speechBubble) {
           const bubbleWidth = Math.max(80, ctx.measureText(agent.speechBubble).width + 20)

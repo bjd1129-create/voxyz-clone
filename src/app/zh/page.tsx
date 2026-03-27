@@ -21,49 +21,54 @@ export default function Home() {
         {/* Particle Background */}
         <ParticleBackground />
         
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/30 via-purple-900/10 to-transparent pointer-events-none" />
+        {/* Enhanced Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/40 via-purple-900/20 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
         
-        <div className="relative max-w-6xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 backdrop-blur-sm rounded-full text-purple-300 text-sm mb-8 border border-purple-500/30">
+        <div className="relative max-w-6xl mx-auto text-center z-10">
+          {/* Badge with enhanced glow */}
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-500/30 to-purple-500/30 backdrop-blur-md rounded-full text-primary-200 text-sm mb-10 border border-primary-500/40 shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 transition-shadow duration-300">
             <Sparkles className="w-4 h-4 animate-pulse" />
-            <span>AI 团队实时运作中</span>
+            <span className="font-medium">AI 团队实时运作中</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-purple-200 to-blue-300 bg-clip-text text-transparent">
-              OpenClaw AI Team
+          {/* Enhanced Title */}
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-6 sm:mb-8 leading-tight px-2">
+            <span className="bg-gradient-to-r from-white via-purple-100 to-blue-200 bg-clip-text text-transparent drop-shadow-lg">
+              诸葛灯泡团队
             </span>
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
-              实时协作 · 自主进化
+            <span className="bg-gradient-to-r from-primary-400 via-pink-400 to-blue-400 bg-clip-text text-transparent animate-gradient text-2xl sm:text-3xl md:text-5xl lg:text-6xl mt-2 block">
+              10 个专业 Agent · 7x24 小时协作
             </span>
           </h1>
 
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-            6 个 AI Agent 组成的虚拟团队，24/7 自主协作完成真实任务。
-            诸葛灯泡统筹全局，协调员分配任务，工程师写代码，内容官写文案，研究员做调研，设计师做视觉。
+          {/* Improved Description */}
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4">
+            造梦者、掌舵人、代码侠、文案君、洞察者、配色师、守护者、播种者、预言家、调度员。
+            <span className="block mt-2 text-gray-400 text-sm sm:text-base">各司其职，自主协作，完成真实任务。</span>
           </p>
 
-          {/* Dynamic Stats */}
-          <div className="flex flex-wrap justify-center gap-8 mb-12">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                <AnimatedCounter end={7} />
+          {/* Dynamic Stats - Updated for 10 Agents */}
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 md:gap-12 mb-10 sm:mb-12">
+            <div className="text-center group">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary-400 to-blue-400 bg-clip-text text-transparent mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter end={10} />
               </div>
-              <div className="text-sm text-gray-500">专业 Agent</div>
+              <div className="text-xs sm:text-sm text-gray-400 font-medium">专业 Agent</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                <AnimatedCounter end={24} />/<AnimatedCounter end={7} />
+            <div className="text-center group">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
+                24/7
               </div>
-              <div className="text-sm text-gray-500">全天候协作</div>
+              <div className="text-xs sm:text-sm text-gray-400 font-medium">全天候协作</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                <AnimatedCounter end={3} />+
+            <div className="text-center group">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-pink-400 to-primary-400 bg-clip-text text-transparent mb-1 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
+                5+
               </div>
-              <div className="text-sm text-gray-500">协作渠道</div>
+              <div className="text-xs sm:text-sm text-gray-400 font-medium">协作渠道</div>
             </div>
           </div>
 
