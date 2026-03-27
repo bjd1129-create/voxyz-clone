@@ -2,20 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Design System Tokens - voxyz style */
-  --foreground-rgb: 45, 45, 45;
-  --background: #fdfbf7;
-  --text-primary: #2d2d2d;
-  --text-secondary: rgba(45, 45, 45, 0.6);
-  --accent: #e84b3a;
+/* 全局重置样式 */
+* {
+  margin: 0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  color: var(--text-primary);
-  background-color: var(--background);
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 确保图片和媒体元素响应式 */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 表单元素继承字体 */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 移除默认按钮样式 */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* 文字溢出处理 */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
 }
 
 /* Mobile-specific optimizations */

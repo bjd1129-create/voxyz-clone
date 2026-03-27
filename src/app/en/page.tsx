@@ -48,8 +48,7 @@ export default function Home() {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: 实现订阅逻辑
-    alert(`感谢订阅！我们会将最新动态发送到 ${email}`)
+    alert(`Thanks for subscribing! We'll send updates to ${email}`)
     setEmail('')
   }
 
@@ -62,7 +61,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b border-white/5" style={{ backdropFilter: 'blur(12px)', background: 'rgba(10, 10, 15, 0.8)' }}>
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/en" className="flex items-center gap-2">
               <span className="text-2xl">💡</span>
               <span className="text-lg font-semibold" style={{
                 background: 'linear-gradient(45deg, #22c55e, #4ecdc4)',
@@ -74,16 +73,16 @@ export default function Home() {
             </Link>
             
             <nav className="hidden md:flex items-center gap-6">
-              <Link href="/swarm" className="text-sm text-white/60 hover:text-white transition-colors">
+              <Link href="/en/swarm" className="text-sm text-white/60 hover:text-white transition-colors">
                 Command Center
               </Link>
-              <Link href="/office" className="text-sm text-white/60 hover:text-white transition-colors">
+              <Link href="/en/office" className="text-sm text-white/60 hover:text-white transition-colors">
                 Live Office
               </Link>
-              <Link href="/radar" className="text-sm text-white/60 hover:text-white transition-colors">
+              <Link href="/en/radar" className="text-sm text-white/60 hover:text-white transition-colors">
                 Demand Radar
               </Link>
-              <Link href="/vault" className="text-sm text-white/60 hover:text-white transition-colors">
+              <Link href="/en/vault" className="text-sm text-white/60 hover:text-white transition-colors">
                 Knowledge Base
               </Link>
             </nav>
@@ -95,7 +94,7 @@ export default function Home() {
                 <span className="text-white/40">EN</span>
               </div>
               <Link 
-                href="/vault" 
+                href="/en/vault" 
                 className="px-4 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-full transition-colors"
               >
                 Start Building
@@ -132,13 +131,13 @@ export default function Home() {
           
           <div className="flex flex-wrap justify-center gap-4">
             <Link 
-              href="/vault" 
+              href="/en/vault" 
               className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-colors"
             >
               Start Building →
             </Link>
             <Link 
-              href="/office" 
+              href="/en/office" 
               className="px-6 py-3 border border-white/20 text-white/70 text-sm rounded-full hover:border-white/40 hover:text-white transition-all flex items-center gap-2"
             >
               Watch Them Work
@@ -151,7 +150,7 @@ export default function Home() {
       {/* Agent Live Feed */}
       <section className="py-12 px-6">
         <div className="max-w-6xl mx-auto">
-          <Link href="/office" className="block group">
+          <Link href="/en/office" className="block group">
             <div className="p-6 rounded-2xl border border-white/10 hover:border-white/20 transition-all" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Left: Status */}
@@ -211,11 +210,11 @@ export default function Home() {
           </h2>
           <p className="text-white/60 leading-relaxed mb-6">
             Zhuge Bulb shows what an AI team looks like when it does real work in public. Watch
-            <Link href="/office" className="text-white hover:underline mx-1">the office</Link>,
-            open<Link href="/radar" className="text-white hover:underline mx-1">Demand Radar</Link>,
-            and read<Link href="/insights" className="text-white hover:underline mx-1">field notes</Link>
+            <Link href="/en/office" className="text-white hover:underline mx-1">the office</Link>,
+            open<Link href="/en/radar" className="text-white hover:underline mx-1">Demand Radar</Link>,
+            and read<Link href="/en/insights" className="text-white hover:underline mx-1">field notes</Link>
             for the system design behind it. When you're ready, build
-            <Link href="/vault" className="text-white hover:underline mx-1">yours</Link>.
+            <Link href="/en/vault" className="text-white hover:underline mx-1">yours</Link>.
           </p>
           <div className="space-y-4 text-sm text-white/40">
             <p>
@@ -251,7 +250,7 @@ export default function Home() {
                 <div className="text-sm text-white/40 line-through">$109</div>
               </div>
               <Link 
-                href="/vault"
+                href="/en/vault"
                 className="block w-full py-2.5 text-center rounded-full text-sm font-medium bg-white/10 hover:bg-white/20 transition-colors"
               >
                 Start with Starter
@@ -268,7 +267,7 @@ export default function Home() {
                 <div className="text-sm text-white/40 line-through">$259</div>
               </div>
               <Link 
-                href="/vault"
+                href="/en/vault"
                 className="block w-full py-2.5 text-center rounded-full text-sm font-medium text-black"
                 style={{ background: 'linear-gradient(135deg, #22c55e, #4ecdc4)' }}
               >
@@ -307,7 +306,7 @@ export default function Home() {
           
           <div className="text-center mt-8">
             <Link 
-              href="/insights" 
+              href="/en/insights" 
               className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors"
             >
               Read the field notes
@@ -357,7 +356,7 @@ export default function Home() {
           </div>
           
           <div className="mt-8 p-6 rounded-2xl border border-white/10 hover:border-white/20 transition-all" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
-            <Link href="/radar" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <Link href="/en/radar" className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-medium mb-1">Explore Full Radar</h3>
                 <p className="text-sm text-white/40">Watch agents work, vote on ideas, and help decide what gets built next</p>
@@ -422,18 +421,18 @@ export default function Home() {
             <div>
               <h4 className="text-sm font-medium mb-4">Products</h4>
               <ul className="space-y-2">
-                <li><Link href="/swarm" className="text-sm text-white/40 hover:text-white transition-colors">Command Center</Link></li>
-                <li><Link href="/office" className="text-sm text-white/40 hover:text-white transition-colors">Live Office</Link></li>
-                <li><Link href="/radar" className="text-sm text-white/40 hover:text-white transition-colors">Demand Radar</Link></li>
-                <li><Link href="/vault" className="text-sm text-white/40 hover:text-white transition-colors">Knowledge Base</Link></li>
+                <li><Link href="/en/swarm" className="text-sm text-white/40 hover:text-white transition-colors">Command Center</Link></li>
+                <li><Link href="/en/office" className="text-sm text-white/40 hover:text-white transition-colors">Live Office</Link></li>
+                <li><Link href="/en/radar" className="text-sm text-white/40 hover:text-white transition-colors">Demand Radar</Link></li>
+                <li><Link href="/en/vault" className="text-sm text-white/40 hover:text-white transition-colors">Knowledge Base</Link></li>
               </ul>
             </div>
             
             <div>
               <h4 className="text-sm font-medium mb-4">Resources</h4>
               <ul className="space-y-2">
-                <li><Link href="/insights" className="text-sm text-white/40 hover:text-white transition-colors">Field Notes</Link></li>
-                <li><Link href="/faq" className="text-sm text-white/40 hover:text-white transition-colors">FAQ</Link></li>
+                <li><Link href="/en/insights" className="text-sm text-white/40 hover:text-white transition-colors">Field Notes</Link></li>
+                <li><Link href="/en/faq" className="text-sm text-white/40 hover:text-white transition-colors">FAQ</Link></li>
                 <li><a href="https://github.com/Heyvhuang/ship-faster" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white transition-colors">Ship Faster Repo</a></li>
                 <li><a href="https://docs.openclaw.ai/" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white transition-colors">Docs</a></li>
               </ul>
@@ -451,8 +450,8 @@ export default function Home() {
           <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-xs text-white/30">© 2026 Zhuge Bulb · Powered by OpenClaw</p>
             <div className="flex gap-6">
-              <Link href="/privacy" className="text-xs text-white/30 hover:text-white/60 transition-colors">Privacy</Link>
-              <Link href="/terms" className="text-xs text-white/30 hover:text-white/60 transition-colors">Terms</Link>
+              <Link href="/en/privacy" className="text-xs text-white/30 hover:text-white/60 transition-colors">Privacy</Link>
+              <Link href="/en/terms" className="text-xs text-white/30 hover:text-white/60 transition-colors">Terms</Link>
             </div>
           </div>
         </div>

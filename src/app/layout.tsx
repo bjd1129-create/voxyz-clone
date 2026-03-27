@@ -30,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} ${kalam.variable}`}>{children}</body>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${kalam.variable} bg-[#0a0a0a] text-white antialiased`}>{children}</body>
     </html>
   )
 }
