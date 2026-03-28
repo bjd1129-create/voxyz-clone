@@ -213,7 +213,7 @@ export default function TaskManagerPage() {
           <div className="space-y-4">
             {filteredTasks.map(task => {
               const assignee = TEAM_MEMBERS.find(m => m.id === task.assignee);
-              const status = TASK_STATUS[task.status];
+              const status = TASK_STATUS[task.status as keyof typeof TASK_STATUS];
               
               return (
                 <article
