@@ -97,7 +97,7 @@ export default function TaskManagerPage() {
     : tasks.filter(t => t.status === filter);
 
   // 添加任务
-  const addTask = (task) => {
+  const addTask = (task: { title: string; description: string; assignee: string; priority: string; dueDate: string; status: string }) => {
     const newTask = {
       ...task,
       id: Date.now(),
@@ -108,13 +108,13 @@ export default function TaskManagerPage() {
   };
 
   // 更新任务
-  const updateTask = (updatedTask) => {
+  const updateTask = (updatedTask: typeof tasks[0]) => {
     setTasks(tasks.map(t => t.id === updatedTask.id ? updatedTask : t));
     setEditingTask(null);
   };
 
   // 删除任务
-  const deleteTask = (id) => {
+  const deleteTask = (id: number) => {
     setTasks(tasks.filter(t => t.id !== id));
   };
 
