@@ -312,14 +312,14 @@ export default function TaskManagerPage() {
 }
 
 // 添加任务组件
-function AddTaskModal({ onClose, onAdd }) {
+function AddTaskModal({ onClose, onAdd }: { onClose: () => void; onAdd: (task: { title: string; description: string; assignee: string; priority: string; dueDate: string; status: string }) => void }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [assignee, setAssignee] = useState('spark');
   const [priority, setPriority] = useState('medium');
   const [dueDate, setDueDate] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAdd({
       title,
@@ -420,7 +420,7 @@ function AddTaskModal({ onClose, onAdd }) {
 }
 
 // 编辑任务组件
-function EditTaskModal({ task, onClose, onUpdate }) {
+function EditTaskModal({ task, onClose, onUpdate }: { task: typeof tasks[0]; onClose: () => void; onUpdate: (task: typeof tasks[0]) => void }) {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
   const [assignee, setAssignee] = useState(task.assignee);
@@ -428,7 +428,7 @@ function EditTaskModal({ task, onClose, onUpdate }) {
   const [status, setStatus] = useState(task.status);
   const [dueDate, setDueDate] = useState(task.dueDate);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onUpdate({
       ...task,
