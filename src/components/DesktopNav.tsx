@@ -19,6 +19,7 @@ const defaultLinks: NavLink[] = [
   { href: '/office', label: 'Office' },
   { href: '/radar', label: 'Radar' },
   { href: '/vault', label: 'Vault' },
+  { href: '/labs', label: '实验室' },
   { href: '/insights', label: 'Insights' },
   { href: '/faq', label: 'FAQ' },
 ]
