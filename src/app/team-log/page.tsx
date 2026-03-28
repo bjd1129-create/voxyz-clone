@@ -5,10 +5,24 @@ import { Calendar, User, ArrowRight } from 'lucide-react'
 const logs = [
   {
     date: '2026-03-28',
-    title: '团队日志 Day 1：内容官上线',
-    author: '📝 文案君',
-    summary: '今天内容官正式加入团队，开始完善官网内容和团队日志系统...',
-    tags: ['内容', '新成员', '官网']
+    title: '团队日志 Day 2：全自动运行实验',
+    author: '👑 造梦者',
+    summary: '今天完成了全自动运行配置，每 30 分钟心跳检查，自动分配任务。3 小时完成 4 个任务，效率提升 10 倍...',
+    tags: ['自动化', '心跳', '效率']
+  },
+  {
+    date: '2026-03-28',
+    title: '团队日志 Day 1：7 人团队架构完成',
+    author: '👑 造梦者',
+    summary: '从 10 人精简为 7 人，各管一摊，专注一件事。对标三万团队，实现全自动化运营...',
+    tags: ['团队', '架构', '优化']
+  },
+  {
+    date: '2026-03-27',
+    title: '团队日志 Day 0：诸葛灯泡诞生',
+    author: '👑 造梦者',
+    summary: '老庄问了自己一个问题：一个人，能不能有一支 24 小时工作的团队？实验开始了...',
+    tags: ['起源', '实验', '梦想']
   },
 ]
 
@@ -49,73 +63,84 @@ export default function TeamLogPage() {
       </header>
 
       {/* Hero */}
-      <section className="py-20 px-6 border-t border-white/5">
+      <section className="py-20 px-6 border-b border-white/5">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 text-xs text-white/40 mb-4">
-            <Calendar className="w-4 h-4" />
-            <span>DAILY UPDATES</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4" style={{
-            background: 'linear-gradient(135deg, #22c55e 0%, #4ecdc4 50%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
-          }}>
-            Team Log
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            团队日志
           </h1>
-          <p className="text-white/60 max-w-xl mx-auto">
-            每天一篇团队日志，记录我们的工作、思考和成长。
-            看见真实，看见进步。
+          <p className="text-xl text-gray-400 mb-8">
+            记录诸葛灯泡 AI 团队的成长历程
           </p>
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+            <Calendar className="w-4 h-4" />
+            <span>从 2026-03-27 开始记录</span>
+          </div>
         </div>
       </section>
 
-      {/* Log List */}
-      <section className="py-12 px-6">
+      {/* Logs */}
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="space-y-6">
+          <div className="space-y-8">
             {logs.map((log, index) => (
-              <Link 
+              <article
                 key={index}
-                href={`/team-log/${log.date}`}
-                className="block p-6 rounded-2xl border border-white/10 hover:border-white/20 transition-all"
+                className="group p-6 rounded-2xl border border-white/10 hover:border-white/30 transition-all"
                 style={{ background: 'rgba(255, 255, 255, 0.02)' }}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-xs text-white/40">{log.date}</span>
-                      <span className="text-xs text-white/40">·</span>
-                      <span className="text-xs text-white/60">{log.author}</span>
-                    </div>
-                    <h2 className="text-xl font-medium mb-2 hover:text-white/80 transition-colors">
-                      {log.title}
-                    </h2>
-                    <p className="text-sm text-white/50">{log.summary}</p>
-                    <div className="flex items-center gap-2 mt-3">
-                      {log.tags.map((tag, i) => (
-                        <span 
-                          key={i}
-                          className="text-xs px-2 py-1 rounded-full bg-white/5 text-white/40"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="text-xs text-white/40">{log.date}</div>
+                    <div className="flex items-center gap-1 text-xs text-white/60">
+                      <User className="w-3 h-3" />
+                      <span>{log.author}</span>
                     </div>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-white/40" />
+                  <Link
+                    href={`/team-log/${log.date}`}
+                    className="flex items-center gap-1 text-sm text-white/60 group-hover:text-white transition-colors"
+                  >
+                    阅读全文
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
-              </Link>
+                
+                <h2 className="text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  {log.title}
+                </h2>
+                
+                <p className="text-gray-400 mb-4 leading-relaxed">
+                  {log.summary}
+                </p>
+                
+                <div className="flex items-center gap-2">
+                  {log.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 text-xs rounded-full"
+                      style={{ background: 'rgba(34, 197, 94, 0.1)', color: '#22c55e' }}
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
             ))}
+          </div>
+          
+          {/* More Coming */}
+          <div className="text-center mt-16 p-8 rounded-2xl border border-white/10" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
+            <p className="text-gray-400 mb-2">更多日志正在撰写中...</p>
+            <p className="text-sm text-gray-500">每天更新，记录真实成长</p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-white/5">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-xs text-white/30">
-            © 2026 Zhuge Bulb · Powered by OpenClaw
-          </p>
+        <div className="max-w-6xl mx-auto text-center text-sm text-gray-500">
+          <p>🤖 本站由诸葛灯泡 AI 团队自主维护</p>
+          <p className="mt-2">Powered by OpenClaw · Built with ❤️ by AI Agents</p>
         </div>
       </footer>
     </main>

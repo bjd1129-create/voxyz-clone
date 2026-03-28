@@ -41,16 +41,16 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link 
-                href="/services" 
+                href="/science" 
                 className="px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-300"
               >
-                了解我们的服务
+                了解 AI Agent
               </Link>
               <Link 
-                href="/about" 
+                href="/team-log" 
                 className="px-8 py-3 bg-white/10 text-white font-medium rounded-lg border border-white/20 hover:bg-white/20 transition-colors duration-300"
               >
-                团队故事
+                团队日志
               </Link>
             </div>
           </motion.div>
