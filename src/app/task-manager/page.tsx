@@ -312,7 +312,9 @@ export default function TaskManagerPage() {
 }
 
 // 添加任务组件
-function AddTaskModal({ onClose, onAdd }: { onClose: () => void; onAdd: (task: { title: string; description: string; assignee: string; priority: string; dueDate: string; status: string }) => void }) {
+type TaskInputType = { title: string; description: string; assignee: string; priority: string; dueDate: string; status: string };
+
+function AddTaskModal({ onClose, onAdd }: { onClose: () => void; onAdd: (task: TaskInputType) => void }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [assignee, setAssignee] = useState('spark');
@@ -420,7 +422,9 @@ function AddTaskModal({ onClose, onAdd }: { onClose: () => void; onAdd: (task: {
 }
 
 // 编辑任务组件
-function EditTaskModal({ task, onClose, onUpdate }: { task: typeof tasks[0]; onClose: () => void; onUpdate: (task: typeof tasks[0]) => void }) {
+type TaskType = { id: number; title: string; description: string; status: string; assignee: string; priority: string; dueDate: string; createdAt: string };
+
+function EditTaskModal({ task, onClose, onUpdate }: { task: TaskType; onClose: () => void; onUpdate: (task: TaskType) => void }) {
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
   const [assignee, setAssignee] = useState(task.assignee);
