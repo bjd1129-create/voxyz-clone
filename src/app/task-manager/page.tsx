@@ -81,7 +81,7 @@ export default function TaskManagerPage() {
   const [tasks, setTasks] = useState(INITIAL_TASKS);
   const [filter, setFilter] = useState('all');
   const [showAddModal, setShowAddModal] = useState(false);
-  const [editingTask, setEditingTask] = useState(null);
+  const [editingTask, setEditingTask] = useState<typeof tasks[0] | null>(null);
 
   // 统计数据
   const stats = {
