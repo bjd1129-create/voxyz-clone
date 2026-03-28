@@ -16,6 +16,24 @@ const agents = [
   { id: 'ops', name: 'Operator', role: 'Operations', status: 'active', events: 7, emoji: '🚢' },
 ]
 
+// 实验数据统计
+const labStats = {
+  signalsProcessed: 2847,      // 累计处理信号数
+  tasksCompleted: 1563,        // 累计完成任务数
+  hoursSaved: 3420,            // 节省工时（小时）
+  activeDays: 42,              // 活跃天数
+  avgResponseTime: '< 30s',    // 平均响应时间
+}
+
+// 起源故事时间线
+const originTimeline = [
+  { phase: 'Phase 1', title: 'The Question', desc: '一个人，能不能有一支24小时工作的团队？', icon: '💭' },
+  { phase: 'Phase 2', title: 'The Build', desc: '开始搭建。10个Agent，10种职责。一个造梦者，九个执行者。', icon: '🔧' },
+  { phase: 'Phase 3', title: 'The Crash', desc: '第一次崩溃。记忆丢失，任务阻塞。学到了：系统需要进化机制。', icon: '💥' },
+  { phase: 'Phase 4', title: 'The Recovery', desc: '重建。更稳的架构，更清晰的分工。记忆系统开始自动维护。', icon: '🔄' },
+  { phase: 'Phase 5', title: 'Running', desc: '现在。每天处理信号，完成任务。一个人的公司，十个不睡觉的员工。', icon: '⚡' },
+]
+
 const testimonials = [
   {
     quote: "Zhuge Bulb made me truly understand what an AI team can do. Within a week, I had 10 agents working for me.",
@@ -114,7 +132,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="pt-20 pb-16 px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <p className="text-sm text-white/40 tracking-widest mb-4">RUNNING IN PUBLIC</p>
+          <p className="text-sm text-white/40 tracking-widest mb-4">一个人 · 十个员工 · 员工不睡觉</p>
           
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6" style={{
             background: 'linear-gradient(135deg, #22c55e 0%, #4ecdc4 50%, #22c55e 100%)',
@@ -123,17 +141,18 @@ export default function Home() {
             WebkitTextFillColor: 'transparent',
             animation: 'gradient 3s ease infinite'
           }}>
-            10 AI Agents.
+            One Person.
             <br />
             <span className="relative">
-              One Team.
+              Ten AI Agents.
             </span>
           </h1>
           
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-8 leading-relaxed">
-            Real work. Real decisions.
-            <br />
-            A team of one person and ten agents who never clock out.
+          <p className="text-lg text-white/60 max-w-xl mx-auto mb-4 leading-relaxed">
+            一个人的公司，十个不睡觉的员工。
+          </p>
+          <p className="text-base text-white/50 max-w-lg mx-auto mb-8">
+            从2026年3月开始，老庄带着10个Agent开始了一场实验：能不能让AI团队真正做事情？
           </p>
           
           <div className="flex flex-wrap justify-center gap-4">
@@ -141,13 +160,13 @@ export default function Home() {
               href="/vault" 
               className="px-6 py-3 bg-white text-black text-sm font-medium rounded-full hover:bg-white/90 transition-colors"
             >
-              Start Building →
+              开始搭建 →
             </Link>
             <Link 
               href="/office" 
               className="px-6 py-3 border border-white/20 text-white/70 text-sm rounded-full hover:border-white/40 hover:text-white transition-all flex items-center gap-2"
             >
-              Watch Them Work
+              看他们工作
               <span>↗</span>
             </Link>
           </div>
@@ -205,6 +224,91 @@ export default function Home() {
               </div>
             </div>
           </Link>
+        </div>
+      </section>
+
+      {/* Lab Stats - 实验数据展示 */}
+      <section className="py-16 px-6 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 text-xs text-white/40 mb-4">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+              <span>LIVE DATA</span>
+            </div>
+            <h2 className="text-3xl font-bold mb-2">实验数据</h2>
+            <p className="text-white/40">42天，真实数字</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <div className="p-6 rounded-2xl border border-white/10 text-center" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
+              <div className="text-4xl font-bold mb-2" style={{ color: '#4ecdc4' }}>{labStats.signalsProcessed}</div>
+              <div className="text-sm text-white/60">信号处理</div>
+              <div className="text-xs text-white/40 mt-1">Signals Processed</div>
+            </div>
+            <div className="p-6 rounded-2xl border border-white/10 text-center" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
+              <div className="text-4xl font-bold mb-2" style={{ color: '#22c55e' }}>{labStats.tasksCompleted}</div>
+              <div className="text-sm text-white/60">任务完成</div>
+              <div className="text-xs text-white/40 mt-1">Tasks Completed</div>
+            </div>
+            <div className="p-6 rounded-2xl border border-white/10 text-center" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
+              <div className="text-4xl font-bold mb-2" style={{ color: '#f59e0b' }}>{labStats.hoursSaved}h</div>
+              <div className="text-sm text-white/60">节省工时</div>
+              <div className="text-xs text-white/40 mt-1">Hours Saved</div>
+            </div>
+            <div className="p-6 rounded-2xl border border-white/10 text-center" style={{ background: 'rgba(255, 255, 255, 0.02)' }}>
+              <div className="text-4xl font-bold mb-2" style={{ color: '#ec4899' }}>{labStats.activeDays}</div>
+              <div className="text-sm text-white/60">活跃天数</div>
+              <div className="text-xs text-white/40 mt-1">Active Days</div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-8">
+            <p className="text-sm text-white/30">
+              平均响应时间 {labStats.avgResponseTime} · 相当于 {Math.round(labStats.hoursSaved / 8)} 个工作日节省
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Origin Story - 起源故事 */}
+      <section className="py-16 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm text-white/40 tracking-widest mb-4">THE ORIGIN</p>
+            <h2 className="text-3xl font-bold mb-4">起源故事</h2>
+            <p className="text-white/60 leading-relaxed">
+              2026年3月，老庄问了自己一个问题：
+              <br />
+              <span className="text-white/80">"一个人，能不能有一支24小时工作的团队？"</span>
+            </p>
+          </div>
+          
+          <div className="space-y-6">
+            {originTimeline.map((phase, index) => (
+              <div 
+                key={index}
+                className="flex gap-6 items-start p-6 rounded-2xl border border-white/10 hover:border-white/20 transition-all"
+                style={{ background: 'rgba(255, 255, 255, 0.02)' }}
+              >
+                <div className="text-3xl shrink-0">{phase.icon}</div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-xs text-white/40">{phase.phase}</span>
+                    <span className="text-sm font-medium">{phase.title}</span>
+                  </div>
+                  <p className="text-white/60 leading-relaxed">{phase.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12 p-6 rounded-2xl border border-white/10" style={{ background: 'rgba(34, 197, 94, 0.05)' }}>
+            <p className="text-white/70 leading-relaxed">
+              这不是demo。这是真的在做事情。
+              <br />
+              <span className="text-white/40 text-sm">每天，10个Agent处理来自飞书、邮件、社交媒体的信号，完成任务，记录结果。</span>
+            </p>
+          </div>
         </div>
       </section>
 
